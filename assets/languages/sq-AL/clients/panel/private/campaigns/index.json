@@ -1,0 +1,10 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
+  "title": "Outreach Zviceran",
+  "campaigns": "Fushatat",
+  "approval": "Miratimi i emailit",
+  "dashboard": "Paneli",
+  "prospects": "Kompanitë",
+  "create": "Fushatë e re",
+  "sendAutomatically": "Dërgo automatikisht"
+}

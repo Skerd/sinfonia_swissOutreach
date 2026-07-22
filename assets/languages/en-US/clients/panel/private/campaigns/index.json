@@ -1,0 +1,10 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
+  "title": "Swiss Outreach",
+  "campaigns": "Campaigns",
+  "approval": "Email Approval",
+  "dashboard": "Dashboard",
+  "prospects": "Prospects",
+  "create": "New campaign",
+  "sendAutomatically": "Send automatically"
+}
