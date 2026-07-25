@@ -1,0 +1,17 @@
+{
+  "swissOutreach": {
+    "title": "Outreach Zviceran",
+    "dashboard": {
+      "title": "Paneli"
+    },
+    "campaigns": {
+      "title": "Fushatat"
+    },
+    "approval": {
+      "title": "Miratimi i emailit"
+    },
+    "prospects": {
+      "title": "Kompanitë"
+    }
+  }
+}
