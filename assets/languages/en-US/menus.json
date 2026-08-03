@@ -1,6 +1,6 @@
 {
   "swissOutreach": {
-    "title": "Swiss Outreach",
+    "title": "Swiss outreach",
     "dashboard": {
       "title": "Dashboard"
     },
@@ -8,7 +8,7 @@
       "title": "Campaigns"
     },
     "approval": {
-      "title": "Email Approval"
+      "title": "Email approval"
     },
     "prospects": {
       "title": "Prospects"
