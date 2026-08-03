@@ -1,0 +1,17 @@
+{
+  "swissOutreach": {
+    "title": "Swiss Outreach",
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "campaigns": {
+      "title": "Kampagnen"
+    },
+    "approval": {
+      "title": "E-Mail freigabe"
+    },
+    "prospects": {
+      "title": "Unternehmen"
+    }
+  }
+}
