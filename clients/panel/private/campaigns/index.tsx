@@ -37,16 +37,16 @@ function CampaignsPage({}: WithLanguageType) {
                 <h1 className="text-xl font-semibold">Swiss Outreach Campaigns</h1>
                 <Link
                     to="/swissOutreach/campaigns/create"
-                    className="rounded-md bg-slate-900 px-3 py-2 text-sm text-white"
+                    className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground"
                 >
                     New campaign
                 </Link>
             </div>
-            {loading && <p className="text-sm text-slate-500">Loading…</p>}
-            {error && <p className="text-sm text-red-600">{error}</p>}
-            <div className="overflow-x-auto rounded-md border border-slate-200">
+            {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
+            {error && <p className="text-sm text-destructive">{error}</p>}
+            <div className="overflow-x-auto rounded-md border border-border">
                 <table className="min-w-full text-left text-sm">
-                    <thead className="bg-slate-50 text-slate-600">
+                    <thead className="bg-muted text-muted-foreground">
                         <tr>
                             <th className="px-3 py-2">Sender</th>
                             <th className="px-3 py-2">Status</th>
@@ -58,7 +58,7 @@ function CampaignsPage({}: WithLanguageType) {
                     </thead>
                     <tbody>
                         {campaigns.map((c) => (
-                            <tr key={c._id} className="border-t border-slate-100">
+                            <tr key={c._id} className="border-t border-border">
                                 <td className="px-3 py-2">{c.senderCompanyName}</td>
                                 <td className="px-3 py-2">{c.status}</td>
                                 <td className="px-3 py-2">{c.language}</td>
@@ -66,7 +66,7 @@ function CampaignsPage({}: WithLanguageType) {
                                 <td className="px-3 py-2">{c.stats?.sent ?? 0}</td>
                                 <td className="px-3 py-2">
                                     <Link
-                                        className="text-sky-700 underline"
+                                        className="text-info underline"
                                         to={`/swissOutreach/campaigns/detail?campaignId=${c._id}`}
                                     >
                                         Open
@@ -76,7 +76,7 @@ function CampaignsPage({}: WithLanguageType) {
                         ))}
                         {!loading && campaigns.length === 0 && (
                             <tr>
-                                <td className="px-3 py-6 text-slate-500" colSpan={6}>
+                                <td className="px-3 py-6 text-muted-foreground" colSpan={6}>
                                     No campaigns yet.
                                 </td>
                             </tr>

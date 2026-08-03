@@ -103,14 +103,14 @@ function CampaignDetailPage({campaignId}: Props) {
         }
     };
 
-    if (!campaign && !error) return <div className="p-4 text-sm text-slate-500">Loading campaign…</div>;
+    if (!campaign && !error) return <div className="p-4 text-sm text-muted-foreground">Loading campaign…</div>;
 
     return (
         <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                     <h1 className="text-xl font-semibold">{campaign?.senderCompanyName || "Campaign"}</h1>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-muted-foreground">
                         Status: <strong>{campaign?.status}</strong> · Found {campaign?.stats?.found ?? 0} · Enriched{" "}
                         {campaign?.stats?.enriched ?? 0} · Sent {campaign?.stats?.sent ?? 0}
                     </p>
@@ -129,7 +129,7 @@ function CampaignDetailPage({campaignId}: Props) {
                     </button>
                     <button
                         disabled={busy || !canCancel}
-                        className="rounded-md border border-red-300 px-3 py-2 text-sm text-red-700 disabled:opacity-50"
+                        className="rounded-md border border-destructive/30 px-3 py-2 text-sm text-destructive disabled:opacity-50"
                         onClick={() => void runAction("cancel")}
                     >
                         Cancel
@@ -143,7 +143,7 @@ function CampaignDetailPage({campaignId}: Props) {
                     </button>
                     <button
                         disabled={busy || !canApproveSend}
-                        className="rounded-md bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-50"
+                        className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
                         onClick={() => void runAction("sendApproved")}
                     >
                         Send approved
@@ -154,10 +154,10 @@ function CampaignDetailPage({campaignId}: Props) {
             <div
                 className={`rounded-md border px-3 py-2 text-sm ${
                     isRunning
-                        ? "border-amber-300 bg-amber-50 text-amber-900"
+                        ? "border-warning/30 bg-warning/10 text-warning"
                         : status === "awaiting_approval"
-                          ? "border-emerald-300 bg-emerald-50 text-emerald-900"
-                          : "border-slate-200 bg-slate-50 text-slate-700"
+                          ? "border-success/30 bg-success/10 text-success"
+                          : "border-border bg-muted text-muted-foreground"
                 }`}
             >
                 <div className="font-medium">{activityLabel}</div>
@@ -171,13 +171,13 @@ function CampaignDetailPage({campaignId}: Props) {
                 )}
             </div>
 
-            {error && <p className="text-sm text-red-600">{error}</p>}
-            {campaign?.lastError && <p className="text-sm text-red-600">Pipeline error: {campaign.lastError}</p>}
+            {error && <p className="text-sm text-destructive">{error}</p>}
+            {campaign?.lastError && <p className="text-sm text-destructive">Pipeline error: {campaign.lastError}</p>}
 
             <div>
                 <h2 className="mb-2 font-medium">Pipeline logs</h2>
-                <ul className="max-h-56 space-y-1 overflow-auto rounded-md border p-3 text-xs text-slate-700">
-                    {logs.length === 0 && <li className="text-slate-500">Waiting for pipeline activity…</li>}
+                <ul className="max-h-56 space-y-1 overflow-auto rounded-md border p-3 text-xs text-foreground">
+                    {logs.length === 0 && <li className="text-muted-foreground">Waiting for pipeline activity…</li>}
                     {logs.map((l) => (
                         <li key={l._id}>
                             [{l.level}] {l.step}: {l.message}
@@ -186,13 +186,13 @@ function CampaignDetailPage({campaignId}: Props) {
                 </ul>
             </div>
 
-            <div className="rounded-md border border-slate-200 p-3 text-sm whitespace-pre-wrap">{campaign?.jobDescription}</div>
+            <div className="rounded-md border border-border p-3 text-sm whitespace-pre-wrap">{campaign?.jobDescription}</div>
 
             <div>
                 <h2 className="mb-2 font-medium">Prospects (by score) — {prospects.length}</h2>
                 <div className="overflow-x-auto rounded-md border">
                     <table className="min-w-full text-left text-sm">
-                        <thead className="bg-slate-50">
+                        <thead className="bg-muted">
                             <tr>
                                 <th className="px-3 py-2">Company</th>
                                 <th className="px-3 py-2">Canton</th>
@@ -209,7 +209,7 @@ function CampaignDetailPage({campaignId}: Props) {
                                     <td className="px-3 py-2">{p.canton}</td>
                                     <td className="px-3 py-2">
                                         {p.website ? (
-                                            <a className="text-sky-700 underline" href={p.website} target="_blank" rel="noreferrer">
+                                            <a className="text-info underline" href={p.website} target="_blank" rel="noreferrer">
                                                 link
                                             </a>
                                         ) : (
@@ -223,7 +223,7 @@ function CampaignDetailPage({campaignId}: Props) {
                             ))}
                             {!isRunning && prospects.length === 0 && (
                                 <tr>
-                                    <td className="px-3 py-6 text-slate-500" colSpan={6}>
+                                    <td className="px-3 py-6 text-muted-foreground" colSpan={6}>
                                         No prospects yet. Click Restart to run the pipeline.
                                     </td>
                                 </tr>

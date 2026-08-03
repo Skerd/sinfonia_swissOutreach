@@ -46,7 +46,7 @@ function ProspectsPage({campaignId: initialCampaignId}: Props) {
             </div>
             <div className="overflow-x-auto rounded-md border">
                 <table className="min-w-full text-left text-sm">
-                    <thead className="bg-slate-50">
+                    <thead className="bg-muted">
                         <tr>
                             <th className="px-3 py-2">Company</th>
                             <th className="px-3 py-2">UID</th>
@@ -62,7 +62,7 @@ function ProspectsPage({campaignId: initialCampaignId}: Props) {
                                 <td className="px-3 py-2">{p.uid || "—"}</td>
                                 <td className="px-3 py-2">{p.canton || "—"}</td>
                                 <td className="px-3 py-2">{p.score ?? "—"}</td>
-                                <td className="px-3 py-2 max-w-md text-xs text-slate-600">{p.summary || p.scoreReason || "—"}</td>
+                                <td className="px-3 py-2 max-w-md text-xs text-muted-foreground">{p.summary || p.scoreReason || "—"}</td>
                             </tr>
                         ))}
                     </tbody>

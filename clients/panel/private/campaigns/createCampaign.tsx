@@ -6,8 +6,8 @@ import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
 import apiClient from "@coreModule/helpers/axiosClients/apiClient.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 
-const fieldClass = "w-full rounded-md border border-slate-300 px-3 py-2 text-sm";
-const labelClass = "mb-1 block text-xs font-medium text-slate-600";
+const fieldClass = "w-full rounded-md border border-border px-3 py-2 text-sm";
+const labelClass = "mb-1 block text-xs font-medium text-muted-foreground";
 
 function CreateCampaignPage({}: WithLanguageType) {
     const navigate = useNavigate();
@@ -62,11 +62,11 @@ function CreateCampaignPage({}: WithLanguageType) {
     return (
         <div className="mx-auto flex max-w-3xl flex-col gap-4 p-4">
             <h1 className="text-xl font-semibold">New Swiss Outreach Campaign</h1>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-muted-foreground">
                 Describe the job, choose cantons, and provide sender identity. Emails default to human approval
                 before sending.
             </p>
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {error && <p className="text-sm text-destructive">{error}</p>}
             <form className="flex flex-col gap-4" onSubmit={onSubmit}>
                 <div>
                     <label className={labelClass}>Job description</label>
@@ -122,7 +122,7 @@ function CreateCampaignPage({}: WithLanguageType) {
                             checked={form.sendAutomatically}
                             onChange={(e) => onChange("sendAutomatically", e.target.checked)}
                         />
-                        <label htmlFor="sendAutomatically" className="text-sm text-slate-700">
+                        <label htmlFor="sendAutomatically" className="text-sm text-foreground">
                             Send automatically (skip approval)
                         </label>
                     </div>
@@ -156,7 +156,7 @@ function CreateCampaignPage({}: WithLanguageType) {
                 <button
                     type="submit"
                     disabled={saving}
-                    className="rounded-md bg-slate-900 px-4 py-2 text-sm text-white disabled:opacity-60"
+                    className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground disabled:opacity-60"
                 >
                     {saving ? "Starting…" : "Create & start pipeline"}
                 </button>

@@ -41,12 +41,12 @@ function DashboardPage({}: WithLanguageType) {
     return (
         <div className="flex flex-col gap-4 p-4">
             <h1 className="text-xl font-semibold">Swiss Outreach Dashboard</h1>
-            {loading && <p className="text-sm text-slate-500">Loading metrics…</p>}
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {loading && <p className="text-sm text-muted-foreground">Loading metrics…</p>}
+            {error && <p className="text-sm text-destructive">{error}</p>}
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {cards.map((c) => (
-                    <div key={c.label} className="rounded-md border border-slate-200 p-4">
-                        <div className="text-xs uppercase tracking-wide text-slate-500">{c.label}</div>
+                    <div key={c.label} className="rounded-md border border-border p-4">
+                        <div className="text-xs uppercase tracking-wide text-muted-foreground">{c.label}</div>
                         <div className="mt-2 text-2xl font-semibold">{c.value}</div>
                     </div>
                 ))}

@@ -90,10 +90,10 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
                     </button>
                 </div>
             </div>
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {error && <p className="text-sm text-destructive">{error}</p>}
             <div className="overflow-x-auto rounded-md border">
                 <table className="min-w-full text-left text-sm">
-                    <thead className="bg-slate-50">
+                    <thead className="bg-muted">
                         <tr>
                             <th className="px-3 py-2">Company</th>
                             <th className="px-3 py-2">Website</th>
@@ -109,7 +109,7 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
                                 <td className="px-3 py-2">{row.prospect?.companyName || row.prospectCompanyId}</td>
                                 <td className="px-3 py-2">
                                     {row.prospect?.website ? (
-                                        <a href={row.prospect.website} className="text-sky-700 underline" target="_blank" rel="noreferrer">
+                                        <a href={row.prospect.website} className="text-info underline" target="_blank" rel="noreferrer">
                                             site
                                         </a>
                                     ) : (
@@ -133,7 +133,7 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
                                             setRows((prev) => prev.map((r) => (r._id === row._id ? {...r, body: e.target.value} : r)))
                                         }
                                     />
-                                    <div className="mt-1 text-xs text-slate-500">Status: {row.status}</div>
+                                    <div className="mt-1 text-xs text-muted-foreground">Status: {row.status}</div>
                                 </td>
                                 <td className="px-3 py-2">
                                     <div className="flex flex-col gap-1">
@@ -145,7 +145,7 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
                                             Save edit
                                         </button>
                                         <button
-                                            className="rounded bg-slate-900 px-2 py-1 text-xs text-white"
+                                            className="rounded bg-primary px-2 py-1 text-xs text-primary-foreground"
                                             disabled={busyId === row._id || !row.toEmail}
                                             onClick={() => void act(row._id, "approve")}
                                         >
@@ -164,7 +164,7 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
                         ))}
                         {pending.length === 0 && (
                             <tr>
-                                <td colSpan={6} className="px-3 py-6 text-slate-500">
+                                <td colSpan={6} className="px-3 py-6 text-muted-foreground">
                                     No emails awaiting review for this campaign.
                                 </td>
                             </tr>
