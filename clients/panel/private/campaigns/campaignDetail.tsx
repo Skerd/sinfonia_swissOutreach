@@ -176,7 +176,7 @@ function CampaignDetailPage({campaignId}: Props) {
 
             <div>
                 <h2 className="mb-2 font-medium">Pipeline logs</h2>
-                <ul className="max-h-56 space-y-1 overflow-auto rounded-md border p-3 text-xs text-foreground">
+                <ul className="flex flex-col max-h-56 gap-y-1 overflow-auto rounded-md border p-3 text-xs text-foreground">
                     {logs.length === 0 && <li className="text-muted-foreground">Waiting for pipeline activity…</li>}
                     {logs.map((l) => (
                         <li key={l._id}>
