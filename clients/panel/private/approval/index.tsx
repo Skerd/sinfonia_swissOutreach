@@ -178,5 +178,5 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
 
 export default compose(
     withLanguage("src/modules/swissOutreach/clients/panel/private/approval/index.tsx"),
-    withDebug(true, true),
+    withDebug(true, true, "swissOutreachEmails"),
 )(ApprovalPage);

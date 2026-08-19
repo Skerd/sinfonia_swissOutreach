@@ -74,5 +74,5 @@ function ProspectsPage({campaignId: initialCampaignId}: Props) {
 
 export default compose(
     withLanguage("src/modules/swissOutreach/clients/panel/private/prospects/index.tsx"),
-    withDebug(true, true),
+    withDebug(true, true, "swissOutreachProspectCompanies"),
 )(ProspectsPage);

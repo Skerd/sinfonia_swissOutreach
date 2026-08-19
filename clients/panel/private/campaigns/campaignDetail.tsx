@@ -238,5 +238,5 @@ function CampaignDetailPage({campaignId}: Props) {
 
 export default compose(
     withLanguage("src/modules/swissOutreach/clients/panel/private/campaigns/campaignDetail.tsx"),
-    withDebug(true, true),
+    withDebug(true, true, "swissOutreachCampaigns"),
 )(CampaignDetailPage);

@@ -57,5 +57,5 @@ function DashboardPage({}: WithLanguageType) {
 
 export default compose(
     withLanguage("src/modules/swissOutreach/clients/panel/private/dashboard/index.tsx"),
-    withDebug(true, true),
+    withDebug(true, true, "swissOutreachCampaigns"),
 )(DashboardPage);

@@ -90,5 +90,5 @@ function CampaignsPage({}: WithLanguageType) {
 
 export default compose(
     withLanguage("src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx"),
-    withDebug(true, true),
+    withDebug(true, true, "swissOutreachCampaigns"),
 )(CampaignsPage);
