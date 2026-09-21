@@ -3,7 +3,8 @@ import {useCallback, useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/axiosClients/apiClient.ts";
+import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
+import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
 
@@ -96,8 +97,8 @@ function CampaignDetailPage({campaignId}: Props) {
         try {
             await apiClient.post(`/api/swissOutreach/campaign/${path}`, {campaignId});
             await load();
-        } catch (e: any) {
-            setError(e?.response?.data?.message || e?.message || "Action failed");
+        } catch (e) {
+            setError(handleError(e, {context: "CampaignDetail"})?.displayMessage ?? "Action failed");
         } finally {
             setBusy(false);
         }

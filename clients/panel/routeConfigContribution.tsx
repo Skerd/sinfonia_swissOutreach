@@ -7,7 +7,7 @@ import ProspectsPage from "@swissOutreachModule/clients/panel/private/prospects/
 import type {
     RouteConfigArgs,
     RouteConfigContribution,
-} from "@coreModule/clients/panel/moduleContributions/routeConfigContribution.types.ts";
+} from "@coreModule/helpers/types/routeConfigContribution.types.ts";
 
 const swissOutreachRouteConfigContribution: RouteConfigContribution = {
     id: "swissOutreach",

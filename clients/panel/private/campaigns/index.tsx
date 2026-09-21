@@ -3,7 +3,7 @@ import {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/axiosClients/apiClient.ts";
+import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 
 function CampaignsPage({}: WithLanguageType) {

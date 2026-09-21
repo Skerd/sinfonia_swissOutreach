@@ -2,7 +2,8 @@ import {compose} from "redux";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/axiosClients/apiClient.ts";
+import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
+import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
 import type {OutreachEmail} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/outreachEmail/outreachEmail.dto.ts";
@@ -53,8 +54,8 @@ function ApprovalPage({campaignId: initialCampaignId}: Props) {
         try {
             await apiClient.post(`/api/swissOutreach/outreachEmail/${action}`, {emailId, ...payload});
             await load();
-        } catch (e: any) {
-            setError(e?.response?.data?.message || e?.message || "Action failed");
+        } catch (e) {
+            setError(handleError(e, {context: "Approval"})?.displayMessage ?? "Action failed");
         } finally {
             setBusyId(null);
         }

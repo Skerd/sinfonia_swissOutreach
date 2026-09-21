@@ -1,4 +1,4 @@
-import type {WidgetContribution} from "@coreModule/clients/panel/moduleContributions/widgetContribution.types.ts";
+import type {WidgetContribution} from "@coreModule/helpers/types/widgetContribution.types.ts";
 
 const swissOutreachWidgetContribution: WidgetContribution = {
     id: "swissOutreach",

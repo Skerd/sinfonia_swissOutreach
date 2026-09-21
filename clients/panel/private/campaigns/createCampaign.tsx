@@ -3,7 +3,8 @@ import {FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/axiosClients/apiClient.ts";
+import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
+import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 
 const fieldClass = "w-full rounded-md border border-border px-3 py-2 text-sm";
@@ -52,8 +53,8 @@ function CreateCampaignPage({}: WithLanguageType) {
             const res = await apiClient.put<Campaign>("/api/swissOutreach/campaign", payload);
             const id = res.data?._id;
             navigate(id ? `/swissOutreach/campaigns/detail?campaignId=${id}` : "/swissOutreach/campaigns");
-        } catch (err: any) {
-            setError(err?.response?.data?.message || err?.message || "Create failed");
+        } catch (err) {
+            setError(handleError(err, {context: "CreateCampaign"})?.displayMessage ?? "Create failed");
         } finally {
             setSaving(false);
         }
