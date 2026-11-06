@@ -1,13 +1,16 @@
-import CampaignsPage from "@swissOutreachModule/clients/panel/private/campaigns/index.tsx";
-import CreateCampaignPage from "@swissOutreachModule/clients/panel/private/campaigns/createCampaign.tsx";
-import CampaignDetailPage from "@swissOutreachModule/clients/panel/private/campaigns/campaignDetail.tsx";
-import ApprovalPage from "@swissOutreachModule/clients/panel/private/approval/index.tsx";
-import DashboardPage from "@swissOutreachModule/clients/panel/private/dashboard/index.tsx";
-import ProspectsPage from "@swissOutreachModule/clients/panel/private/prospects/index.tsx";
+import {lazy} from "react";
 import type {
     RouteConfigArgs,
     RouteConfigContribution,
 } from "@coreModule/helpers/types/routeConfigContribution.types.ts";
+
+// Pages load on first visit (D21); the panel shell's Suspense boundary shows the loader.
+const CampaignsPage = lazy(() => import("@swissOutreachModule/clients/panel/private/campaigns/index.tsx"));
+const CreateCampaignPage = lazy(() => import("@swissOutreachModule/clients/panel/private/campaigns/createCampaign.tsx"));
+const CampaignDetailPage = lazy(() => import("@swissOutreachModule/clients/panel/private/campaigns/campaignDetail.tsx"));
+const ApprovalPage = lazy(() => import("@swissOutreachModule/clients/panel/private/approval/index.tsx"));
+const DashboardPage = lazy(() => import("@swissOutreachModule/clients/panel/private/dashboard/index.tsx"));
+const ProspectsPage = lazy(() => import("@swissOutreachModule/clients/panel/private/prospects/index.tsx"));
 
 const swissOutreachRouteConfigContribution: RouteConfigContribution = {
     id: "swissOutreach",
