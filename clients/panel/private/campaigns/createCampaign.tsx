@@ -70,8 +70,8 @@ function CreateCampaignPage({}: WithLanguageType) {
             {error && <p className="text-sm text-destructive">{error}</p>}
             <form className="flex flex-col gap-4" onSubmit={onSubmit}>
                 <div>
-                    <label className={labelClass}>Job description</label>
-                    <textarea
+                    <label htmlFor="campaign-field-1" className={labelClass}>Job description</label>
+                    <textarea id="campaign-field-1"
                         className={fieldClass}
                         rows={5}
                         required
@@ -81,16 +81,16 @@ function CreateCampaignPage({}: WithLanguageType) {
                 </div>
                 <div className="grid gap-3 md:grid-cols-2">
                     <div>
-                        <label className={labelClass}>Country</label>
-                        <input className={fieldClass} value={form.country} onChange={(e) => onChange("country", e.target.value)} required />
+                        <label htmlFor="campaign-field-2" className={labelClass}>Country</label>
+                        <input id="campaign-field-2" className={fieldClass} value={form.country} onChange={(e) => onChange("country", e.target.value)} required />
                     </div>
                     <div>
-                        <label className={labelClass}>Cantons (comma-separated codes)</label>
-                        <input className={fieldClass} value={form.cantons} onChange={(e) => onChange("cantons", e.target.value)} />
+                        <label htmlFor="campaign-field-3" className={labelClass}>Cantons (comma-separated codes)</label>
+                        <input id="campaign-field-3" className={fieldClass} value={form.cantons} onChange={(e) => onChange("cantons", e.target.value)} />
                     </div>
                     <div>
-                        <label className={labelClass}>Maximum companies</label>
-                        <input
+                        <label htmlFor="campaign-field-4" className={labelClass}>Maximum companies</label>
+                        <input id="campaign-field-4"
                             className={fieldClass}
                             type="number"
                             min={1}
@@ -100,8 +100,8 @@ function CreateCampaignPage({}: WithLanguageType) {
                         />
                     </div>
                     <div>
-                        <label className={labelClass}>Language</label>
-                        <select className={fieldClass} value={form.language} onChange={(e) => onChange("language", e.target.value)}>
+                        <label htmlFor="campaign-field-5" className={labelClass}>Language</label>
+                        <select id="campaign-field-5" className={fieldClass} value={form.language} onChange={(e) => onChange("language", e.target.value)}>
                             <option value="de">German</option>
                             <option value="fr">French</option>
                             <option value="it">Italian</option>
@@ -109,8 +109,8 @@ function CreateCampaignPage({}: WithLanguageType) {
                         </select>
                     </div>
                     <div>
-                        <label className={labelClass}>Email tone</label>
-                        <select className={fieldClass} value={form.emailTone} onChange={(e) => onChange("emailTone", e.target.value)}>
+                        <label htmlFor="campaign-field-6" className={labelClass}>Email tone</label>
+                        <select id="campaign-field-6" className={fieldClass} value={form.emailTone} onChange={(e) => onChange("emailTone", e.target.value)}>
                             <option value="professional">Professional</option>
                             <option value="friendly">Friendly</option>
                             <option value="formal">Formal</option>
@@ -130,28 +130,28 @@ function CreateCampaignPage({}: WithLanguageType) {
                 </div>
                 <div className="grid gap-3 md:grid-cols-2">
                     <div>
-                        <label className={labelClass}>Company name</label>
-                        <input className={fieldClass} required value={form.senderCompanyName} onChange={(e) => onChange("senderCompanyName", e.target.value)} />
+                        <label htmlFor="campaign-field-7" className={labelClass}>Company name</label>
+                        <input id="campaign-field-7" className={fieldClass} required value={form.senderCompanyName} onChange={(e) => onChange("senderCompanyName", e.target.value)} />
                     </div>
                     <div>
-                        <label className={labelClass}>Sender name</label>
-                        <input className={fieldClass} required value={form.senderName} onChange={(e) => onChange("senderName", e.target.value)} />
+                        <label htmlFor="campaign-field-8" className={labelClass}>Sender name</label>
+                        <input id="campaign-field-8" className={fieldClass} required value={form.senderName} onChange={(e) => onChange("senderName", e.target.value)} />
                     </div>
                     <div>
-                        <label className={labelClass}>Sender email</label>
-                        <input className={fieldClass} type="email" required value={form.senderEmail} onChange={(e) => onChange("senderEmail", e.target.value)} />
+                        <label htmlFor="campaign-field-9" className={labelClass}>Sender email</label>
+                        <input id="campaign-field-9" className={fieldClass} type="email" required value={form.senderEmail} onChange={(e) => onChange("senderEmail", e.target.value)} />
                     </div>
                     <div>
-                        <label className={labelClass}>Sender phone</label>
-                        <input className={fieldClass} value={form.senderPhone} onChange={(e) => onChange("senderPhone", e.target.value)} />
+                        <label htmlFor="campaign-field-10" className={labelClass}>Sender phone</label>
+                        <input id="campaign-field-10" className={fieldClass} value={form.senderPhone} onChange={(e) => onChange("senderPhone", e.target.value)} />
                     </div>
                     <div className="md:col-span-2">
-                        <label className={labelClass}>Website</label>
-                        <input className={fieldClass} value={form.senderWebsite} onChange={(e) => onChange("senderWebsite", e.target.value)} />
+                        <label htmlFor="campaign-field-11" className={labelClass}>Website</label>
+                        <input id="campaign-field-11" className={fieldClass} value={form.senderWebsite} onChange={(e) => onChange("senderWebsite", e.target.value)} />
                     </div>
                     <div className="md:col-span-2">
-                        <label className={labelClass}>Additional notes</label>
-                        <textarea className={fieldClass} rows={3} value={form.additionalNotes} onChange={(e) => onChange("additionalNotes", e.target.value)} />
+                        <label htmlFor="campaign-field-12" className={labelClass}>Additional notes</label>
+                        <textarea id="campaign-field-12" className={fieldClass} rows={3} value={form.additionalNotes} onChange={(e) => onChange("additionalNotes", e.target.value)} />
                     </div>
                 </div>
                 <button
