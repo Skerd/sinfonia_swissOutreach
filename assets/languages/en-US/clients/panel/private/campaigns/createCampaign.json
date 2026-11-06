@@ -1,0 +1,66 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx",
+  "title": "New campaign",
+  "description": "Describe the job, choose cantons and the sender. Emails wait for your approval unless you send them automatically.",
+  "form": {
+    "jobDescriptionLabel": "Job description",
+    "jobDescriptionPlaceholder": "Describe the work you want quotes for",
+    "countryLabel": "Country",
+    "countryPlaceholder": "Enter the country",
+    "cantonsLabel": "Cantons",
+    "cantonsPlaceholder": "Add a canton code (e.g. BS)",
+    "maxCompaniesLabel": "Maximum companies",
+    "maxCompaniesPlaceholder": "Enter a number",
+    "languageLabel": "Email language",
+    "languagePlaceholder": "Select a language",
+    "emailToneLabel": "Email tone",
+    "emailTonePlaceholder": "Select a tone",
+    "sendAutomaticallyLabel": "Send automatically (skip approval)",
+    "senderCompanyNameLabel": "Company name",
+    "senderCompanyNamePlaceholder": "Your company",
+    "senderNameLabel": "Sender name",
+    "senderNamePlaceholder": "Who signs the email",
+    "senderEmailLabel": "Sender email",
+    "senderEmailPlaceholder": "name@company.ch",
+    "senderPhoneLabel": "Sender phone",
+    "senderPhonePlaceholder": "Optional",
+    "senderWebsiteLabel": "Website",
+    "senderWebsitePlaceholder": "https://…",
+    "additionalNotesLabel": "Additional notes",
+    "additionalNotesPlaceholder": "Anything the emails should mention",
+    "language": {
+      "de": "German",
+      "fr": "French",
+      "it": "Italian",
+      "en": "English"
+    },
+    "emailTone": {
+      "professional": "Professional",
+      "friendly": "Friendly",
+      "formal": "Formal"
+    },
+    "removeCanton": "Remove canton"
+  },
+  "axios": {
+    "start": {
+      "title": "Creating campaign",
+      "time": 3000
+    },
+    "success": {
+      "title": "Campaign created; the pipeline is starting",
+      "time": 3000
+    },
+    "error": {
+      "title": "The campaign could not be created. Check the form and try again.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "New campaign",
+    "description": "Describe the job, choose cantons and the sender. Emails wait for your approval unless you send them automatically."
+  },
+  "formButtons": {
+    "cancel": "Cancel",
+    "submit": "Create & start"
+  }
+}

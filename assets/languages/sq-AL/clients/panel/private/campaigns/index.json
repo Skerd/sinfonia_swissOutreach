@@ -1,10 +1,58 @@
 {
   "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
-  "title": "Outreach Zviceran",
-  "campaigns": "Fushatat",
-  "approval": "Miratimi i emailit",
-  "dashboard": "Paneli",
-  "prospects": "Kompanitë",
+  "title": "Fushatat e prospektimit",
+  "description": "Gjeni kompani zvicerane për një punë dhe dërgojuni një ofertë",
   "create": "Fushatë e re",
-  "sendAutomatically": "Dërgo automatikisht"
+  "open": "Hap",
+  "searchPlaceholder": "Kërkoni fushata ose shtoni filtra...",
+  "noData": "Ende asnjë fushatë",
+  "failTitle": "Fushatat nuk u ngarkuan",
+  "deleted": "Fshirë",
+  "active": "Aktiv",
+  "failDescription": "Diçka shkoi keq gjatë ngarkimit. Ju lutem provoni sërish.",
+  "fields": {
+    "jobDescription": "Përshkrimi i punës",
+    "country": "Shteti",
+    "maxCompanies": "Maks. kompani",
+    "language": "Gjuha",
+    "status": "Statusi",
+    "createdAt": "Krijuar më",
+    "updatedAt": "Përditësuar më",
+    "createdBy": "Krijuar nga",
+    "deletedAt": "Fshirë më",
+    "deletedBy": "Fshirë nga",
+    "!enums": {
+      "status": {
+        "draft": "Draft",
+        "parsing": "Po lexohet puna",
+        "searching": "Po kërkohen kompanitë",
+        "enriching": "Po mblidhen kontaktet",
+        "scoring": "Po vlerësohet përshtatja",
+        "awaiting_approval": "Në pritje të miratimit",
+        "sending": "Po dërgohet",
+        "completed": "Përfunduar",
+        "failed": "Dështoi",
+        "cancelled": "Anuluar"
+      },
+      "language": {
+        "de": "Gjermanisht",
+        "fr": "Frëngjisht",
+        "it": "Italisht",
+        "en": "Anglisht"
+      }
+    }
+  },
+  "campaign": "Fushata",
+  "status": "Statusi",
+  "language": "Gjuha",
+  "failedTitle": "Ngarkimi dështoi",
+  "failedDescription": "Diçka shkoi keq gjatë ngarkimit. Kliko për ta provuar sërish.",
+  "failedTooltipDescription": "Kliko për t'i ngarkuar sërish të dhënat.",
+  "lifecycle": "Cikli i jetës",
+  "overview": "Përmbledhje",
+  "createdAt": "Krijuar më",
+  "updatedAt": "Përditësuar më",
+  "createdBy": "Krijuar nga",
+  "deletedAt": "Fshirë më",
+  "deletedBy": "Fshirë nga"
 }

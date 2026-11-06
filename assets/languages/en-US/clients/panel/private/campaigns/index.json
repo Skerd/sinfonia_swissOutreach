@@ -1,10 +1,58 @@
 {
   "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
-  "title": "Swiss Outreach",
-  "campaigns": "Campaigns",
-  "approval": "Email Approval",
-  "dashboard": "Dashboard",
-  "prospects": "Prospects",
+  "title": "Outreach campaigns",
+  "description": "Find Swiss companies for a job and email them a quote",
   "create": "New campaign",
-  "sendAutomatically": "Send automatically"
+  "open": "Open",
+  "searchPlaceholder": "Search campaigns or add filters...",
+  "noData": "No campaigns yet",
+  "failTitle": "Failed to load campaigns",
+  "deleted": "Deleted",
+  "active": "Active",
+  "failDescription": "Something went wrong while loading. Please try again.",
+  "fields": {
+    "jobDescription": "Job description",
+    "country": "Country",
+    "maxCompanies": "Max companies",
+    "language": "Language",
+    "status": "Status",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "createdBy": "Created by",
+    "deletedAt": "Deleted at",
+    "deletedBy": "Deleted by",
+    "!enums": {
+      "status": {
+        "draft": "Draft",
+        "parsing": "Reading the job",
+        "searching": "Searching companies",
+        "enriching": "Collecting contacts",
+        "scoring": "Scoring fit",
+        "awaiting_approval": "Awaiting approval",
+        "sending": "Sending",
+        "completed": "Completed",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
+      },
+      "language": {
+        "de": "German",
+        "fr": "French",
+        "it": "Italian",
+        "en": "English"
+      }
+    }
+  },
+  "campaign": "Campaign",
+  "status": "Status",
+  "language": "Language",
+  "failedTitle": "Failed to load",
+  "failedDescription": "Something went wrong while loading. Click to retry.",
+  "failedTooltipDescription": "Click to retry fetching data.",
+  "lifecycle": "Lifecycle",
+  "overview": "Overview",
+  "createdAt": "Created at",
+  "updatedAt": "Updated at",
+  "createdBy": "Created by",
+  "deletedAt": "Deleted at",
+  "deletedBy": "Deleted by"
 }

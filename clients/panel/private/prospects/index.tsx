@@ -1,78 +1,61 @@
 import {compose} from "redux";
-import {useCallback, useEffect, useState} from "react";
+import {useState} from "react";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
+import useHttpRequest, {type HttpRequest} from "@coreModule/helpers/hooks/useHttpRequest.ts";
+import EntityListPage, {EntityListHeader} from "@coreModule/components/entityPage/pages/entityListPage.tsx";
+import {NativeSelect, NativeSelectOption} from "@coreModule/components/ui/native-select.tsx";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
 
+const LANGUAGE_PATH = "src/modules/swissOutreach/clients/panel/private/prospects/index.tsx";
+const CAMPAIGNS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
+
 type Props = WithLanguageType & {campaignId?: string};
 
-function ProspectsPage({campaignId: initialCampaignId}: Props) {
-    const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-    const [campaignId, setCampaignId] = useState(initialCampaignId || "");
-    const [prospects, setProspects] = useState<ProspectCompany[]>([]);
+/** Prospect companies of one campaign; without a campaign in the URL, the first one is shown. */
+function ProspectsPage({campaignId: initialCampaignId, resolveLanguageKey}: Props) {
+    const campaignsRequest = useHttpRequest<{data: Campaign[]}>(CAMPAIGNS_REQUEST, {offset: 0, limit: 100}, 1);
+    const campaigns = campaignsRequest.data?.data ?? [];
+    const [pickedCampaignId, setCampaignId] = useState(initialCampaignId || "");
+    const campaignId = pickedCampaignId || campaigns[0]?._id || "";
 
-    useEffect(() => {
-        void (async () => {
-            const res = await apiClient.post<{data: Campaign[]}>("/api/swissOutreach/campaign", {offset: 0, limit: 100});
-            const list = res.data.data || [];
-            setCampaigns(list);
-            if (!campaignId && list[0]) setCampaignId(list[0]._id);
-        })();
-    }, []);
-
-    const load = useCallback(async () => {
-        if (!campaignId) return;
-        const res = await apiClient.get<{data: ProspectCompany[]}>(`/api/swissOutreach/campaign/${campaignId}/prospects`);
-        setProspects(res.data.data || []);
-    }, [campaignId]);
-
-    useEffect(() => {
-        void load();
-    }, [load]);
+    if (!campaignId) {
+        return campaignsRequest.loading ? null : <p className="p-4 text-sm text-muted-foreground">{resolveLanguageKey("noCampaigns")}</p>;
+    }
 
     return (
-        <div className="flex flex-col gap-4 p-4">
-            <div className="flex items-center justify-between gap-3">
-                <h1 className="text-xl font-semibold">Prospects</h1>
-                <select className="rounded-md border px-2 py-2 text-sm" value={campaignId} onChange={(e) => setCampaignId(e.target.value)}>
-                    {campaigns.map((c) => (
-                        <option key={c._id} value={c._id}>
-                            {c.senderCompanyName}
-                        </option>
-                    ))}
-                </select>
-            </div>
-            <div className="overflow-x-auto rounded-md border">
-                <table className="min-w-full text-left text-sm">
-                    <thead className="bg-muted">
-                        <tr>
-                            <th className="px-3 py-2">Company</th>
-                            <th className="px-3 py-2">UID</th>
-                            <th className="px-3 py-2">Canton</th>
-                            <th className="px-3 py-2">Score</th>
-                            <th className="px-3 py-2">Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {prospects.map((p) => (
-                            <tr key={p._id} className="border-t align-top">
-                                <td className="px-3 py-2">{p.companyName}</td>
-                                <td className="px-3 py-2">{p.uid || "—"}</td>
-                                <td className="px-3 py-2">{p.canton || "—"}</td>
-                                <td className="px-3 py-2">{p.score ?? "—"}</td>
-                                <td className="px-3 py-2 max-w-md text-xs text-muted-foreground">{p.summary || p.scoreReason || "—"}</td>
-                            </tr>
+        <EntityListPage<ProspectCompany>
+            key={campaignId}
+            apiUrl="/api/swissOutreach/prospectCompany"
+            collectionName="swissoutreachprospectcompanies"
+            accessModel="swissOutreachProspectCompanies"
+            tableConfigKey="swissoutreachprospectcompanies"
+            header={(ctx) => (
+                <EntityListHeader ctx={ctx}>
+                    <NativeSelect
+                        aria-label={String(resolveLanguageKey("campaign"))}
+                        value={campaignId}
+                        onChange={(e) => setCampaignId(e.target.value)}
+                    >
+                        {campaigns.map((c) => (
+                            <NativeSelectOption key={c._id} value={c._id}>
+                                {c.senderCompanyName}
+                            </NativeSelectOption>
                         ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                    </NativeSelect>
+                </EntityListHeader>
+            )}
+            buildEditPath={(row) => `/swissOutreach/prospects?campaignId=${row.campaignId}`}
+            rowActionMenu={{hideEdit: true}}
+            extraFilters={{campaignId}}
+            resolveLanguageKey={resolveLanguageKey}
+            sheetLanguagePath={LANGUAGE_PATH}
+        />
     );
 }
 
 export default compose(
-    withLanguage("src/modules/swissOutreach/clients/panel/private/prospects/index.tsx"),
+    withLanguage(LANGUAGE_PATH),
     withDebug(true, true, "swissOutreachProspectCompanies"),
 )(ProspectsPage);

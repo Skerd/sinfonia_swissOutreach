@@ -1,0 +1,58 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
+  "title": "Campagnes de prospection",
+  "description": "Trouver des entreprises suisses pour un mandat et leur envoyer une offre",
+  "create": "Nouvelle campagne",
+  "open": "Ouvrir",
+  "searchPlaceholder": "Rechercher des campagnes ou ajouter des filtres...",
+  "noData": "Aucune campagne pour l'instant",
+  "failTitle": "Impossible de charger les campagnes",
+  "deleted": "Supprimé",
+  "active": "Actif",
+  "failDescription": "Une erreur s'est produite lors du chargement. Veuillez réessayer.",
+  "fields": {
+    "jobDescription": "Description du mandat",
+    "country": "Pays",
+    "maxCompanies": "Nombre max. d'entreprises",
+    "language": "Langue",
+    "status": "Statut",
+    "createdAt": "Créé le",
+    "updatedAt": "Mis à jour le",
+    "createdBy": "Créé par",
+    "deletedAt": "Supprimé le",
+    "deletedBy": "Supprimé par",
+    "!enums": {
+      "status": {
+        "draft": "Brouillon",
+        "parsing": "Lecture du mandat",
+        "searching": "Recherche d'entreprises",
+        "enriching": "Collecte des contacts",
+        "scoring": "Évaluation de l'adéquation",
+        "awaiting_approval": "En attente d'approbation",
+        "sending": "Envoi en cours",
+        "completed": "Terminée",
+        "failed": "Échec",
+        "cancelled": "Annulée"
+      },
+      "language": {
+        "de": "Allemand",
+        "fr": "Français",
+        "it": "Italien",
+        "en": "Anglais"
+      }
+    }
+  },
+  "campaign": "Campagne",
+  "status": "Statut",
+  "language": "Langue",
+  "failedTitle": "Échec du chargement",
+  "failedDescription": "Une erreur s'est produite lors du chargement. Cliquez pour réessayer.",
+  "failedTooltipDescription": "Cliquez pour recharger les données.",
+  "lifecycle": "Cycle de vie",
+  "overview": "Aperçu",
+  "createdAt": "Créé le",
+  "updatedAt": "Mis à jour le",
+  "createdBy": "Créé par",
+  "deletedAt": "Supprimé le",
+  "deletedBy": "Supprimé par"
+}

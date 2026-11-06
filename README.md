@@ -16,7 +16,7 @@ Operators paste a job/project description, pick Swiss cantons and language/tone,
 
 ```
 swissOutreach/
-├── assets/languages/                 # Module i18n (en-US, de-CH, fr-CH, it-CH, sq-AL)
+├── assets/languages/                 # Module i18n (en-US, de-CH, fr-FR, it-IT, sq-AL)
 └── clients/panel/
     ├── private/
     │   ├── dashboard/                # Aggregate campaign metrics

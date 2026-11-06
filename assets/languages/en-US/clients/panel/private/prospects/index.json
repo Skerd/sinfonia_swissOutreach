@@ -1,0 +1,48 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/prospects/index.tsx",
+  "title": "Prospects",
+  "description": "Companies a campaign found, scored for fit",
+  "campaign": "Campaign",
+  "noCampaigns": "No campaigns yet. Create one to find prospects.",
+  "searchPlaceholder": "Search companies or add filters...",
+  "noData": "No prospects for this campaign yet",
+  "failTitle": "Failed to load prospects",
+  "deleted": "Deleted",
+  "active": "Active",
+  "failDescription": "Something went wrong while loading. Please try again.",
+  "fields": {
+    "campaignId": "Campaign",
+    "companyName": "Company",
+    "canton": "Canton",
+    "score": "Score",
+    "status": "Status",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "createdBy": "Created by",
+    "deletedAt": "Deleted at",
+    "deletedBy": "Deleted by",
+    "!enums": {
+      "status": {
+        "discovered": "Discovered",
+        "website_found": "Website found",
+        "crawled": "Website read",
+        "scored": "Scored",
+        "skipped": "Skipped",
+        "approved": "Approved",
+        "sent": "Sent",
+        "failed": "Failed"
+      }
+    }
+  },
+  "prospectCompany": "Prospect company",
+  "failedTitle": "Failed to load",
+  "failedDescription": "Something went wrong while loading. Click to retry.",
+  "failedTooltipDescription": "Click to retry fetching data.",
+  "lifecycle": "Lifecycle",
+  "overview": "Overview",
+  "createdAt": "Created at",
+  "updatedAt": "Updated at",
+  "createdBy": "Created by",
+  "deletedAt": "Deleted at",
+  "deletedBy": "Deleted by"
+}

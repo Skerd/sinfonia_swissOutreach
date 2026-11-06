@@ -1,0 +1,17 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/dashboard/index.tsx",
+  "title": "Swiss-Outreach-Dashboard",
+  "loading": "Kennzahlen werden geladen…",
+  "loadFailed": "Das Dashboard konnte nicht geladen werden",
+  "cards": {
+    "companiesFound": "Gefundene Firmen",
+    "companiesContacted": "Kontaktierte Firmen",
+    "emailsSent": "Gesendete E-Mails",
+    "failures": "Fehler",
+    "successRate": "Erfolgsquote %",
+    "averageScore": "Durchschnittliche Punktzahl",
+    "campaignsTotal": "Kampagnen",
+    "campaignsActive": "Aktive Kampagnen",
+    "repliesReceived": "Antworten"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx",
+  "title": "Fushatë e re",
+  "description": "Përshkruani punën, zgjidhni kantonet dhe dërguesin. Email-et presin miratimin tuaj, përveç nëse i dërgoni automatikisht.",
+  "form": {
+    "jobDescriptionLabel": "Përshkrimi i punës",
+    "jobDescriptionPlaceholder": "Përshkruani punën për të cilën doni oferta",
+    "countryLabel": "Shteti",
+    "countryPlaceholder": "Shkruani shtetin",
+    "cantonsLabel": "Kantonet",
+    "cantonsPlaceholder": "Shtoni kodin e kantonit (p.sh. BS)",
+    "maxCompaniesLabel": "Numri maksimal i kompanive",
+    "maxCompaniesPlaceholder": "Shkruani një numër",
+    "languageLabel": "Gjuha e email-it",
+    "languagePlaceholder": "Zgjidhni një gjuhë",
+    "emailToneLabel": "Toni i email-it",
+    "emailTonePlaceholder": "Zgjidhni një ton",
+    "sendAutomaticallyLabel": "Dërgo automatikisht (pa miratim)",
+    "senderCompanyNameLabel": "Emri i kompanisë",
+    "senderCompanyNamePlaceholder": "Kompania juaj",
+    "senderNameLabel": "Emri i dërguesit",
+    "senderNamePlaceholder": "Kush e nënshkruan email-in",
+    "senderEmailLabel": "Email-i i dërguesit",
+    "senderEmailPlaceholder": "emri@kompania.ch",
+    "senderPhoneLabel": "Telefoni i dërguesit",
+    "senderPhonePlaceholder": "Opsional",
+    "senderWebsiteLabel": "Faqja",
+    "senderWebsitePlaceholder": "https://…",
+    "additionalNotesLabel": "Shënime shtesë",
+    "additionalNotesPlaceholder": "Çfarë duhet të përmendin email-et",
+    "language": {
+      "de": "Gjermanisht",
+      "fr": "Frëngjisht",
+      "it": "Italisht",
+      "en": "Anglisht"
+    },
+    "emailTone": {
+      "professional": "Profesional",
+      "friendly": "Miqësor",
+      "formal": "Zyrtar"
+    },
+    "removeCanton": "Hiqe kantonin"
+  },
+  "axios": {
+    "start": {
+      "title": "Po krijohet fushata",
+      "time": 3000
+    },
+    "success": {
+      "title": "Fushata u krijua, procesi po nis",
+      "time": 3000
+    },
+    "error": {
+      "title": "Fushata nuk u krijua. Kontrolloni formularin dhe provoni sërish.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Fushatë e re",
+    "description": "Përshkruani punën, zgjidhni kantonet dhe dërguesin. Email-et presin miratimin tuaj, përveç nëse i dërgoni automatikisht."
+  },
+  "formButtons": {
+    "cancel": "Anulo",
+    "submit": "Krijo dhe nis"
+  }
+}

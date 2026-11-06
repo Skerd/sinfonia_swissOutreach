@@ -1,12 +1,14 @@
 import {compose} from "redux";
-import {useCallback, useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
+import useHttpRequest, {type HttpRequest} from "@coreModule/helpers/hooks/useHttpRequest.ts";
 import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
+import {Table} from "@coreModule/components/ui/table/table.tsx";
+import {Button} from "@coreModule/components/ui/button.tsx";
 
 type Props = WithLanguageType & {campaignId: string};
 
@@ -18,137 +20,134 @@ type PipelineLog = {
     createdAt?: string;
 };
 
+type CampaignAction = "start" | "cancel" | "approveAll" | "sendApproved";
+
 const RUNNING = new Set(["parsing", "searching", "enriching", "scoring", "sending"]);
 const IDLE_DONE = new Set(["completed", "failed", "cancelled", "awaiting_approval"]);
 
-function CampaignDetailPage({campaignId}: Props) {
-    const [campaign, setCampaign] = useState<Campaign | null>(null);
-    const [prospects, setProspects] = useState<ProspectCompany[]>([]);
-    const [logs, setLogs] = useState<PipelineLog[]>([]);
+const CAMPAIGN_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/single"};
+const LIST_REQUEST: HttpRequest = {method: "get", url: "/api/swissOutreach/campaign"};
+const ACTION_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
+
+function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
     const [error, setError] = useState<string | null>(null);
-    const [busy, setBusy] = useState(false);
+    // A requested start shows as running at once; the next load replaces it with the server's state.
+    const [startRequested, setStartRequested] = useState(false);
 
-    const load = useCallback(async () => {
-        try {
-            const [cRes, pRes, lRes] = await Promise.all([
-                apiClient.post<Campaign>("/api/swissOutreach/campaign/single", {_id: campaignId}),
-                apiClient.get<{data: ProspectCompany[]}>(`/api/swissOutreach/campaign/${campaignId}/prospects`),
-                apiClient.get<{data: PipelineLog[]}>(`/api/swissOutreach/campaign/${campaignId}/logs`),
-            ]);
-            const next = cRes.data;
-            if (!next?._id) {
-                setError("Campaign not found");
-                setCampaign(null);
-                return;
-            }
-            setCampaign(next);
-            setProspects(pRes.data.data || []);
-            setLogs(lRes.data.data || []);
-            setError(null);
-        } catch (e: any) {
-            setError(e?.message || "Failed to load campaign");
-        }
+    // The campaign, its prospects and its logs reload together: on open, after an action, and while it runs.
+    const [loadCount, setLoadCount] = useState(0);
+    const reload = () => setLoadCount((count) => count + 1);
+    useEffect(() => {
+        setLoadCount((count) => count + 1);
     }, [campaignId]);
+    const campaignRequest = useHttpRequest<Campaign>(CAMPAIGN_REQUEST, {_id: campaignId}, loadCount, true, {
+        success: () => setStartRequested(false),
+    });
+    const prospectsRequest = useHttpRequest<{data: ProspectCompany[]}>(LIST_REQUEST, {}, loadCount, true, {}, {
+        url: `/api/swissOutreach/campaign/${campaignId}/prospects`,
+    });
+    const logsRequest = useHttpRequest<{data: PipelineLog[]}>(LIST_REQUEST, {}, loadCount, true, {}, {
+        url: `/api/swissOutreach/campaign/${campaignId}/logs`,
+    });
+    const campaign = campaignRequest.data?._id ? campaignRequest.data : null;
+    const prospects = prospectsRequest.data?.data ?? [];
+    const logs = logsRequest.data?.data ?? [];
+    const loadError = campaignRequest.error || (campaignRequest.data && !campaign) ? resolveLanguageKey("notFound") : null;
 
-    const status = campaign?.status;
+    const status = startRequested ? "parsing" : campaign?.status;
     const isRunning = !!status && RUNNING.has(status);
     const isIdleDone = !!status && IDLE_DONE.has(status);
     const canCancel = !!campaign && !isIdleDone;
     const canApproveSend = status === "awaiting_approval" || status === "completed" || status === "failed";
     const canRestart = !isRunning;
 
-    const latestLog = logs[0];
-    const activityLabel = useMemo(() => {
-        if (isRunning) return `Working… (${status})`;
-        if (status === "awaiting_approval") return "Finished — awaiting email approval";
-        if (status === "completed") return "Completed";
-        if (status === "failed") return "Failed";
-        if (status === "cancelled") return "Cancelled";
-        if (status === "draft") return "Not started yet — click Restart";
-        return status || "Loading";
-    }, [isRunning, status]);
-
     useEffect(() => {
-        void load();
-    }, [load]);
-
-    useEffect(() => {
-        if (isIdleDone) return;
+        if (!campaign || isIdleDone) return;
         const ms = isRunning || status === "draft" ? 1500 : 5000;
-        const t = setInterval(() => void load(), ms);
-        return () => clearInterval(t);
-    }, [load, isIdleDone, isRunning, status]);
+        const timer = setInterval(() => setLoadCount((count) => count + 1), ms);
+        return () => clearInterval(timer);
+    }, [campaign, isIdleDone, isRunning, status]);
 
-    const runAction = async (path: string) => {
-        setBusy(true);
+    const [action, setAction] = useState<CampaignAction>("start");
+    const [actionCount, setActionCount] = useState(0);
+    const {loading: busy} = useHttpRequest(ACTION_REQUEST, {campaignId}, actionCount, true, {
+        success: reload,
+        error: (e) => {
+            setStartRequested(false);
+            setError(handleError(e, {context: "CampaignDetail"})?.displayMessage ?? resolveLanguageKey("actionFailed"));
+        },
+    }, {url: `/api/swissOutreach/campaign/${action}`});
+
+    const runAction = (next: CampaignAction) => {
         setError(null);
-        if (path === "start") {
-            setCampaign((prev) => (prev ? {...prev, status: "parsing" as Campaign["status"]} : prev));
-            setLogs((prev) => [
-                {
-                    _id: `local-start-${Date.now()}`,
-                    step: "pipeline",
-                    level: "info",
-                    message: "Pipeline start requested…",
-                },
-                ...prev,
-            ]);
-        }
-        try {
-            await apiClient.post(`/api/swissOutreach/campaign/${path}`, {campaignId});
-            await load();
-        } catch (e) {
-            setError(handleError(e, {context: "CampaignDetail"})?.displayMessage ?? "Action failed");
-        } finally {
-            setBusy(false);
-        }
+        if (next === "start") setStartRequested(true);
+        setAction(next);
+        setActionCount((count) => count + 1);
     };
 
-    if (!campaign && !error) return <div className="p-4 text-sm text-muted-foreground">Loading campaign…</div>;
+    const activityLabel = isRunning
+        ? resolveLanguageKey("activity.running").replace("{status}", String(resolveLanguageKey(`status.${status}`)))
+        : status
+          ? resolveLanguageKey(`activity.${status}`)
+          : resolveLanguageKey("loading");
+    const latestLog = startRequested ? null : logs[0];
+
+    if (!campaign && !loadError) return <div className="p-4 text-sm text-muted-foreground">{resolveLanguageKey("loading")}</div>;
 
     return (
         <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-xl font-semibold">{campaign?.senderCompanyName || "Campaign"}</h1>
+                    <h1 className="text-xl font-semibold">{campaign?.senderCompanyName || resolveLanguageKey("campaign")}</h1>
                     <p className="text-sm text-muted-foreground">
-                        Status: <strong>{campaign?.status}</strong> · Found {campaign?.stats?.found ?? 0} · Enriched{" "}
-                        {campaign?.stats?.enriched ?? 0} · Sent {campaign?.stats?.sent ?? 0}
+                        {resolveLanguageKey("summary")
+                            .replace("{status}", String(resolveLanguageKey(`status.${campaign?.status}`)))
+                            .replace("{found}", String(campaign?.stats?.found ?? 0))
+                            .replace("{enriched}", String(campaign?.stats?.enriched ?? 0))
+                            .replace("{sent}", String(campaign?.stats?.sent ?? 0))}
                     </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                    <Link className="rounded-md border px-3 py-2 text-sm" to={`/swissOutreach/approval?campaignId=${campaignId}`}>
-                        Approval
-                    </Link>
-                    <button
+                    <Button asChild variant="outline" size="lg">
+                        <Link to={`/swissOutreach/approval?campaignId=${campaignId}`}>{resolveLanguageKey("approval")}</Link>
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="lg"
                         disabled={busy || !canRestart}
-                        className="rounded-md border px-3 py-2 text-sm disabled:opacity-50"
-                        onClick={() => void runAction("start")}
-                        title={!canRestart ? "Pipeline is already running" : undefined}
+                        onClick={() => runAction("start")}
+                        title={!canRestart ? String(resolveLanguageKey("alreadyRunning")) : undefined}
                     >
-                        Restart
-                    </button>
-                    <button
+                        {resolveLanguageKey("restart")}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="lg"
+                        className="border-destructive/30 text-destructive hover:text-destructive"
                         disabled={busy || !canCancel}
-                        className="rounded-md border border-destructive/30 px-3 py-2 text-sm text-destructive disabled:opacity-50"
-                        onClick={() => void runAction("cancel")}
+                        onClick={() => runAction("cancel")}
                     >
-                        Cancel
-                    </button>
-                    <button
+                        {resolveLanguageKey("cancel")}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="lg"
                         disabled={busy || !canApproveSend}
-                        className="rounded-md border px-3 py-2 text-sm disabled:opacity-50"
-                        onClick={() => void runAction("approveAll")}
+                        onClick={() => runAction("approveAll")}
                     >
-                        Approve all
-                    </button>
-                    <button
+                        {resolveLanguageKey("approveAll")}
+                    </Button>
+                    <Button
+                        type="button"
+                        size="lg"
                         disabled={busy || !canApproveSend}
-                        className="rounded-md bg-primary px-3 py-2 text-sm text-primary-foreground disabled:opacity-50"
-                        onClick={() => void runAction("sendApproved")}
+                        onClick={() => runAction("sendApproved")}
                     >
-                        Send approved
-                    </button>
+                        {resolveLanguageKey("sendApproved")}
+                    </Button>
                 </div>
             </div>
 
@@ -162,23 +161,26 @@ function CampaignDetailPage({campaignId}: Props) {
                 }`}
             >
                 <div className="font-medium">{activityLabel}</div>
+                {startRequested && <div className="mt-1 text-xs opacity-90">{resolveLanguageKey("startRequested")}</div>}
                 {latestLog && (
                     <div className="mt-1 text-xs opacity-90">
-                        Latest: [{latestLog.level}] {latestLog.step}: {latestLog.message}
+                        {resolveLanguageKey("latest")}: [{latestLog.level}] {latestLog.step}: {latestLog.message}
                     </div>
                 )}
-                {!latestLog && status === "draft" && (
-                    <div className="mt-1 text-xs opacity-90">No pipeline logs yet.</div>
+                {!latestLog && !startRequested && status === "draft" && (
+                    <div className="mt-1 text-xs opacity-90">{resolveLanguageKey("noLogsYet")}</div>
                 )}
             </div>
 
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            {campaign?.lastError && <p className="text-sm text-destructive">Pipeline error: {campaign.lastError}</p>}
+            {(error || loadError) && <p className="text-sm text-destructive">{error || loadError}</p>}
+            {campaign?.lastError && (
+                <p className="text-sm text-destructive">{resolveLanguageKey("pipelineError")}: {campaign.lastError}</p>
+            )}
 
             <div>
-                <h2 className="mb-2 font-medium">Pipeline logs</h2>
+                <h2 className="mb-2 font-medium">{resolveLanguageKey("logsTitle")}</h2>
                 <ul className="flex flex-col max-h-56 gap-y-1 overflow-auto rounded-md border p-3 text-xs text-foreground">
-                    {logs.length === 0 && <li className="text-muted-foreground">Waiting for pipeline activity…</li>}
+                    {logs.length === 0 && <li className="text-muted-foreground">{resolveLanguageKey("waitingForActivity")}</li>}
                     {logs.map((l) => (
                         <li key={l._id}>
                             [{l.level}] {l.step}: {l.message}
@@ -190,17 +192,17 @@ function CampaignDetailPage({campaignId}: Props) {
             <div className="rounded-md border border-border p-3 text-sm whitespace-pre-wrap">{campaign?.jobDescription}</div>
 
             <div>
-                <h2 className="mb-2 font-medium">Prospects (by score) — {prospects.length}</h2>
+                <h2 className="mb-2 font-medium">{resolveLanguageKey("prospectsTitle").replace("{count}", String(prospects.length))}</h2>
                 <div className="overflow-x-auto rounded-md border">
-                    <table className="min-w-full text-left text-sm">
+                    <Table bare className="min-w-full text-left text-sm">
                         <thead className="bg-muted">
                             <tr>
-                                <th className="px-3 py-2">Company</th>
-                                <th className="px-3 py-2">Canton</th>
-                                <th className="px-3 py-2">Website</th>
-                                <th className="px-3 py-2">Email</th>
-                                <th className="px-3 py-2">Score</th>
-                                <th className="px-3 py-2">Status</th>
+                                <th className="px-3 py-2">{resolveLanguageKey("columns.company")}</th>
+                                <th className="px-3 py-2">{resolveLanguageKey("columns.canton")}</th>
+                                <th className="px-3 py-2">{resolveLanguageKey("columns.website")}</th>
+                                <th className="px-3 py-2">{resolveLanguageKey("columns.email")}</th>
+                                <th className="px-3 py-2">{resolveLanguageKey("columns.score")}</th>
+                                <th className="px-3 py-2">{resolveLanguageKey("columns.status")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -211,26 +213,26 @@ function CampaignDetailPage({campaignId}: Props) {
                                     <td className="px-3 py-2">
                                         {p.website ? (
                                             <a className="text-info underline" href={p.website} target="_blank" rel="noreferrer">
-                                                link
+                                                {resolveLanguageKey("websiteLink")}
                                             </a>
                                         ) : (
                                             "—"
                                         )}
                                     </td>
-                                    <td className="px-3 py-2">{p.emails?.[0] || "—"}</td>
+                                    <td className="px-3 py-2">{p.emails[0] || "—"}</td>
                                     <td className="px-3 py-2">{p.score ?? "—"}</td>
-                                    <td className="px-3 py-2">{p.status}</td>
+                                    <td className="px-3 py-2">{resolveLanguageKey(`prospectStatus.${p.status}`)}</td>
                                 </tr>
                             ))}
                             {!isRunning && prospects.length === 0 && (
                                 <tr>
                                     <td className="px-3 py-6 text-muted-foreground" colSpan={6}>
-                                        No prospects yet. Click Restart to run the pipeline.
+                                        {resolveLanguageKey("noProspects")}
                                     </td>
                                 </tr>
                             )}
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         </div>

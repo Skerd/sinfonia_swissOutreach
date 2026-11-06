@@ -1,172 +1,23 @@
-import {compose} from "redux";
-import {FormEvent, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
-import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
-import apiClient from "@coreModule/helpers/apiClient/apiClient.ts";
-import {handleError} from "@coreModule/helpers/general/errors.ts";
-import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
+import {IconSend} from "@tabler/icons-react";
+import {createGenericCreatePage} from "@coreModule/components/entityPage/pages/createGenericCreatePage.tsx";
+import {createCampaignFormSchema} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/createCampaign.form.validator.ts";
+import type {CreateCampaignFormType} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.schema-def.ts";
 
-const fieldClass = "w-full rounded-md border border-border px-3 py-2 text-sm";
-const labelClass = "mb-1 block text-xs font-medium text-muted-foreground";
-
-function CreateCampaignPage({}: WithLanguageType) {
-    const navigate = useNavigate();
-    const [saving, setSaving] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [form, setForm] = useState({
-        jobDescription: "",
+/** Creating a campaign starts its pipeline on the server (`afterCreate`). */
+export default createGenericCreatePage<CreateCampaignFormType>({
+    languagePath: "src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx",
+    collectionName: "swissoutreachcampaigns",
+    accessModel: "swissOutreachCampaigns",
+    apiUrl: "/api/swissOutreach/campaign",
+    schema: createCampaignFormSchema,
+    defaultValues: {
         country: "Switzerland",
-        cantons: "BS,BL",
+        cantons: ["BS", "BL"],
         maxCompanies: 20,
         language: "de",
         emailTone: "professional",
         sendAutomatically: false,
-        senderCompanyName: "",
-        senderName: "",
-        senderEmail: "",
-        senderPhone: "",
-        senderWebsite: "",
-        additionalNotes: "",
-    });
-
-    const onChange = (key: string, value: string | number | boolean) => {
-        setForm((prev) => ({...prev, [key]: value}));
-    };
-
-    const onSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-        setSaving(true);
-        setError(null);
-        try {
-            const payload = {
-                ...form,
-                cantons: form.cantons
-                    .split(",")
-                    .map((c) => c.trim())
-                    .filter(Boolean),
-                maxCompanies: Number(form.maxCompanies),
-                senderWebsite: form.senderWebsite || undefined,
-                senderPhone: form.senderPhone || undefined,
-                additionalNotes: form.additionalNotes || undefined,
-            };
-            const res = await apiClient.put<Campaign>("/api/swissOutreach/campaign", payload);
-            const id = res.data?._id;
-            navigate(id ? `/swissOutreach/campaigns/detail?campaignId=${id}` : "/swissOutreach/campaigns");
-        } catch (err) {
-            setError(handleError(err, {context: "CreateCampaign"})?.displayMessage ?? "Create failed");
-        } finally {
-            setSaving(false);
-        }
-    };
-
-    return (
-        <div className="mx-auto flex max-w-3xl flex-col gap-4 p-4">
-            <h1 className="text-xl font-semibold">New Swiss Outreach Campaign</h1>
-            <p className="text-sm text-muted-foreground">
-                Describe the job, choose cantons, and provide sender identity. Emails default to human approval
-                before sending.
-            </p>
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-                <div>
-                    <label htmlFor="campaign-field-1" className={labelClass}>Job description</label>
-                    <textarea id="campaign-field-1"
-                        className={fieldClass}
-                        rows={5}
-                        required
-                        value={form.jobDescription}
-                        onChange={(e) => onChange("jobDescription", e.target.value)}
-                    />
-                </div>
-                <div className="grid gap-3 md:grid-cols-2">
-                    <div>
-                        <label htmlFor="campaign-field-2" className={labelClass}>Country</label>
-                        <input id="campaign-field-2" className={fieldClass} value={form.country} onChange={(e) => onChange("country", e.target.value)} required />
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-3" className={labelClass}>Cantons (comma-separated codes)</label>
-                        <input id="campaign-field-3" className={fieldClass} value={form.cantons} onChange={(e) => onChange("cantons", e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-4" className={labelClass}>Maximum companies</label>
-                        <input id="campaign-field-4"
-                            className={fieldClass}
-                            type="number"
-                            min={1}
-                            max={500}
-                            value={form.maxCompanies}
-                            onChange={(e) => onChange("maxCompanies", Number(e.target.value))}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-5" className={labelClass}>Language</label>
-                        <select id="campaign-field-5" className={fieldClass} value={form.language} onChange={(e) => onChange("language", e.target.value)}>
-                            <option value="de">German</option>
-                            <option value="fr">French</option>
-                            <option value="it">Italian</option>
-                            <option value="en">English</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-6" className={labelClass}>Email tone</label>
-                        <select id="campaign-field-6" className={fieldClass} value={form.emailTone} onChange={(e) => onChange("emailTone", e.target.value)}>
-                            <option value="professional">Professional</option>
-                            <option value="friendly">Friendly</option>
-                            <option value="formal">Formal</option>
-                        </select>
-                    </div>
-                    <div className="flex items-end gap-2 pb-2">
-                        <input
-                            id="sendAutomatically"
-                            type="checkbox"
-                            checked={form.sendAutomatically}
-                            onChange={(e) => onChange("sendAutomatically", e.target.checked)}
-                        />
-                        <label htmlFor="sendAutomatically" className="text-sm text-foreground">
-                            Send automatically (skip approval)
-                        </label>
-                    </div>
-                </div>
-                <div className="grid gap-3 md:grid-cols-2">
-                    <div>
-                        <label htmlFor="campaign-field-7" className={labelClass}>Company name</label>
-                        <input id="campaign-field-7" className={fieldClass} required value={form.senderCompanyName} onChange={(e) => onChange("senderCompanyName", e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-8" className={labelClass}>Sender name</label>
-                        <input id="campaign-field-8" className={fieldClass} required value={form.senderName} onChange={(e) => onChange("senderName", e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-9" className={labelClass}>Sender email</label>
-                        <input id="campaign-field-9" className={fieldClass} type="email" required value={form.senderEmail} onChange={(e) => onChange("senderEmail", e.target.value)} />
-                    </div>
-                    <div>
-                        <label htmlFor="campaign-field-10" className={labelClass}>Sender phone</label>
-                        <input id="campaign-field-10" className={fieldClass} value={form.senderPhone} onChange={(e) => onChange("senderPhone", e.target.value)} />
-                    </div>
-                    <div className="md:col-span-2">
-                        <label htmlFor="campaign-field-11" className={labelClass}>Website</label>
-                        <input id="campaign-field-11" className={fieldClass} value={form.senderWebsite} onChange={(e) => onChange("senderWebsite", e.target.value)} />
-                    </div>
-                    <div className="md:col-span-2">
-                        <label htmlFor="campaign-field-12" className={labelClass}>Additional notes</label>
-                        <textarea id="campaign-field-12" className={fieldClass} rows={3} value={form.additionalNotes} onChange={(e) => onChange("additionalNotes", e.target.value)} />
-                    </div>
-                </div>
-                <button
-                    type="submit"
-                    disabled={saving}
-                    className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground disabled:opacity-60"
-                >
-                    {saving ? "Starting…" : "Create & start pipeline"}
-                </button>
-            </form>
-        </div>
-    );
-}
-
-export default compose(
-    withLanguage("src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx"),
-    withDebug(true, true, "swissOutreachCampaigns"),
-)(CreateCampaignPage);
+    },
+    successPath: "/swissOutreach/campaigns",
+    submitIcon: <IconSend />,
+});

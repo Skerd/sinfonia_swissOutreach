@@ -1,0 +1,66 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx",
+  "title": "Neue Kampagne",
+  "description": "Beschreiben Sie den Auftrag, wählen Sie Kantone und den Absender. E-Mails warten auf Ihre Freigabe, ausser Sie senden sie automatisch.",
+  "form": {
+    "jobDescriptionLabel": "Auftragsbeschreibung",
+    "jobDescriptionPlaceholder": "Beschreiben Sie die Arbeit, für die Sie Offerten möchten",
+    "countryLabel": "Land",
+    "countryPlaceholder": "Land eingeben",
+    "cantonsLabel": "Kantone",
+    "cantonsPlaceholder": "Kantonskürzel hinzufügen (z. B. BS)",
+    "maxCompaniesLabel": "Maximale Anzahl Firmen",
+    "maxCompaniesPlaceholder": "Zahl eingeben",
+    "languageLabel": "E-Mail-Sprache",
+    "languagePlaceholder": "Sprache wählen",
+    "emailToneLabel": "Tonalität der E-Mail",
+    "emailTonePlaceholder": "Tonalität wählen",
+    "sendAutomaticallyLabel": "Automatisch senden (ohne Freigabe)",
+    "senderCompanyNameLabel": "Firmenname",
+    "senderCompanyNamePlaceholder": "Ihre Firma",
+    "senderNameLabel": "Name des Absenders",
+    "senderNamePlaceholder": "Wer die E-Mail unterzeichnet",
+    "senderEmailLabel": "E-Mail des Absenders",
+    "senderEmailPlaceholder": "name@firma.ch",
+    "senderPhoneLabel": "Telefon des Absenders",
+    "senderPhonePlaceholder": "Optional",
+    "senderWebsiteLabel": "Website",
+    "senderWebsitePlaceholder": "https://…",
+    "additionalNotesLabel": "Weitere Hinweise",
+    "additionalNotesPlaceholder": "Was die E-Mails erwähnen sollen",
+    "language": {
+      "de": "Deutsch",
+      "fr": "Französisch",
+      "it": "Italienisch",
+      "en": "Englisch"
+    },
+    "emailTone": {
+      "professional": "Professionell",
+      "friendly": "Freundlich",
+      "formal": "Formell"
+    },
+    "removeCanton": "Kanton entfernen"
+  },
+  "axios": {
+    "start": {
+      "title": "Kampagne wird erstellt",
+      "time": 3000
+    },
+    "success": {
+      "title": "Kampagne erstellt, die Pipeline startet",
+      "time": 3000
+    },
+    "error": {
+      "title": "Die Kampagne konnte nicht erstellt werden. Prüfen Sie das Formular und versuchen Sie es erneut.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Neue Kampagne",
+    "description": "Beschreiben Sie den Auftrag, wählen Sie Kantone und den Absender. E-Mails warten auf Ihre Freigabe, ausser Sie senden sie automatisch."
+  },
+  "formButtons": {
+    "cancel": "Abbrechen",
+    "submit": "Erstellen & starten"
+  }
+}

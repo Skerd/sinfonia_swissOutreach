@@ -1,0 +1,48 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/prospects/index.tsx",
+  "title": "Kompanitë",
+  "description": "Kompanitë e gjetura nga një fushatë, të vlerësuara për përshtatje",
+  "campaign": "Fushata",
+  "noCampaigns": "Ende asnjë fushatë. Krijoni një për të gjetur kompani.",
+  "searchPlaceholder": "Kërkoni kompani ose shtoni filtra...",
+  "noData": "Ende asnjë kompani për këtë fushatë",
+  "failTitle": "Kompanitë nuk u ngarkuan",
+  "deleted": "Fshirë",
+  "active": "Aktiv",
+  "failDescription": "Diçka shkoi keq gjatë ngarkimit. Ju lutem provoni sërish.",
+  "fields": {
+    "campaignId": "Fushata",
+    "companyName": "Kompania",
+    "canton": "Kantoni",
+    "score": "Pikët",
+    "status": "Statusi",
+    "createdAt": "Krijuar më",
+    "updatedAt": "Përditësuar më",
+    "createdBy": "Krijuar nga",
+    "deletedAt": "Fshirë më",
+    "deletedBy": "Fshirë nga",
+    "!enums": {
+      "status": {
+        "discovered": "Gjetur",
+        "website_found": "Faqja u gjet",
+        "crawled": "Faqja u lexua",
+        "scored": "Vlerësuar",
+        "skipped": "Kapërcyer",
+        "approved": "Miratuar",
+        "sent": "Dërguar",
+        "failed": "Dështoi"
+      }
+    }
+  },
+  "prospectCompany": "Kompani prospekt",
+  "failedTitle": "Ngarkimi dështoi",
+  "failedDescription": "Diçka shkoi keq gjatë ngarkimit. Kliko për ta provuar sërish.",
+  "failedTooltipDescription": "Kliko për t'i ngarkuar sërish të dhënat.",
+  "lifecycle": "Cikli i jetës",
+  "overview": "Përmbledhje",
+  "createdAt": "Krijuar më",
+  "updatedAt": "Përditësuar më",
+  "createdBy": "Krijuar nga",
+  "deletedAt": "Fshirë më",
+  "deletedBy": "Fshirë nga"
+}

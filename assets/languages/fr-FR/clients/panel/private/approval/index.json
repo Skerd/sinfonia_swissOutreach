@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/index.tsx",
+  "title": "Approbation des e-mails",
+  "campaign": "Campagne",
+  "status": {
+    "draft": "Brouillon",
+    "parsing": "Lecture du mandat",
+    "searching": "Recherche d'entreprises",
+    "enriching": "Collecte des contacts",
+    "scoring": "Évaluation de l'adéquation",
+    "awaiting_approval": "En attente d'approbation",
+    "sending": "Envoi en cours",
+    "completed": "Terminée",
+    "failed": "Échec",
+    "cancelled": "Annulée"
+  },
+  "emailStatus": {
+    "draft": "Brouillon",
+    "edited": "Modifié",
+    "approved": "Approuvé",
+    "skipped": "Ignoré",
+    "queued": "En file d'attente",
+    "sent": "Envoyé",
+    "failed": "Échec"
+  },
+  "approveAll": "Tout approuver",
+  "approveAllFailed": "L'approbation globale a échoué",
+  "actionFailed": "L'action a échoué",
+  "loadFailed": "La file d'approbation n'a pas pu être chargée",
+  "columns": {
+    "company": "Entreprise",
+    "website": "Site web",
+    "email": "E-mail",
+    "score": "Score",
+    "generatedEmail": "E-mail généré",
+    "actions": "Actions"
+  },
+  "websiteLink": "Site",
+  "subject": "Objet",
+  "body": "Corps",
+  "statusLabel": "Statut",
+  "saveEdit": "Enregistrer",
+  "approve": "Approuver",
+  "skip": "Ignorer",
+  "empty": "Aucun e-mail à examiner pour cette campagne."
+}

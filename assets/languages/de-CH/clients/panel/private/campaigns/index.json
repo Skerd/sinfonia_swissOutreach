@@ -1,10 +1,58 @@
 {
   "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
-  "title": "Swiss Outreach",
-  "campaigns": "Kampagnen",
-  "approval": "E-Mail-Freigabe",
-  "dashboard": "Dashboard",
-  "prospects": "Unternehmen",
+  "title": "Outreach-Kampagnen",
+  "description": "Schweizer Firmen für einen Auftrag finden und ihnen eine Offerte mailen",
   "create": "Neue Kampagne",
-  "sendAutomatically": "Automatisch senden"
+  "open": "Öffnen",
+  "searchPlaceholder": "Kampagnen suchen oder Filter hinzufügen...",
+  "noData": "Noch keine Kampagnen",
+  "failTitle": "Kampagnen konnten nicht geladen werden",
+  "deleted": "Gelöscht",
+  "active": "Aktiv",
+  "failDescription": "Beim Laden ist etwas schiefgelaufen. Bitte erneut versuchen.",
+  "fields": {
+    "jobDescription": "Auftragsbeschreibung",
+    "country": "Land",
+    "maxCompanies": "Max. Firmen",
+    "language": "Sprache",
+    "status": "Status",
+    "createdAt": "Erstellt am",
+    "updatedAt": "Aktualisiert am",
+    "createdBy": "Erstellt von",
+    "deletedAt": "Gelöscht am",
+    "deletedBy": "Gelöscht von",
+    "!enums": {
+      "status": {
+        "draft": "Entwurf",
+        "parsing": "Auftrag wird gelesen",
+        "searching": "Firmen werden gesucht",
+        "enriching": "Kontakte werden gesammelt",
+        "scoring": "Eignung wird bewertet",
+        "awaiting_approval": "Wartet auf Freigabe",
+        "sending": "Wird gesendet",
+        "completed": "Abgeschlossen",
+        "failed": "Fehlgeschlagen",
+        "cancelled": "Abgebrochen"
+      },
+      "language": {
+        "de": "Deutsch",
+        "fr": "Französisch",
+        "it": "Italienisch",
+        "en": "Englisch"
+      }
+    }
+  },
+  "campaign": "Kampagne",
+  "status": "Status",
+  "language": "Sprache",
+  "failedTitle": "Laden fehlgeschlagen",
+  "failedDescription": "Beim Laden ist etwas schiefgelaufen. Zum Wiederholen klicken.",
+  "failedTooltipDescription": "Klicken, um die Daten erneut zu laden.",
+  "lifecycle": "Lebenszyklus",
+  "overview": "Übersicht",
+  "createdAt": "Erstellt am",
+  "updatedAt": "Aktualisiert am",
+  "createdBy": "Erstellt von",
+  "deletedAt": "Gelöscht am",
+  "deletedBy": "Gelöscht von"
 }

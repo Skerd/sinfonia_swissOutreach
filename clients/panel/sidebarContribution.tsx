@@ -1,4 +1,4 @@
-import {BarChart3, CheckSquare, Mail, Megaphone} from "lucide-react";
+import {IconChartBar, IconMail, IconSpeakerphone, IconSquareCheck} from "@tabler/icons-react";
 import type {SidebarContribution} from "@coreModule/helpers/types/sidebarContribution.types.ts";
 import type {NavGroup, NavItem} from "@coreModule/helpers/types/sidebarNav.types.ts";
 import type {ResolveLanguageKey} from "@coreModule/helpers/hocs/withLanguage.tsx";
@@ -11,7 +11,7 @@ const swissOutreachSidebarContribution: SidebarContribution = {
             {
                 title: resolveLanguageKey("menus.swissOutreach.dashboard.title"),
                 url: "/swissOutreach/dashboard",
-                icon: BarChart3,
+                icon: IconChartBar,
                 permissions: [],
                 usersPermissions: [],
                 atLeastOnePermission: true,
@@ -19,7 +19,7 @@ const swissOutreachSidebarContribution: SidebarContribution = {
             {
                 title: resolveLanguageKey("menus.swissOutreach.campaigns.title"),
                 url: "/swissOutreach/campaigns",
-                icon: Megaphone,
+                icon: IconSpeakerphone,
                 permissions: [],
                 usersPermissions: [],
                 atLeastOnePermission: true,
@@ -27,7 +27,7 @@ const swissOutreachSidebarContribution: SidebarContribution = {
             {
                 title: resolveLanguageKey("menus.swissOutreach.approval.title"),
                 url: "/swissOutreach/approval",
-                icon: CheckSquare,
+                icon: IconSquareCheck,
                 permissions: [],
                 usersPermissions: [],
                 atLeastOnePermission: true,
@@ -35,7 +35,7 @@ const swissOutreachSidebarContribution: SidebarContribution = {
             {
                 title: resolveLanguageKey("menus.swissOutreach.prospects.title"),
                 url: "/swissOutreach/prospects",
-                icon: Mail,
+                icon: IconMail,
                 permissions: [],
                 usersPermissions: [],
                 atLeastOnePermission: true,

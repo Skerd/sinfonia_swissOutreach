@@ -1,0 +1,17 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/dashboard/index.tsx",
+  "title": "Dashboard prospezione svizzera",
+  "loading": "Caricamento delle metriche…",
+  "loadFailed": "Impossibile caricare la dashboard",
+  "cards": {
+    "companiesFound": "Aziende trovate",
+    "companiesContacted": "Aziende contattate",
+    "emailsSent": "E-mail inviate",
+    "failures": "Errori",
+    "successRate": "Tasso di successo %",
+    "averageScore": "Punteggio medio",
+    "campaignsTotal": "Campagne",
+    "campaignsActive": "Campagne attive",
+    "repliesReceived": "Risposte"
+  }
+}

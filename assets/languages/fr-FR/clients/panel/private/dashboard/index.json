@@ -1,0 +1,17 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/dashboard/index.tsx",
+  "title": "Tableau de bord de prospection suisse",
+  "loading": "Chargement des indicateurs…",
+  "loadFailed": "Le tableau de bord n'a pas pu être chargé",
+  "cards": {
+    "companiesFound": "Entreprises trouvées",
+    "companiesContacted": "Entreprises contactées",
+    "emailsSent": "E-mails envoyés",
+    "failures": "Échecs",
+    "successRate": "Taux de réussite %",
+    "averageScore": "Score moyen",
+    "campaignsTotal": "Campagnes",
+    "campaignsActive": "Campagnes actives",
+    "repliesReceived": "Réponses"
+  }
+}

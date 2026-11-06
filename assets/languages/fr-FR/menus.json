@@ -1,0 +1,17 @@
+{
+  "swissOutreach": {
+    "title": "Prospection suisse",
+    "dashboard": {
+      "title": "Tableau de bord"
+    },
+    "campaigns": {
+      "title": "Campagnes"
+    },
+    "approval": {
+      "title": "Approbation des e-mails"
+    },
+    "prospects": {
+      "title": "Entreprises"
+    }
+  }
+}

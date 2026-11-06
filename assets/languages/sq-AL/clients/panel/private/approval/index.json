@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/index.tsx",
+  "title": "Miratimi i email-eve",
+  "campaign": "Fushata",
+  "status": {
+    "draft": "Draft",
+    "parsing": "Po lexohet puna",
+    "searching": "Po kërkohen kompanitë",
+    "enriching": "Po mblidhen kontaktet",
+    "scoring": "Po vlerësohet përshtatja",
+    "awaiting_approval": "Në pritje të miratimit",
+    "sending": "Po dërgohet",
+    "completed": "Përfunduar",
+    "failed": "Dështoi",
+    "cancelled": "Anuluar"
+  },
+  "emailStatus": {
+    "draft": "Draft",
+    "edited": "Ndryshuar",
+    "approved": "Miratuar",
+    "skipped": "Kapërcyer",
+    "queued": "Në radhë",
+    "sent": "Dërguar",
+    "failed": "Dështoi"
+  },
+  "approveAll": "Mirato të gjitha",
+  "approveAllFailed": "Miratimi i të gjithave dështoi",
+  "actionFailed": "Veprimi dështoi",
+  "loadFailed": "Radha e miratimit nuk u ngarkua",
+  "columns": {
+    "company": "Kompania",
+    "website": "Faqja",
+    "email": "Email",
+    "score": "Pikët",
+    "generatedEmail": "Email-i i krijuar",
+    "actions": "Veprimet"
+  },
+  "websiteLink": "Faqja",
+  "subject": "Subjekti",
+  "body": "Teksti",
+  "statusLabel": "Statusi",
+  "saveEdit": "Ruaj ndryshimin",
+  "approve": "Mirato",
+  "skip": "Kapërce",
+  "empty": "Asnjë email në pritje të shqyrtimit për këtë fushatë."
+}

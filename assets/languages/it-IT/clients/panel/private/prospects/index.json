@@ -1,0 +1,48 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/prospects/index.tsx",
+  "title": "Aziende",
+  "description": "Aziende trovate da una campagna, valutate per idoneità",
+  "campaign": "Campagna",
+  "noCampaigns": "Ancora nessuna campagna. Creane una per trovare aziende.",
+  "searchPlaceholder": "Cerca aziende o aggiungi filtri...",
+  "noData": "Ancora nessuna azienda per questa campagna",
+  "failTitle": "Impossibile caricare le aziende",
+  "deleted": "Eliminato",
+  "active": "Attivo",
+  "failDescription": "Si è verificato un errore durante il caricamento. Riprova.",
+  "fields": {
+    "campaignId": "Campagna",
+    "companyName": "Azienda",
+    "canton": "Cantone",
+    "score": "Punteggio",
+    "status": "Stato",
+    "createdAt": "Creato il",
+    "updatedAt": "Aggiornato il",
+    "createdBy": "Creato da",
+    "deletedAt": "Eliminato il",
+    "deletedBy": "Eliminato da",
+    "!enums": {
+      "status": {
+        "discovered": "Trovata",
+        "website_found": "Sito trovato",
+        "crawled": "Sito analizzato",
+        "scored": "Valutata",
+        "skipped": "Saltata",
+        "approved": "Approvata",
+        "sent": "Inviata",
+        "failed": "Non riuscita"
+      }
+    }
+  },
+  "prospectCompany": "Azienda prospect",
+  "failedTitle": "Caricamento non riuscito",
+  "failedDescription": "Si è verificato un errore durante il caricamento. Fai clic per riprovare.",
+  "failedTooltipDescription": "Fai clic per ricaricare i dati.",
+  "lifecycle": "Ciclo di vita",
+  "overview": "Panoramica",
+  "createdAt": "Creato il",
+  "updatedAt": "Aggiornato il",
+  "createdBy": "Creato da",
+  "deletedAt": "Eliminato il",
+  "deletedBy": "Eliminato da"
+}

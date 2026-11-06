@@ -1,0 +1,48 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/prospects/index.tsx",
+  "title": "Unternehmen",
+  "description": "Von einer Kampagne gefundene Firmen, nach Eignung bewertet",
+  "campaign": "Kampagne",
+  "noCampaigns": "Noch keine Kampagnen. Erstellen Sie eine, um Unternehmen zu finden.",
+  "searchPlaceholder": "Firmen suchen oder Filter hinzufügen...",
+  "noData": "Noch keine Unternehmen für diese Kampagne",
+  "failTitle": "Unternehmen konnten nicht geladen werden",
+  "deleted": "Gelöscht",
+  "active": "Aktiv",
+  "failDescription": "Beim Laden ist etwas schiefgelaufen. Bitte erneut versuchen.",
+  "fields": {
+    "campaignId": "Kampagne",
+    "companyName": "Firma",
+    "canton": "Kanton",
+    "score": "Punktzahl",
+    "status": "Status",
+    "createdAt": "Erstellt am",
+    "updatedAt": "Aktualisiert am",
+    "createdBy": "Erstellt von",
+    "deletedAt": "Gelöscht am",
+    "deletedBy": "Gelöscht von",
+    "!enums": {
+      "status": {
+        "discovered": "Gefunden",
+        "website_found": "Website gefunden",
+        "crawled": "Website gelesen",
+        "scored": "Bewertet",
+        "skipped": "Übersprungen",
+        "approved": "Freigegeben",
+        "sent": "Gesendet",
+        "failed": "Fehlgeschlagen"
+      }
+    }
+  },
+  "prospectCompany": "Unternehmen",
+  "failedTitle": "Laden fehlgeschlagen",
+  "failedDescription": "Beim Laden ist etwas schiefgelaufen. Zum Wiederholen klicken.",
+  "failedTooltipDescription": "Klicken, um die Daten erneut zu laden.",
+  "lifecycle": "Lebenszyklus",
+  "overview": "Übersicht",
+  "createdAt": "Erstellt am",
+  "updatedAt": "Aktualisiert am",
+  "createdBy": "Erstellt von",
+  "deletedAt": "Gelöscht am",
+  "deletedBy": "Gelöscht von"
+}

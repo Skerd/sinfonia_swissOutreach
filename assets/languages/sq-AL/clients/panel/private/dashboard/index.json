@@ -1,0 +1,17 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/dashboard/index.tsx",
+  "title": "Paneli i prospektimit zviceran",
+  "loading": "Po ngarkohen treguesit…",
+  "loadFailed": "Paneli nuk u ngarkua",
+  "cards": {
+    "companiesFound": "Kompani të gjetura",
+    "companiesContacted": "Kompani të kontaktuara",
+    "emailsSent": "Email-e të dërguara",
+    "failures": "Dështime",
+    "successRate": "Shkalla e suksesit %",
+    "averageScore": "Pikët mesatare",
+    "campaignsTotal": "Fushata",
+    "campaignsActive": "Fushata aktive",
+    "repliesReceived": "Përgjigje"
+  }
+}

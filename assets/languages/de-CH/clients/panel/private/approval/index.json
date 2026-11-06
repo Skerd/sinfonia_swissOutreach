@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/index.tsx",
+  "title": "E-Mail-Freigabe",
+  "campaign": "Kampagne",
+  "status": {
+    "draft": "Entwurf",
+    "parsing": "Auftrag wird gelesen",
+    "searching": "Firmen werden gesucht",
+    "enriching": "Kontakte werden gesammelt",
+    "scoring": "Eignung wird bewertet",
+    "awaiting_approval": "Wartet auf Freigabe",
+    "sending": "Wird gesendet",
+    "completed": "Abgeschlossen",
+    "failed": "Fehlgeschlagen",
+    "cancelled": "Abgebrochen"
+  },
+  "emailStatus": {
+    "draft": "Entwurf",
+    "edited": "Bearbeitet",
+    "approved": "Freigegeben",
+    "skipped": "Übersprungen",
+    "queued": "In Warteschlange",
+    "sent": "Gesendet",
+    "failed": "Fehlgeschlagen"
+  },
+  "approveAll": "Alle freigeben",
+  "approveAllFailed": "Alle freigeben ist fehlgeschlagen",
+  "actionFailed": "Die Aktion ist fehlgeschlagen",
+  "loadFailed": "Die Freigabeliste konnte nicht geladen werden",
+  "columns": {
+    "company": "Firma",
+    "website": "Website",
+    "email": "E-Mail",
+    "score": "Punktzahl",
+    "generatedEmail": "Generierte E-Mail",
+    "actions": "Aktionen"
+  },
+  "websiteLink": "Website",
+  "subject": "Betreff",
+  "body": "Text",
+  "statusLabel": "Status",
+  "saveEdit": "Änderung speichern",
+  "approve": "Freigeben",
+  "skip": "Überspringen",
+  "empty": "Keine E-Mails zur Prüfung in dieser Kampagne."
+}

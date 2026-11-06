@@ -1,0 +1,66 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx",
+  "title": "Nuova campagna",
+  "description": "Descrivi l'incarico, scegli i cantoni e il mittente. Le e-mail attendono la tua approvazione, a meno che non le invii automaticamente.",
+  "form": {
+    "jobDescriptionLabel": "Descrizione dell'incarico",
+    "jobDescriptionPlaceholder": "Descrivi il lavoro per cui desideri offerte",
+    "countryLabel": "Paese",
+    "countryPlaceholder": "Inserisci il paese",
+    "cantonsLabel": "Cantoni",
+    "cantonsPlaceholder": "Aggiungi una sigla del cantone (es. BS)",
+    "maxCompaniesLabel": "Numero massimo di aziende",
+    "maxCompaniesPlaceholder": "Inserisci un numero",
+    "languageLabel": "Lingua dell'e-mail",
+    "languagePlaceholder": "Scegli una lingua",
+    "emailToneLabel": "Tono dell'e-mail",
+    "emailTonePlaceholder": "Scegli un tono",
+    "sendAutomaticallyLabel": "Invia automaticamente (senza approvazione)",
+    "senderCompanyNameLabel": "Nome dell'azienda",
+    "senderCompanyNamePlaceholder": "La tua azienda",
+    "senderNameLabel": "Nome del mittente",
+    "senderNamePlaceholder": "Chi firma l'e-mail",
+    "senderEmailLabel": "E-mail del mittente",
+    "senderEmailPlaceholder": "nome@azienda.ch",
+    "senderPhoneLabel": "Telefono del mittente",
+    "senderPhonePlaceholder": "Facoltativo",
+    "senderWebsiteLabel": "Sito web",
+    "senderWebsitePlaceholder": "https://…",
+    "additionalNotesLabel": "Note aggiuntive",
+    "additionalNotesPlaceholder": "Cosa devono menzionare le e-mail",
+    "language": {
+      "de": "Tedesco",
+      "fr": "Francese",
+      "it": "Italiano",
+      "en": "Inglese"
+    },
+    "emailTone": {
+      "professional": "Professionale",
+      "friendly": "Cordiale",
+      "formal": "Formale"
+    },
+    "removeCanton": "Rimuovi cantone"
+  },
+  "axios": {
+    "start": {
+      "title": "Creazione della campagna",
+      "time": 3000
+    },
+    "success": {
+      "title": "Campagna creata, la pipeline si avvia",
+      "time": 3000
+    },
+    "error": {
+      "title": "Impossibile creare la campagna. Controlla il modulo e riprova.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Nuova campagna",
+    "description": "Descrivi l'incarico, scegli i cantoni e il mittente. Le e-mail attendono la tua approvazione, a meno che non le invii automaticamente."
+  },
+  "formButtons": {
+    "cancel": "Annulla",
+    "submit": "Crea e avvia"
+  }
+}

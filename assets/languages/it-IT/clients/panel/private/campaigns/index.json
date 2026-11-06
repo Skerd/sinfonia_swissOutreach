@@ -1,0 +1,58 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
+  "title": "Campagne di prospezione",
+  "description": "Trovare aziende svizzere per un incarico e inviare loro un'offerta",
+  "create": "Nuova campagna",
+  "open": "Apri",
+  "searchPlaceholder": "Cerca campagne o aggiungi filtri...",
+  "noData": "Ancora nessuna campagna",
+  "failTitle": "Impossibile caricare le campagne",
+  "deleted": "Eliminato",
+  "active": "Attivo",
+  "failDescription": "Si è verificato un errore durante il caricamento. Riprova.",
+  "fields": {
+    "jobDescription": "Descrizione dell'incarico",
+    "country": "Paese",
+    "maxCompanies": "Numero max. di aziende",
+    "language": "Lingua",
+    "status": "Stato",
+    "createdAt": "Creato il",
+    "updatedAt": "Aggiornato il",
+    "createdBy": "Creato da",
+    "deletedAt": "Eliminato il",
+    "deletedBy": "Eliminato da",
+    "!enums": {
+      "status": {
+        "draft": "Bozza",
+        "parsing": "Lettura dell'incarico",
+        "searching": "Ricerca aziende",
+        "enriching": "Raccolta contatti",
+        "scoring": "Valutazione dell'idoneità",
+        "awaiting_approval": "In attesa di approvazione",
+        "sending": "Invio in corso",
+        "completed": "Completata",
+        "failed": "Non riuscita",
+        "cancelled": "Annullata"
+      },
+      "language": {
+        "de": "Tedesco",
+        "fr": "Francese",
+        "it": "Italiano",
+        "en": "Inglese"
+      }
+    }
+  },
+  "campaign": "Campagna",
+  "status": "Stato",
+  "language": "Lingua",
+  "failedTitle": "Caricamento non riuscito",
+  "failedDescription": "Si è verificato un errore durante il caricamento. Fai clic per riprovare.",
+  "failedTooltipDescription": "Fai clic per ricaricare i dati.",
+  "lifecycle": "Ciclo di vita",
+  "overview": "Panoramica",
+  "createdAt": "Creato il",
+  "updatedAt": "Aggiornato il",
+  "createdBy": "Creato da",
+  "deletedAt": "Eliminato il",
+  "deletedBy": "Eliminato da"
+}

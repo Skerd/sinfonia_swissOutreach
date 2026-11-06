@@ -1,0 +1,66 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/campaigns/createCampaign.tsx",
+  "title": "Nouvelle campagne",
+  "description": "Décrivez le mandat, choisissez les cantons et l'expéditeur. Les e-mails attendent votre approbation, sauf envoi automatique.",
+  "form": {
+    "jobDescriptionLabel": "Description du mandat",
+    "jobDescriptionPlaceholder": "Décrivez le travail pour lequel vous voulez des offres",
+    "countryLabel": "Pays",
+    "countryPlaceholder": "Saisissez le pays",
+    "cantonsLabel": "Cantons",
+    "cantonsPlaceholder": "Ajoutez un code de canton (p. ex. BS)",
+    "maxCompaniesLabel": "Nombre maximal d'entreprises",
+    "maxCompaniesPlaceholder": "Saisissez un nombre",
+    "languageLabel": "Langue de l'e-mail",
+    "languagePlaceholder": "Choisissez une langue",
+    "emailToneLabel": "Ton de l'e-mail",
+    "emailTonePlaceholder": "Choisissez un ton",
+    "sendAutomaticallyLabel": "Envoyer automatiquement (sans approbation)",
+    "senderCompanyNameLabel": "Nom de l'entreprise",
+    "senderCompanyNamePlaceholder": "Votre entreprise",
+    "senderNameLabel": "Nom de l'expéditeur",
+    "senderNamePlaceholder": "Qui signe l'e-mail",
+    "senderEmailLabel": "E-mail de l'expéditeur",
+    "senderEmailPlaceholder": "nom@entreprise.ch",
+    "senderPhoneLabel": "Téléphone de l'expéditeur",
+    "senderPhonePlaceholder": "Facultatif",
+    "senderWebsiteLabel": "Site web",
+    "senderWebsitePlaceholder": "https://…",
+    "additionalNotesLabel": "Notes supplémentaires",
+    "additionalNotesPlaceholder": "Ce que les e-mails doivent mentionner",
+    "language": {
+      "de": "Allemand",
+      "fr": "Français",
+      "it": "Italien",
+      "en": "Anglais"
+    },
+    "emailTone": {
+      "professional": "Professionnel",
+      "friendly": "Amical",
+      "formal": "Formel"
+    },
+    "removeCanton": "Retirer le canton"
+  },
+  "axios": {
+    "start": {
+      "title": "Création de la campagne",
+      "time": 3000
+    },
+    "success": {
+      "title": "Campagne créée, le pipeline démarre",
+      "time": 3000
+    },
+    "error": {
+      "title": "La campagne n'a pas pu être créée. Vérifiez le formulaire et réessayez.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Nouvelle campagne",
+    "description": "Décrivez le mandat, choisissez les cantons et l'expéditeur. Les e-mails attendent votre approbation, sauf envoi automatique."
+  },
+  "formButtons": {
+    "cancel": "Annuler",
+    "submit": "Créer et démarrer"
+  }
+}

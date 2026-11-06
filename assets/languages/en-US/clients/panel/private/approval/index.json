@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/index.tsx",
+  "title": "Email approval",
+  "campaign": "Campaign",
+  "status": {
+    "draft": "Draft",
+    "parsing": "Reading the job",
+    "searching": "Searching companies",
+    "enriching": "Collecting contacts",
+    "scoring": "Scoring fit",
+    "awaiting_approval": "Awaiting approval",
+    "sending": "Sending",
+    "completed": "Completed",
+    "failed": "Failed",
+    "cancelled": "Cancelled"
+  },
+  "emailStatus": {
+    "draft": "Draft",
+    "edited": "Edited",
+    "approved": "Approved",
+    "skipped": "Skipped",
+    "queued": "Queued",
+    "sent": "Sent",
+    "failed": "Failed"
+  },
+  "approveAll": "Approve all",
+  "approveAllFailed": "Approving all failed",
+  "actionFailed": "The action failed",
+  "loadFailed": "The approval queue could not be loaded",
+  "columns": {
+    "company": "Company",
+    "website": "Website",
+    "email": "Email",
+    "score": "Score",
+    "generatedEmail": "Generated email",
+    "actions": "Actions"
+  },
+  "websiteLink": "Site",
+  "subject": "Subject",
+  "body": "Body",
+  "statusLabel": "Status",
+  "saveEdit": "Save edit",
+  "approve": "Approve",
+  "skip": "Skip",
+  "empty": "No emails awaiting review for this campaign."
+}

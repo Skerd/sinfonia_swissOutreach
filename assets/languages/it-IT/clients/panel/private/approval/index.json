@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/index.tsx",
+  "title": "Approvazione e-mail",
+  "campaign": "Campagna",
+  "status": {
+    "draft": "Bozza",
+    "parsing": "Lettura dell'incarico",
+    "searching": "Ricerca aziende",
+    "enriching": "Raccolta contatti",
+    "scoring": "Valutazione dell'idoneità",
+    "awaiting_approval": "In attesa di approvazione",
+    "sending": "Invio in corso",
+    "completed": "Completata",
+    "failed": "Non riuscita",
+    "cancelled": "Annullata"
+  },
+  "emailStatus": {
+    "draft": "Bozza",
+    "edited": "Modificata",
+    "approved": "Approvata",
+    "skipped": "Saltata",
+    "queued": "In coda",
+    "sent": "Inviata",
+    "failed": "Non riuscita"
+  },
+  "approveAll": "Approva tutto",
+  "approveAllFailed": "Approvazione totale non riuscita",
+  "actionFailed": "L'azione non è riuscita",
+  "loadFailed": "Impossibile caricare la coda di approvazione",
+  "columns": {
+    "company": "Azienda",
+    "website": "Sito web",
+    "email": "E-mail",
+    "score": "Punteggio",
+    "generatedEmail": "E-mail generata",
+    "actions": "Azioni"
+  },
+  "websiteLink": "Sito",
+  "subject": "Oggetto",
+  "body": "Testo",
+  "statusLabel": "Stato",
+  "saveEdit": "Salva modifica",
+  "approve": "Approva",
+  "skip": "Salta",
+  "empty": "Nessuna e-mail da esaminare per questa campagna."
+}
