@@ -34,7 +34,11 @@
       "stats_sent": "Stats sent",
       "status": "Status",
       "swissoutreachcampaigns": "Outreach kampagnen",
-      "updatedAt": "Aktualisiert am"
+      "updatedAt": "Aktualisiert am",
+      "start": "Kampagne starten",
+      "cancel": "Kampagne abbrechen",
+      "approveAll": "Alle E-Mails freigeben",
+      "sendApproved": "Freigegebene E-Mails senden"
     },
     "Swissoutreachemails": {
       "attempts": "Attempts",
@@ -53,7 +57,10 @@
       "subject": "Subject",
       "swissoutreachemails": "Outreach emails",
       "toEmail": "Bis e-Mail",
-      "updatedAt": "Aktualisiert am"
+      "updatedAt": "Aktualisiert am",
+      "approve": "E-Mail freigeben",
+      "skip": "E-Mail überspringen",
+      "editDraft": "Entwurf bearbeiten"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "Kampagne ID",

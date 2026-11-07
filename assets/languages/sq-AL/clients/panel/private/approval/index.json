@@ -41,6 +41,7 @@
   "statusLabel": "Statusi",
   "saveEdit": "Ruaj ndryshimin",
   "approve": "Mirato",
+  "saveBeforeApprove": "Ruaj ndryshimin para se ta miratosh.",
   "skip": "Kapërce",
   "empty": "Asnjë email në pritje të shqyrtimit për këtë fushatë."
 }

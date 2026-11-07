@@ -34,7 +34,11 @@
       "stats_sent": "Statistiche: inviate",
       "status": "Stato",
       "swissoutreachcampaigns": "Campagne di prospezione",
-      "updatedAt": "Aggiornato il"
+      "updatedAt": "Aggiornato il",
+      "start": "Avvia campagna",
+      "cancel": "Annulla campagna",
+      "approveAll": "Approva tutte le e-mail",
+      "sendApproved": "Invia le e-mail approvate"
     },
     "Swissoutreachemails": {
       "attempts": "Tentativi",
@@ -53,7 +57,10 @@
       "subject": "Oggetto",
       "swissoutreachemails": "E-mail di prospezione",
       "toEmail": "E-mail destinatario",
-      "updatedAt": "Aggiornato il"
+      "updatedAt": "Aggiornato il",
+      "approve": "Approva e-mail",
+      "skip": "Salta e-mail",
+      "editDraft": "Modifica bozza"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "ID campagna",

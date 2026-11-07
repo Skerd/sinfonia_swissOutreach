@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
 import useHttpRequest, {type HttpRequest} from "@coreModule/helpers/hooks/useHttpRequest.ts";
+import {useActionAccess} from "@coreModule/helpers/hooks/useActionAccess.ts";
 import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
@@ -59,7 +60,14 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
     const isIdleDone = !!status && IDLE_DONE.has(status);
     const canCancel = !!campaign && !isIdleDone;
     const canApproveSend = status === "awaiting_approval" || status === "completed" || status === "failed";
-    const canRestart = !isRunning;
+    // The server refuses to start a finished or cancelled campaign (D85).
+    const isFinal = status === "completed" || status === "cancelled";
+    const canRestart = !isRunning && !isFinal;
+    // Each action is a role permission of the (loose) campaign model; without it the button is not shown (D95).
+    const mayStart = useActionAccess("swissoutreachcampaigns", "start");
+    const mayCancel = useActionAccess("swissoutreachcampaigns", "cancel");
+    const mayApproveAll = useActionAccess("swissoutreachcampaigns", "approveAll");
+    const maySendApproved = useActionAccess("swissoutreachcampaigns", "sendApproved");
 
     useEffect(() => {
         if (!campaign || isIdleDone) return;
@@ -111,17 +119,17 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
                     <Button asChild variant="outline" size="lg">
                         <Link to={`/swissOutreach/approval?campaignId=${campaignId}`}>{resolveLanguageKey("approval")}</Link>
                     </Button>
-                    <Button
+                    {mayStart && <Button
                         type="button"
                         variant="outline"
                         size="lg"
                         disabled={busy || !canRestart}
                         onClick={() => runAction("start")}
-                        title={!canRestart ? String(resolveLanguageKey("alreadyRunning")) : undefined}
+                        title={isRunning ? String(resolveLanguageKey("alreadyRunning")) : isFinal ? String(resolveLanguageKey("cannotRestart")) : undefined}
                     >
                         {resolveLanguageKey("restart")}
-                    </Button>
-                    <Button
+                    </Button>}
+                    {mayCancel && <Button
                         type="button"
                         variant="outline"
                         size="lg"
@@ -130,8 +138,8 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
                         onClick={() => runAction("cancel")}
                     >
                         {resolveLanguageKey("cancel")}
-                    </Button>
-                    <Button
+                    </Button>}
+                    {mayApproveAll && <Button
                         type="button"
                         variant="outline"
                         size="lg"
@@ -139,15 +147,15 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
                         onClick={() => runAction("approveAll")}
                     >
                         {resolveLanguageKey("approveAll")}
-                    </Button>
-                    <Button
+                    </Button>}
+                    {maySendApproved && <Button
                         type="button"
                         size="lg"
                         disabled={busy || !canApproveSend}
                         onClick={() => runAction("sendApproved")}
                     >
                         {resolveLanguageKey("sendApproved")}
-                    </Button>
+                    </Button>}
                 </div>
             </div>
 

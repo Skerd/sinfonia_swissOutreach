@@ -7,6 +7,7 @@
   "approval": "Freigabe",
   "restart": "Neu starten",
   "alreadyRunning": "Die Pipeline läuft bereits",
+  "cannotRestart": "Eine abgeschlossene oder abgebrochene Kampagne kann nicht neu gestartet werden",
   "cancel": "Abbrechen",
   "approveAll": "Alle freigeben",
   "sendApproved": "Freigegebene senden",

@@ -41,6 +41,7 @@
   "statusLabel": "Stato",
   "saveEdit": "Salva modifica",
   "approve": "Approva",
+  "saveBeforeApprove": "Salva la modifica prima di approvare.",
   "skip": "Salta",
   "empty": "Nessuna e-mail da esaminare per questa campagna."
 }

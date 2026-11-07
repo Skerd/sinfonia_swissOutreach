@@ -7,6 +7,7 @@
   "approval": "Approbation",
   "restart": "Redémarrer",
   "alreadyRunning": "Le pipeline est déjà en cours",
+  "cannotRestart": "Une campagne terminée ou annulée ne peut pas être relancée",
   "cancel": "Annuler",
   "approveAll": "Tout approuver",
   "sendApproved": "Envoyer les approuvés",

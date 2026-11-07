@@ -41,6 +41,7 @@
   "statusLabel": "Statut",
   "saveEdit": "Enregistrer",
   "approve": "Approuver",
+  "saveBeforeApprove": "Enregistrez votre modification avant d'approuver.",
   "skip": "Ignorer",
   "empty": "Aucun e-mail à examiner pour cette campagne."
 }

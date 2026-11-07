@@ -34,7 +34,11 @@
       "stats_sent": "Stats Sent",
       "status": "Status",
       "swissoutreachcampaigns": "Outreach Campaigns",
-      "updatedAt": "Updated At"
+      "updatedAt": "Updated At",
+      "start": "Nis fushatën",
+      "cancel": "Anulo fushatën",
+      "approveAll": "Mirato të gjitha email-et",
+      "sendApproved": "Dërgo email-et e miratuara"
     },
     "Swissoutreachemails": {
       "attempts": "Attempts",
@@ -53,7 +57,10 @@
       "subject": "Subject",
       "swissoutreachemails": "Outreach Emails",
       "toEmail": "To Email",
-      "updatedAt": "Updated At"
+      "updatedAt": "Updated At",
+      "approve": "Mirato email-in",
+      "skip": "Anashkalo email-in",
+      "editDraft": "Ndrysho draftin"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "Campaign Id",

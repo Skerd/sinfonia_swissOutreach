@@ -34,7 +34,11 @@
       "stats_sent": "Statistiques : envoyés",
       "status": "Statut",
       "swissoutreachcampaigns": "Campagnes de prospection",
-      "updatedAt": "Mis à jour le"
+      "updatedAt": "Mis à jour le",
+      "start": "Lancer la campagne",
+      "cancel": "Annuler la campagne",
+      "approveAll": "Approuver tous les e-mails",
+      "sendApproved": "Envoyer les e-mails approuvés"
     },
     "Swissoutreachemails": {
       "attempts": "Tentatives",
@@ -53,7 +57,10 @@
       "subject": "Objet",
       "swissoutreachemails": "E-mails de prospection",
       "toEmail": "E-mail du destinataire",
-      "updatedAt": "Mis à jour le"
+      "updatedAt": "Mis à jour le",
+      "approve": "Approuver l'e-mail",
+      "skip": "Ignorer l'e-mail",
+      "editDraft": "Modifier le brouillon"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "ID de campagne",

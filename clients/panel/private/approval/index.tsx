@@ -3,6 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLanguage.tsx";
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
 import useHttpRequest, {type HttpRequest} from "@coreModule/helpers/hooks/useHttpRequest.ts";
+import {useActionAccess} from "@coreModule/helpers/hooks/useActionAccess.ts";
 import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
@@ -51,7 +52,12 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
         const prospects = new Map((prospectsRequest.data?.data ?? []).map((p) => [p._id, p]));
         return (emailsRequest.data?.data ?? [])
             .filter((e) => ["draft", "edited", "approved"].includes(e.status))
-            .map((e) => ({...e, ...drafts[e._id], prospect: prospects.get(e.prospectCompanyId)}));
+            .map((e) => {
+                const draft = drafts[e._id];
+                // Approving sends the stored text, so an unsaved edit must be saved first.
+                const unsaved = draft != null && (draft.subject !== e.subject || draft.body !== e.body);
+                return {...e, ...draft, unsaved, prospect: prospects.get(e.prospectCompanyId)};
+            });
     }, [emailsRequest.data, prospectsRequest.data, drafts]);
 
     const [emailAction, setEmailAction] = useState<{action: EmailAction; payload: Record<string, unknown>}>({action: "approve", payload: {}});
@@ -83,6 +89,12 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
     const editDraft = (emailId: string, patch: Partial<Draft>, current: Draft) =>
         setDrafts((previous) => ({...previous, [emailId]: {...current, ...previous[emailId], ...patch}}));
 
+    // Each action is a role permission of its (loose) model; without it the control is not shown (D95).
+    const mayApprove = useActionAccess("swissoutreachemails", "approve");
+    const maySkip = useActionAccess("swissoutreachemails", "skip");
+    const mayEditDraft = useActionAccess("swissoutreachemails", "editDraft");
+    const mayApproveAll = useActionAccess("swissoutreachcampaigns", "approveAll");
+
     return (
         <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -99,9 +111,11 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                             </NativeSelectOption>
                         ))}
                     </NativeSelect>
-                    <Button type="button" variant="outline" disabled={approveAllRequest.loading} onClick={approveAll}>
-                        {resolveLanguageKey("approveAll")}
-                    </Button>
+                    {mayApproveAll && (
+                        <Button type="button" variant="outline" disabled={approveAllRequest.loading} onClick={approveAll}>
+                            {resolveLanguageKey("approveAll")}
+                        </Button>
+                    )}
                 </div>
             </div>
             {(error || loadFailed) && <p className="text-sm text-destructive">{error || resolveLanguageKey("loadFailed")}</p>}
@@ -137,12 +151,14 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                                         aria-label={String(resolveLanguageKey("subject"))}
                                         className="mb-1 h-7 w-full rounded px-2 py-1 text-xs md:text-xs"
                                         value={row.subject}
+                                        readOnly={!mayEditDraft}
                                         onChange={(e) => editDraft(row._id, {subject: e.target.value}, row)}
                                     />
                                     <Textarea
                                         aria-label={String(resolveLanguageKey("body"))}
                                         className="h-28 min-h-0 w-full rounded px-2 py-1 text-xs md:text-xs"
                                         value={row.body}
+                                        readOnly={!mayEditDraft}
                                         onChange={(e) => editDraft(row._id, {body: e.target.value}, row)}
                                     />
                                     <div className="mt-1 text-xs text-muted-foreground">
@@ -151,7 +167,7 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                                 </td>
                                 <td className="px-3 py-2">
                                     <div className="flex flex-col gap-1">
-                                        <Button
+                                        {mayEditDraft && <Button
                                             type="button"
                                             variant="outline"
                                             size="xs"
@@ -159,16 +175,17 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                                             onClick={() => act(row._id, "editDraft", {subject: row.subject, body: row.body})}
                                         >
                                             {resolveLanguageKey("saveEdit")}
-                                        </Button>
-                                        <Button
+                                        </Button>}
+                                        {mayApprove && <Button
                                             type="button"
                                             size="xs"
-                                            disabled={busyId === row._id || !row.toEmail}
+                                            disabled={busyId === row._id || !row.toEmail || row.unsaved}
+                                            aria-describedby={row.unsaved ? `unsaved-${row._id}` : undefined}
                                             onClick={() => act(row._id, "approve")}
                                         >
                                             {resolveLanguageKey("approve")}
-                                        </Button>
-                                        <Button
+                                        </Button>}
+                                        {maySkip && <Button
                                             type="button"
                                             variant="outline"
                                             size="xs"
@@ -176,7 +193,12 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                                             onClick={() => act(row._id, "skip")}
                                         >
                                             {resolveLanguageKey("skip")}
-                                        </Button>
+                                        </Button>}
+                                        {mayApprove && row.unsaved && (
+                                            <p id={`unsaved-${row._id}`} className="max-w-[10rem] text-xs text-muted-foreground">
+                                                {resolveLanguageKey("saveBeforeApprove")}
+                                            </p>
+                                        )}
                                     </div>
                                 </td>
                             </tr>

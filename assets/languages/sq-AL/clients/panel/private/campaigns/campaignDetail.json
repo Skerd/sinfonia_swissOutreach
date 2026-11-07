@@ -7,6 +7,7 @@
   "approval": "Miratimi",
   "restart": "Rinis",
   "alreadyRunning": "Procesi është tashmë në punë",
+  "cannotRestart": "Një fushatë e përfunduar ose e anuluar nuk mund të rinisë",
   "cancel": "Anulo",
   "approveAll": "Mirato të gjitha",
   "sendApproved": "Dërgo të miratuarat",

@@ -41,6 +41,7 @@
   "statusLabel": "Status",
   "saveEdit": "Änderung speichern",
   "approve": "Freigeben",
+  "saveBeforeApprove": "Speichern Sie Ihre Änderung vor der Freigabe.",
   "skip": "Überspringen",
   "empty": "Keine E-Mails zur Prüfung in dieser Kampagne."
 }
