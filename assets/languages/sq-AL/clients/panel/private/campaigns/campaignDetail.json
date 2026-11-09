@@ -26,7 +26,7 @@
     "running": "Në punë… ({status})"
   },
   "status": {
-    "draft": "Draft",
+    "draft": "Skicë",
     "parsing": "Po lexohet puna",
     "searching": "Po kërkohen kompanitë",
     "enriching": "Po mblidhen kontaktet",

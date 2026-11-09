@@ -23,7 +23,7 @@
     "deletedBy": "Fshirë nga",
     "!enums": {
       "status": {
-        "draft": "Draft",
+        "draft": "Skicë",
         "parsing": "Po lexohet puna",
         "searching": "Po kërkohen kompanitë",
         "enriching": "Po mblidhen kontaktet",

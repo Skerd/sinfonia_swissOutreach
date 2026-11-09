@@ -3,7 +3,7 @@
   "title": "Miratimi i email-eve",
   "campaign": "Fushata",
   "status": {
-    "draft": "Draft",
+    "draft": "Skicë",
     "parsing": "Po lexohet puna",
     "searching": "Po kërkohen kompanitë",
     "enriching": "Po mblidhen kontaktet",
@@ -15,7 +15,7 @@
     "cancelled": "Anuluar"
   },
   "emailStatus": {
-    "draft": "Draft",
+    "draft": "Skicë",
     "edited": "Ndryshuar",
     "approved": "Miratuar",
     "skipped": "Kapërcyer",
