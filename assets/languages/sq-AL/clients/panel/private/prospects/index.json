@@ -34,10 +34,10 @@
       }
     }
   },
-  "prospectCompany": "Kompani prospekt",
+  "prospectCompany": "Kompani e mundshme",
   "failedTitle": "Ngarkimi dështoi",
-  "failedDescription": "Diçka shkoi keq gjatë ngarkimit. Kliko për ta provuar sërish.",
-  "failedTooltipDescription": "Kliko për t'i ngarkuar sërish të dhënat.",
+  "failedDescription": "Diçka shkoi keq gjatë ngarkimit. Klikoni për ta provuar sërish.",
+  "failedTooltipDescription": "Klikoni për t'i ngarkuar sërish të dhënat.",
   "lifecycle": "Cikli i jetës",
   "overview": "Përmbledhje",
   "createdAt": "Krijuar më",

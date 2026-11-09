@@ -37,7 +37,7 @@
   "prospectCompany": "Unternehmen",
   "failedTitle": "Laden fehlgeschlagen",
   "failedDescription": "Beim Laden ist etwas schiefgelaufen. Zum Wiederholen klicken.",
-  "failedTooltipDescription": "Klicken, um die Daten erneut zu laden.",
+  "failedTooltipDescription": "Klicken Sie, um die Daten erneut zu laden.",
   "lifecycle": "Lebenszyklus",
   "overview": "Übersicht",
   "createdAt": "Erstellt am",

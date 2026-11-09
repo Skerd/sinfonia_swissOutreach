@@ -1,6 +1,6 @@
 {
   "path": "src/modules/swissOutreach/clients/panel/private/dashboard/index.tsx",
-  "title": "Paneli i prospektimit zviceran",
+  "title": "Paneli i kontaktimit në Zvicër",
   "loading": "Po ngarkohen treguesit…",
   "loadFailed": "Paneli nuk u ngarkua",
   "cards": {

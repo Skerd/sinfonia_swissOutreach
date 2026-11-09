@@ -7,8 +7,8 @@
   "searchPlaceholder": "Rechercher des campagnes ou ajouter des filtres...",
   "noData": "Aucune campagne pour l'instant",
   "failTitle": "Impossible de charger les campagnes",
-  "deleted": "Supprimé",
-  "active": "Actif",
+  "deleted": "Supprimée",
+  "active": "Active",
   "failDescription": "Une erreur s'est produite lors du chargement. Veuillez réessayer.",
   "fields": {
     "jobDescription": "Description du mandat",

@@ -34,7 +34,7 @@
       }
     }
   },
-  "prospectCompany": "Azienda prospect",
+  "prospectCompany": "Azienda potenziale",
   "failedTitle": "Caricamento non riuscito",
   "failedDescription": "Si è verificato un errore durante il caricamento. Fai clic per riprovare.",
   "failedTooltipDescription": "Fai clic per ricaricare i dati.",

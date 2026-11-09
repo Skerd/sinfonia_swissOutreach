@@ -30,18 +30,18 @@
   "columns": {
     "company": "Kompania",
     "website": "Faqja",
-    "email": "Email",
+    "email": "Emaili",
     "score": "Pikët",
     "generatedEmail": "Email-i i krijuar",
     "actions": "Veprimet"
   },
   "websiteLink": "Faqja",
-  "subject": "Subjekti",
+  "subject": "Tema",
   "body": "Teksti",
   "statusLabel": "Statusi",
   "saveEdit": "Ruaj ndryshimin",
   "approve": "Mirato",
-  "saveBeforeApprove": "Ruaj ndryshimin para se ta miratosh.",
+  "saveBeforeApprove": "Ruani ndryshimin para se ta miratoni.",
   "skip": "Kapërce",
   "empty": "Asnjë email në pritje të shqyrtimit për këtë fushatë."
 }

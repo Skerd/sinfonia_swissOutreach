@@ -1,7 +1,7 @@
 {
   "path": "src/modules/swissOutreach/clients/panel/private/campaigns/index.tsx",
   "title": "Campagne di prospezione",
-  "description": "Trovare aziende svizzere per un incarico e inviare loro un'offerta",
+  "description": "Trova aziende svizzere per un incarico e invia loro un'offerta via e-mail",
   "create": "Nuova campagna",
   "open": "Apri",
   "searchPlaceholder": "Cerca campagne o aggiungi filtri...",

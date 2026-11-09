@@ -3,7 +3,7 @@
     "Swissoutreachcampaigns": "Campagne di prospezione",
     "Swissoutreachemails": "E-mail di prospezione",
     "Swissoutreachpipelinerunlogs": "Log di esecuzione della pipeline di prospezione",
-    "Swissoutreachprospectcompanies": "Aziende prospect"
+    "Swissoutreachprospectcompanies": "Aziende potenziali"
   },
   "permissions": {
     "Swissoutreachcampaigns": {
@@ -51,7 +51,7 @@
       "language": "Lingua",
       "lastError": "Ultimo errore",
       "messageId": "ID messaggio",
-      "prospectCompanyId": "ID azienda prospect",
+      "prospectCompanyId": "ID azienda potenziale",
       "sentAt": "Inviato il",
       "status": "Stato",
       "subject": "Oggetto",
@@ -94,7 +94,7 @@
       "services": "Servizi",
       "status": "Stato",
       "summary": "Riepilogo",
-      "swissoutreachprospectcompanies": "Aziende prospect",
+      "swissoutreachprospectcompanies": "Aziende potenziali",
       "uid": "IDI",
       "updatedAt": "Aggiornato il",
       "website": "Sito web",

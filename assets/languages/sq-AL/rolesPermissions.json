@@ -54,13 +54,13 @@
       "prospectCompanyId": "ID e kompanisë së mundshme",
       "sentAt": "Dërguar më",
       "status": "Statusi",
-      "subject": "Subjekti",
+      "subject": "Tema",
       "swissoutreachemails": "Emailet e kontaktimit",
       "toEmail": "Emaili i marrësit",
       "updatedAt": "Përditësuar më",
       "approve": "Mirato email-in",
       "skip": "Anashkalo email-in",
-      "editDraft": "Ndrysho draftin"
+      "editDraft": "Ndrysho skicën"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "ID e fushatës",

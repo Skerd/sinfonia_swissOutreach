@@ -7,8 +7,8 @@
   "searchPlaceholder": "Rechercher des entreprises ou ajouter des filtres...",
   "noData": "Aucune entreprise pour cette campagne pour l'instant",
   "failTitle": "Impossible de charger les entreprises",
-  "deleted": "Supprimé",
-  "active": "Actif",
+  "deleted": "Supprimée",
+  "active": "Active",
   "failDescription": "Une erreur s'est produite lors du chargement. Veuillez réessayer.",
   "fields": {
     "campaignId": "Campagne",
