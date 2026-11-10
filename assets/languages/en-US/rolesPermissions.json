@@ -114,15 +114,5 @@
       "swissoutreachsuppressedcontacts": "Outreach do-not-contact list",
       "updatedAt": "Updated at"
     }
-  },
-  "roles": {
-    "outreach_operator": {
-      "name": "Outreach operator",
-      "description": "Runs outreach campaigns: creates and edits them, starts and cancels them, and rewrites drafted emails. Reads prospects, emails, the pipeline log and the do-not-contact list. Cannot approve, skip or send emails."
-    },
-    "outreach_approver": {
-      "name": "Outreach approver",
-      "description": "Everything the operator does, and decides what goes out: approves or skips emails, sends the approved ones, and keeps the do-not-contact list."
-    }
   }
 }

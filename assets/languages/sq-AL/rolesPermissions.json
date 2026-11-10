@@ -114,15 +114,5 @@
       "swissoutreachsuppressedcontacts": "Lista e mos-kontaktit të kontaktimit",
       "updatedAt": "Përditësuar më"
     }
-  },
-  "roles": {
-    "outreach_operator": {
-      "name": "Operator i kontakteve",
-      "description": "Drejton fushatat e kontaktimit: i krijon dhe i ndryshon, i nis dhe i anulon dhe rishkruan email-et e hartuara. Lexon kontaktet potenciale, email-et, regjistrin e procesit dhe listën e mos-kontaktimit. Nuk mund të miratojë, kapërcejë ose dërgojë email-e."
-    },
-    "outreach_approver": {
-      "name": "Miratues i kontakteve",
-      "description": "Gjithçka që bën operatori, dhe vendos se çfarë del: miraton ose kapërcen email-et, dërgon ato të miratuara dhe mban listën e mos-kontaktimit."
-    }
   }
 }

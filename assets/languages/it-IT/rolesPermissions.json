@@ -114,15 +114,5 @@
       "swissoutreachsuppressedcontacts": "Lista di esclusione della prospezione",
       "updatedAt": "Aggiornato il"
     }
-  },
-  "roles": {
-    "outreach_operator": {
-      "name": "Operatore outreach",
-      "description": "Gestisce le campagne di outreach: le crea e modifica, le avvia e annulla e riscrive le e-mail in bozza. Consulta potenziali clienti, e-mail, il registro della pipeline e la lista di esclusione. Non può approvare, saltare o inviare e-mail."
-    },
-    "outreach_approver": {
-      "name": "Approvatore outreach",
-      "description": "Tutto ciò che fa l'operatore, e decide cosa parte: approva o salta le e-mail, invia quelle approvate e gestisce la lista di esclusione."
-    }
   }
 }
