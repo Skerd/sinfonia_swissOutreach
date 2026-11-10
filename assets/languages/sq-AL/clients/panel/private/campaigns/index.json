@@ -11,6 +11,7 @@
   "active": "Aktiv",
   "failDescription": "Diçka shkoi keq gjatë ngarkimit. Ju lutem provoni sërish.",
   "fields": {
+    "name": "Emri",
     "jobDescription": "Përshkrimi i punës",
     "country": "Shteti",
     "maxCompanies": "Maks. kompani",
@@ -54,5 +55,54 @@
   "updatedAt": "Përditësuar më",
   "createdBy": "Krijuar nga",
   "deletedAt": "Fshirë më",
-  "deletedBy": "Fshirë nga"
+  "deletedBy": "Fshirë nga",
+  "name": "Emri",
+  "emailTone": "Toni i email-it",
+  "country": "Shteti",
+  "cantons": "Kantonet",
+  "maxCompanies": "Kompani maksimale",
+  "sendAutomatically": "Dërgo automatikisht",
+  "jobDescription": "Përshkrimi i punës",
+  "additionalNotes": "Shënime shtesë",
+  "sender": "Dërguesi",
+  "senderCompanyName": "Kompania dërguese",
+  "senderName": "Emri i dërguesit",
+  "senderEmail": "Email-i i dërguesit",
+  "senderPhone": "Telefoni i dërguesit",
+  "senderWebsite": "Faqja e internetit e dërguesit",
+  "results": "Rezultatet",
+  "lastError": "Gabimi i fundit",
+  "stats": {
+    "found": "Gjetur",
+    "enriched": "Kontakte të mbledhura",
+    "scored": "Vlerësuar",
+    "approved": "Miratuar",
+    "sent": "Dërguar",
+    "failed": "Dështuar"
+  },
+  "statusValues": {
+    "draft": "Skicë",
+    "parsing": "Po lexohet puna",
+    "searching": "Po kërkohen kompanitë",
+    "enriching": "Po mblidhen kontaktet",
+    "scoring": "Po vlerësohet përshtatja",
+    "awaiting_approval": "Në pritje të miratimit",
+    "sending": "Po dërgohet",
+    "completed": "Përfunduar",
+    "failed": "Dështoi",
+    "cancelled": "Anuluar"
+  },
+  "languageValues": {
+    "de": "Gjermanisht",
+    "fr": "Frëngjisht",
+    "it": "Italisht",
+    "en": "Anglisht"
+  },
+  "emailToneValues": {
+    "professional": "Profesional",
+    "friendly": "Miqësor",
+    "formal": "Zyrtar"
+  },
+  "yes": "Po",
+  "no": "Jo"
 }

@@ -11,7 +11,8 @@
     "successRate": "Tasso di successo %",
     "averageScore": "Punteggio medio",
     "campaignsTotal": "Campagne",
-    "campaignsActive": "Campagne attive",
-    "repliesReceived": "Risposte"
-  }
+    "campaignsActive": "Campagne attive"
+  },
+  "campaign": "Campagna",
+  "allCampaigns": "Tutte le campagne"
 }

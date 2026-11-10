@@ -3,6 +3,8 @@
   "title": "Neue Kampagne",
   "description": "Beschreiben Sie den Auftrag, wählen Sie Kantone und den Absender. E-Mails warten auf Ihre Freigabe, ausser Sie senden sie automatisch.",
   "form": {
+    "nameLabel": "Kampagnenname",
+    "namePlaceholder": "Zum Beispiel: Badsanierung Basel",
     "jobDescriptionLabel": "Auftragsbeschreibung",
     "jobDescriptionPlaceholder": "Beschreiben Sie die Arbeit, für die Sie Offerten möchten",
     "countryLabel": "Land",

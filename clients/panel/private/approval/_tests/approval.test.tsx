@@ -28,7 +28,7 @@ function renderPage(props: {campaignId?: string} = {}, permissions: string[] = A
 }
 
 const campaign = (id: string, senderCompanyName: string): Campaign => ({
-    _id: id, jobDescription: "Painters", country: "CH", cantons: ["ZH"], maxCompanies: 20, language: "de", emailTone: "professional",
+    _id: id, name: `${senderCompanyName} campaign`, jobDescription: "Painters", country: "CH", cantons: ["ZH"], maxCompanies: 20, language: "de", emailTone: "professional",
     sendAutomatically: false, senderCompanyName, senderName: "Sam", senderEmail: "sam@example.ch", status: "awaiting_approval",
     stats: {found: 2, enriched: 2, scored: 2, approved: 0, sent: 0, failed: 0},
 });
@@ -43,22 +43,32 @@ const prospect = (id: string, companyName: string, overrides: Partial<ProspectCo
 });
 
 const campaigns = [campaign("c1", "Alpha AG"), campaign("c2", "Beta GmbH")];
-/** What the email list answers for the queue's filter: the emails still to decide. */
+/** The campaign's emails; the email list answers with those in the queue filter's statuses. */
 const emails = [
     email("e1", {prospectCompanyId: "pc1"}),
     email("e2", {status: "edited", toEmail: undefined}),
+    email("e3", {status: "failed", lastError: "550 Mailbox unavailable"}),
+    email("e4", {status: "sent"}),
 ];
 const prospects = [prospect("pc1", "Maler Meier", {score: 87, website: "https://meier.ch"})];
 
 type Call = {method: string; url: string; data: Record<string, unknown>};
 
-function serve({actionError}: {actionError?: unknown} = {}) {
-    apiClientMock.mockImplementation(({method, url}: Call) => {
+/** The statuses a list request is filtered to. */
+const statusesOf = (call: Call) => (call.data.filter as {rules: {field: string; value: unknown}[]}).rules.find((rule) => rule.field === "status")?.value;
+
+function serve({actionError, actionData = {}, emailsTotal}: {actionError?: unknown; actionData?: Record<string, unknown>; emailsTotal?: number} = {}) {
+    apiClientMock.mockImplementation((call: Call) => {
+        const {method, url} = call;
         if (method === "post" && url === "/api/swissOutreach/campaign") return Promise.resolve({data: {data: campaigns}});
-        if (url === "/api/swissOutreach/outreachEmail") return Promise.resolve({data: {data: emails, total: emails.length}});
+        if (url === "/api/swissOutreach/outreachEmail") {
+            const statuses = statusesOf(call);
+            const shown = emails.filter((e) => Array.isArray(statuses) && statuses.includes(e.status));
+            return Promise.resolve({data: {data: shown, total: emailsTotal ?? shown.length}});
+        }
         if (url === "/api/swissOutreach/prospectCompany") return Promise.resolve({data: {data: prospects, total: prospects.length}});
         if (actionError) return Promise.reject(actionError);
-        return Promise.resolve({data: {data: {}}});
+        return Promise.resolve({data: {data: actionData}});
     });
 }
 
@@ -68,7 +78,8 @@ const actionCalls = () => calls()
     .map(({url, data}) => ({url, data}));
 /** The campaign a list request is filtered to. */
 const campaignOf = (call: Call) => (call.data.filter as {rules: {field: string; value: unknown}[]}).rules.find((rule) => rule.field === "campaignId")?.value;
-const queueLoads = (campaignId: string) => calls().filter((c) => c.url === "/api/swissOutreach/outreachEmail" && campaignOf(c) === campaignId).length;
+const queueCalls = () => calls().filter((c) => c.url === "/api/swissOutreach/outreachEmail");
+const queueLoads = (campaignId: string) => queueCalls().filter((c) => campaignOf(c) === campaignId).length;
 
 async function rowOf(text: string) {
     const tr = (await screen.findByText(text)).closest("tr");
@@ -201,10 +212,10 @@ describe("swissOutreach approval queue", () => {
         renderPage({}, []);
         const row = await rowOf("Maler Meier");
 
-        expect(within(row).queryByRole("button")).not.toBeInTheDocument();
+        // Only the email's details, which reading the queue allows.
+        expect(within(row).getAllByRole("button").map((b) => b.textContent)).toEqual(["details"]);
         expect(screen.queryByRole("button", {name: "approveAll"})).not.toBeInTheDocument();
-        expect(within(row).getByRole("textbox", {name: "subject"})).toHaveAttribute("readonly");
-        expect(within(row).getByRole("textbox", {name: "body"})).toHaveAttribute("readonly");
+        for (const name of ["toEmail", "subject", "body"]) expect(within(row).getByRole("textbox", {name})).toHaveAttribute("readonly");
     });
 
     it("shows each action only with its own permission", async () => {
@@ -212,7 +223,7 @@ describe("swissOutreach approval queue", () => {
         renderPage({}, ["swissoutreachemails[action:skip]", "swissoutreachcampaigns[action:approveAll]"]);
         const row = await rowOf("Maler Meier");
 
-        expect(within(row).getAllByRole("button").map((b) => b.textContent)).toEqual(["skip"]);
+        expect(within(row).getAllByRole("button").map((b) => b.textContent)).toEqual(["skip", "details"]);
         expect(screen.getByRole("button", {name: "approveAll"})).toBeInTheDocument();
     });
 
@@ -230,5 +241,79 @@ describe("swissOutreach approval queue", () => {
         fireEvent.click(within(await rowOf("Maler Meier")).getByRole("button", {name: "skip"}));
 
         expect(await screen.findByText("Email has no recipient")).toBeInTheDocument();
+    });
+
+    it("loads only the prospects of the emails it shows", async () => {
+        serve();
+        renderPage();
+        await rowOf("Maler Meier");
+
+        const prospectsLoad = calls().find((c) => c.url === "/api/swissOutreach/prospectCompany")!;
+        expect(prospectsLoad.data).toMatchObject({offset: 0, limit: 2, ids: ["pc1", "pc-e2"]});
+    });
+
+    // Regression: failed emails were filtered out of the queue and their error was never shown, so they were stranded.
+    it("shows the failed emails with their last error, and lets them be approved again", async () => {
+        serve();
+        renderPage();
+        await rowOf("Maler Meier");
+        expect(screen.queryByText("pc-e3")).not.toBeInTheDocument();
+
+        fireEvent.change(screen.getByRole("combobox", {name: "view"}), {target: {value: "failed"}});
+
+        const row = await rowOf("pc-e3");
+        expect(statusesOf(queueCalls().at(-1)!)).toEqual(["failed"]);
+        expect(within(row).getByText("lastError: 550 Mailbox unavailable")).toBeInTheDocument();
+        expect(screen.queryByText("Maler Meier")).not.toBeInTheDocument();
+        fireEvent.click(within(row).getByRole("button", {name: "approve"}));
+        await waitFor(() => expect(actionCalls()).toEqual([{url: "/api/swissOutreach/outreachEmail/approve", data: {emailId: "e3"}}]));
+    });
+
+    it("shows sent emails as history: nothing to rewrite, approve or skip", async () => {
+        serve();
+        renderPage();
+        await rowOf("Maler Meier");
+
+        fireEvent.change(screen.getByRole("combobox", {name: "view"}), {target: {value: "sent"}});
+
+        const row = await rowOf("pc-e4");
+        expect(within(row).getAllByRole("button").map((b) => b.textContent)).toEqual(["doNotContact", "details"]);
+        for (const name of ["toEmail", "subject", "body"]) expect(within(row).getByRole("textbox", {name})).toHaveAttribute("readonly");
+    });
+
+    // Regression: an email drafted without a recipient could not be approved, and nothing could set one.
+    it("sets the recipient of an email that has none, then lets it be approved", async () => {
+        serve();
+        renderPage();
+        const row = await rowOf("pc-e2");
+
+        fireEvent.change(within(row).getByRole("textbox", {name: "toEmail"}), {target: {value: "offerte@meier.ch"}});
+        expect(within(row).getByRole("button", {name: "approve"})).toHaveAccessibleDescription("saveBeforeApprove");
+        fireEvent.click(within(row).getByRole("button", {name: "saveEdit"}));
+
+        await waitFor(() => expect(actionCalls()).toEqual([
+            {url: "/api/swissOutreach/outreachEmail/editDraft", data: {emailId: "e2", subject: "Subject e2", body: "Body e2", toEmail: "offerte@meier.ch"}},
+        ]));
+    });
+
+    it("says so when approving skipped the email because its recipient is on the do-not-contact list", async () => {
+        serve({actionData: {...email("e1"), status: "skipped"}});
+        renderPage();
+
+        fireEvent.click(within(await rowOf("Maler Meier")).getByRole("button", {name: "approve"}));
+
+        expect(await screen.findByText("skippedDoNotContact")).toBeInTheDocument();
+    });
+
+    // Regression (TD-F49): the queue loaded at most 200 emails, while a campaign may hold 500.
+    it("pages through a long queue", async () => {
+        serve({emailsTotal: 45});
+        renderPage();
+        await rowOf("Maler Meier");
+        expect(queueCalls().at(-1)!.data).toMatchObject({offset: 0, limit: 20});
+
+        fireEvent.click(screen.getByRole("button", {name: "nextPage"}));
+
+        await waitFor(() => expect(queueCalls().at(-1)!.data).toMatchObject({offset: 20, limit: 20}));
     });
 });

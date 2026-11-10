@@ -44,5 +44,31 @@
   "updatedAt": "Aggiornato il",
   "createdBy": "Creato da",
   "deletedAt": "Eliminato il",
-  "deletedBy": "Eliminato da"
+  "deletedBy": "Eliminato da",
+  "status": "Stato",
+  "companyName": "Azienda",
+  "uid": "IDI",
+  "legalForm": "Forma giuridica",
+  "canton": "Cantone",
+  "city": "Località",
+  "website": "Sito web",
+  "registerUrl": "Iscrizione al registro di commercio",
+  "contacts": "Contatti",
+  "emails": "Indirizzi e-mail",
+  "phones": "Numeri di telefono",
+  "assessment": "Idoneità all'incarico",
+  "score": "Punteggio",
+  "scoreReason": "Motivo del punteggio",
+  "summary": "Riepilogo IA",
+  "services": "Servizi",
+  "statusValues": {
+    "discovered": "Trovata",
+    "website_found": "Sito trovato",
+    "crawled": "Sito analizzato",
+    "scored": "Valutata",
+    "skipped": "Saltata",
+    "approved": "Approvata",
+    "sent": "Inviata",
+    "failed": "Non riuscita"
+  }
 }

@@ -3,6 +3,8 @@
   "title": "Nuova campagna",
   "description": "Descrivi l'incarico, scegli i cantoni e il mittente. Le e-mail attendono la tua approvazione, a meno che non le invii automaticamente.",
   "form": {
+    "nameLabel": "Nome della campagna",
+    "namePlaceholder": "Ad esempio: ristrutturazione bagno, Basilea",
     "jobDescriptionLabel": "Descrizione dell'incarico",
     "jobDescriptionPlaceholder": "Descrivi il lavoro per cui desideri offerte",
     "countryLabel": "Paese",

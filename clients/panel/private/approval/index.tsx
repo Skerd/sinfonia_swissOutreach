@@ -8,31 +8,46 @@ import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
 import type {OutreachEmail} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/outreachEmail/outreachEmail.dto.ts";
+import type {OutreachEmailStatusValue} from "armonia/src/modules/swissOutreach/types/constants.ts";
 import type {FilterGroup} from "armonia/src/modules/core/database/filter/filter.types.ts";
-import {Table} from "@coreModule/components/ui/table/table.tsx";
+import type {TableResponse} from "armonia/src/modules/core/types/shared.types.ts";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@coreModule/components/ui/table/table.tsx";
 import {Button} from "@coreModule/components/ui/button.tsx";
 import {Input} from "@coreModule/components/ui/input.tsx";
 import {Textarea} from "@coreModule/components/ui/textarea.tsx";
 import {NativeSelect, NativeSelectOption} from "@coreModule/components/ui/native-select.tsx";
+import Paginator from "@coreModule/components/custom/paginator/index.tsx";
+import OutreachEmailSheetView from "./outreachEmailSheetView.tsx";
 
 type Props = WithLanguageType & {campaignId?: string};
 
 type EmailAction = "approve" | "skip" | "editDraft" | "doNotContact";
-type Draft = {subject: string; body: string};
+type Draft = {toEmail: string; subject: string; body: string};
+
+/** Which emails the queue shows: the ones still to decide, or what became of the others. */
+const VIEWS = ["pending", "failed", "sent", "skipped"] as const;
+type View = (typeof VIEWS)[number];
+const VIEW_STATUSES: Record<View, OutreachEmailStatusValue[]> = {
+    pending: ["draft", "edited", "approved"],
+    failed: ["failed"],
+    sent: ["queued", "sent"],
+    skipped: ["skipped"],
+};
+/** A sent email, or one being sent, is history: it is not rewritten, approved or skipped (the server refuses). */
+const SENT: OutreachEmailStatusValue[] = ["queued", "sent"];
+const PAGE_SIZE = 20;
 
 const CAMPAIGNS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
 const EMAILS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/outreachEmail"};
 const PROSPECTS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/prospectCompany"};
-/** The most rows one list request returns (the list routes' limit). */
-const QUEUE_LIMIT = 200;
 
-/** The campaign's emails still waiting for a decision, as the email list filters them. */
-const queueFilter = (campaignId: string): FilterGroup => ({
+/** The campaign's emails in the chosen view, as the email list filters them. */
+const queueFilter = (campaignId: string, view: View): FilterGroup => ({
     id: "approval-queue",
     operator: "and",
     rules: [
         {id: "campaign", field: "campaignId", operator: "equals", value: campaignId},
-        {id: "status", field: "status", operator: "in", value: ["draft", "edited", "approved"]},
+        {id: "status", field: "status", operator: "in", value: VIEW_STATUSES[view]},
     ],
     groups: [],
 });
@@ -45,53 +60,72 @@ const campaignFilter = (campaignId: string): FilterGroup => ({
 const EMAIL_ACTION_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/outreachEmail"};
 const APPROVE_ALL_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/approveAll"};
 
+const draftOf = (email: OutreachEmail): Draft => ({toEmail: email.toEmail ?? "", subject: email.subject, body: email.body});
+
 function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props) {
     const campaignsRequest = useHttpRequest<{data: Campaign[]}>(CAMPAIGNS_REQUEST, {offset: 0, limit: 100}, 1);
     const campaigns = campaignsRequest.data?.data ?? [];
     const [pickedCampaignId, setCampaignId] = useState(initialCampaignId || "");
     // Without a campaign in the URL, the first one is shown.
     const campaignId = pickedCampaignId || campaigns[0]?._id || "";
+    const [view, setView] = useState<View>("pending");
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(PAGE_SIZE);
     const [error, setError] = useState<string | null>(null);
+    const [notice, setNotice] = useState<string | null>(null);
+    const [detailsId, setDetailsId] = useState<string | null>(null);
 
-    // The queue (emails + their prospects) reloads on a campaign change and after every action.
+    // One page of the queue reloads on a campaign, view or page change and after every action; then its prospects.
     const [loadCount, setLoadCount] = useState(0);
     const reload = () => setLoadCount((count) => count + 1);
     useEffect(() => {
         if (campaignId) setLoadCount((count) => count + 1);
-    }, [campaignId]);
-    const emailsRequest = useHttpRequest<{data: OutreachEmail[]}>(EMAILS_REQUEST, {
-        offset: 0,
-        limit: QUEUE_LIMIT,
-        filter: queueFilter(campaignId),
+    }, [campaignId, view, offset, limit]);
+    const [prospectIds, setProspectIds] = useState<string[]>([]);
+    const [prospectLoadCount, setProspectLoadCount] = useState(0);
+    const emailsRequest = useHttpRequest<TableResponse<OutreachEmail>>(EMAILS_REQUEST, {
+        offset,
+        limit,
+        filter: queueFilter(campaignId, view),
     }, loadCount, true, {
-        success: () => setDrafts({}),
+        success: (response) => {
+            setDrafts({});
+            const ids = [...new Set(response.data.map((email) => email.prospectCompanyId))];
+            setProspectIds(ids);
+            if (ids.length > 0) setProspectLoadCount((count) => count + 1);
+        },
     });
-    const prospectsRequest = useHttpRequest<{data: ProspectCompany[]}>(PROSPECTS_REQUEST, {
+    // Only the prospects of the emails on this page (the list route takes their ids).
+    const prospectsRequest = useHttpRequest<TableResponse<ProspectCompany>>(PROSPECTS_REQUEST, {
         offset: 0,
-        limit: QUEUE_LIMIT,
-        sortBy: "score",
-        sortOrder: "desc",
+        limit: Math.max(prospectIds.length, 1),
+        ids: prospectIds,
         filter: campaignFilter(campaignId),
-    }, loadCount);
+    }, prospectLoadCount);
     const loadFailed = emailsRequest.error != null || prospectsRequest.error != null;
+    const total = emailsRequest.data?.total ?? 0;
 
-    // Subject/body edits not saved yet, by email id.
+    // Recipient/subject/body edits not saved yet, by email id.
     const [drafts, setDrafts] = useState<Record<string, Draft>>({});
-    const pending = useMemo(() => {
+    const rows = useMemo(() => {
         const prospects = new Map((prospectsRequest.data?.data ?? []).map((p) => [p._id, p]));
-        return (emailsRequest.data?.data ?? [])
-            .map((e) => {
-                const draft = drafts[e._id];
-                // Approving sends the stored text, so an unsaved edit must be saved first.
-                const unsaved = draft != null && (draft.subject !== e.subject || draft.body !== e.body);
-                return {...e, ...draft, unsaved, prospect: prospects.get(e.prospectCompanyId)};
-            });
+        return (emailsRequest.data?.data ?? []).map((email) => {
+            const stored = draftOf(email);
+            const draft = drafts[email._id] ?? stored;
+            // Approving sends the stored email, so an unsaved edit must be saved first.
+            const unsaved = draft.toEmail !== stored.toEmail || draft.subject !== stored.subject || draft.body !== stored.body;
+            return {email, draft, unsaved, decidable: !SENT.includes(email.status), prospect: prospects.get(email.prospectCompanyId)};
+        });
     }, [emailsRequest.data, prospectsRequest.data, drafts]);
 
     const [emailAction, setEmailAction] = useState<{action: EmailAction; payload: Record<string, unknown>}>({action: "approve", payload: {}});
     const [emailActionCount, setEmailActionCount] = useState(0);
-    const emailActionRequest = useHttpRequest(EMAIL_ACTION_REQUEST, emailAction.payload, emailActionCount, true, {
-        success: reload,
+    const emailActionRequest = useHttpRequest<{data: OutreachEmail}>(EMAIL_ACTION_REQUEST, emailAction.payload, emailActionCount, true, {
+        success: (response) => {
+            // The server skips, rather than approves, an email to an address on the do-not-contact list.
+            if (emailAction.action === "approve" && response.data?.status === "skipped") setNotice(resolveLanguageKey("skippedDoNotContact"));
+            reload();
+        },
         error: (e) => setError(handleError(e, {context: "Approval"})?.displayMessage ?? resolveLanguageKey("actionFailed")),
     }, {url: `/api/swissOutreach/outreachEmail/${emailAction.action}`});
     const busyId = emailActionRequest.loading ? String(emailAction.payload.emailId) : null;
@@ -102,20 +136,28 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
         error: (e) => setError(handleError(e, {context: "Approval"})?.displayMessage ?? resolveLanguageKey("approveAllFailed")),
     });
 
-    const act = (emailId: string, action: EmailAction, draft?: Draft) => {
+    const act = (emailId: string, action: EmailAction, payload: Record<string, unknown> = {}) => {
         setError(null);
-        setEmailAction({action, payload: {emailId, ...draft}});
+        setNotice(null);
+        setEmailAction({action, payload: {emailId, ...payload}});
         setEmailActionCount((count) => count + 1);
+    };
+
+    /** Saves the subject and body as shown, and the recipient when it was changed. */
+    const saveDraft = (email: OutreachEmail, draft: Draft) => {
+        const toEmail = draft.toEmail.trim();
+        act(email._id, "editDraft", {subject: draft.subject, body: draft.body, ...(toEmail && toEmail !== email.toEmail ? {toEmail} : {})});
     };
 
     const approveAll = () => {
         if (!campaignId) return;
         setError(null);
+        setNotice(null);
         setApproveAllCount((count) => count + 1);
     };
 
-    const editDraft = (emailId: string, patch: Partial<Draft>, current: Draft) =>
-        setDrafts((previous) => ({...previous, [emailId]: {...current, ...previous[emailId], ...patch}}));
+    const editDraft = (email: OutreachEmail, patch: Partial<Draft>) =>
+        setDrafts((previous) => ({...previous, [email._id]: {...(previous[email._id] ?? draftOf(email)), ...patch}}));
 
     // Each action is a role permission of its (loose) model; without it the control is not shown (D95).
     const mayApprove = useActionAccess("swissoutreachemails", "approve");
@@ -128,15 +170,30 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
         <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <h1 className="text-xl font-semibold">{resolveLanguageKey("title")}</h1>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <NativeSelect
-                        aria-label={String(resolveLanguageKey("campaign"))}
+                        aria-label={resolveLanguageKey("campaign")}
                         value={campaignId}
-                        onChange={(e) => setCampaignId(e.target.value)}
+                        onChange={(e) => {
+                            setCampaignId(e.target.value);
+                            setOffset(0);
+                        }}
                     >
                         {campaigns.map((c) => (
                             <NativeSelectOption key={c._id} value={c._id}>
-                                {c.senderCompanyName} ({resolveLanguageKey(`status.${c.status}`)})
+                                {c.name} ({resolveLanguageKey(`status.${c.status}`)})
+                            </NativeSelectOption>
+                        ))}
+                    </NativeSelect>
+                    <NativeSelect aria-label={resolveLanguageKey("view")} value={view} onChange={(e) => {
+                        const next = VIEWS.find((option) => option === e.target.value);
+                        if (!next) return;
+                        setView(next);
+                        setOffset(0);
+                    }}>
+                        {VIEWS.map((option) => (
+                            <NativeSelectOption key={option} value={option}>
+                                {resolveLanguageKey(`views.${option}`)}
                             </NativeSelectOption>
                         ))}
                     </NativeSelect>
@@ -148,110 +205,146 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                 </div>
             </div>
             {(error || loadFailed) && <p className="text-sm text-destructive">{error || resolveLanguageKey("loadFailed")}</p>}
-            <div className="overflow-x-auto rounded-md border">
-                <Table bare className="min-w-full text-left text-sm">
-                    <thead className="bg-muted">
-                        <tr>
-                            <th className="px-3 py-2">{resolveLanguageKey("columns.company")}</th>
-                            <th className="px-3 py-2">{resolveLanguageKey("columns.website")}</th>
-                            <th className="px-3 py-2">{resolveLanguageKey("columns.email")}</th>
-                            <th className="px-3 py-2">{resolveLanguageKey("columns.score")}</th>
-                            <th className="px-3 py-2">{resolveLanguageKey("columns.generatedEmail")}</th>
-                            <th className="px-3 py-2">{resolveLanguageKey("columns.actions")}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pending.map((row) => (
-                            <tr key={row._id} className="border-t align-top">
-                                <td className="px-3 py-2">{row.prospect?.companyName || row.prospectCompanyId}</td>
-                                <td className="px-3 py-2">
-                                    {row.prospect?.website ? (
-                                        <a href={row.prospect.website} className="text-info underline" target="_blank" rel="noreferrer">
-                                            {resolveLanguageKey("websiteLink")}
-                                        </a>
-                                    ) : (
-                                        "—"
-                                    )}
-                                </td>
-                                <td className="px-3 py-2">{row.toEmail || "—"}</td>
-                                <td className="px-3 py-2">{row.prospect?.score ?? "—"}</td>
-                                <td className="px-3 py-2 min-w-[280px]">
-                                    <Input
-                                        aria-label={String(resolveLanguageKey("subject"))}
-                                        className="mb-1 h-7 w-full rounded px-2 py-1 text-xs md:text-xs"
-                                        value={row.subject}
-                                        readOnly={!mayEditDraft}
-                                        onChange={(e) => editDraft(row._id, {subject: e.target.value}, row)}
-                                    />
-                                    <Textarea
-                                        aria-label={String(resolveLanguageKey("body"))}
-                                        className="h-28 min-h-0 w-full rounded px-2 py-1 text-xs md:text-xs"
-                                        value={row.body}
-                                        readOnly={!mayEditDraft}
-                                        onChange={(e) => editDraft(row._id, {body: e.target.value}, row)}
-                                    />
-                                    <div className="mt-1 text-xs text-muted-foreground">
-                                        {resolveLanguageKey("statusLabel")}: {resolveLanguageKey(`emailStatus.${row.status}`)}
-                                    </div>
-                                </td>
-                                <td className="px-3 py-2">
-                                    <div className="flex flex-col gap-1">
-                                        {mayEditDraft && <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="xs"
-                                            disabled={busyId === row._id}
-                                            onClick={() => act(row._id, "editDraft", {subject: row.subject, body: row.body})}
-                                        >
-                                            {resolveLanguageKey("saveEdit")}
-                                        </Button>}
-                                        {mayApprove && <Button
-                                            type="button"
-                                            size="xs"
-                                            disabled={busyId === row._id || !row.toEmail || row.unsaved}
-                                            aria-describedby={row.unsaved ? `unsaved-${row._id}` : undefined}
-                                            onClick={() => act(row._id, "approve")}
-                                        >
-                                            {resolveLanguageKey("approve")}
-                                        </Button>}
-                                        {maySkip && <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="xs"
-                                            disabled={busyId === row._id}
-                                            onClick={() => act(row._id, "skip")}
-                                        >
-                                            {resolveLanguageKey("skip")}
-                                        </Button>}
-                                        {mayDoNotContact && <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="xs"
-                                            className="border-destructive/30 text-destructive hover:text-destructive"
-                                            disabled={busyId === row._id || !row.toEmail}
-                                            onClick={() => act(row._id, "doNotContact")}
-                                        >
-                                            {resolveLanguageKey("doNotContact")}
-                                        </Button>}
-                                        {mayApprove && row.unsaved && (
-                                            <p id={`unsaved-${row._id}`} className="max-w-[10rem] text-xs text-muted-foreground">
-                                                {resolveLanguageKey("saveBeforeApprove")}
+            {notice && <p className="text-sm text-warning">{notice}</p>}
+            <div className="rounded-md border">
+                <Table className="text-left">
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>{resolveLanguageKey("columns.company")}</TableHead>
+                            <TableHead>{resolveLanguageKey("columns.website")}</TableHead>
+                            <TableHead>{resolveLanguageKey("columns.email")}</TableHead>
+                            <TableHead>{resolveLanguageKey("columns.score")}</TableHead>
+                            <TableHead>{resolveLanguageKey("columns.generatedEmail")}</TableHead>
+                            <TableHead>{resolveLanguageKey("columns.actions")}</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {rows.map(({email, draft, unsaved, decidable, prospect}) => {
+                            const editable = mayEditDraft && decidable;
+                            const busy = busyId === email._id;
+                            return (
+                                <TableRow key={email._id} className="align-top">
+                                    <TableCell className="whitespace-normal">{prospect?.companyName || email.prospectCompanyId}</TableCell>
+                                    <TableCell>
+                                        {prospect?.website ? (
+                                            <a href={prospect.website} className="text-info underline" target="_blank" rel="noreferrer">
+                                                {resolveLanguageKey("websiteLink")}
+                                            </a>
+                                        ) : (
+                                            "—"
+                                        )}
+                                    </TableCell>
+                                    <TableCell className="min-w-[200px]">
+                                        <Input
+                                            type="email"
+                                            aria-label={resolveLanguageKey("toEmail")}
+                                            className="h-7 w-full rounded px-2 py-1 text-xs md:text-xs"
+                                            value={draft.toEmail}
+                                            placeholder="—"
+                                            readOnly={!editable}
+                                            onChange={(e) => editDraft(email, {toEmail: e.target.value})}
+                                        />
+                                    </TableCell>
+                                    <TableCell>{prospect?.score ?? "—"}</TableCell>
+                                    <TableCell className="min-w-[280px] whitespace-normal">
+                                        <Input
+                                            aria-label={resolveLanguageKey("subject")}
+                                            className="mb-1 h-7 w-full rounded px-2 py-1 text-xs md:text-xs"
+                                            value={draft.subject}
+                                            readOnly={!editable}
+                                            onChange={(e) => editDraft(email, {subject: e.target.value})}
+                                        />
+                                        <Textarea
+                                            aria-label={resolveLanguageKey("body")}
+                                            className="h-28 min-h-0 w-full rounded px-2 py-1 text-xs md:text-xs"
+                                            value={draft.body}
+                                            readOnly={!editable}
+                                            onChange={(e) => editDraft(email, {body: e.target.value})}
+                                        />
+                                        <div className="mt-1 text-xs text-muted-foreground">
+                                            {resolveLanguageKey("statusLabel")}: {resolveLanguageKey(`emailStatus.${email.status}`)}
+                                        </div>
+                                        {email.lastError && (
+                                            <p className="mt-1 text-xs text-destructive">
+                                                {resolveLanguageKey("lastError")}: {email.lastError}
                                             </p>
                                         )}
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                        {pending.length === 0 && (
-                            <tr>
-                                <td colSpan={6} className="px-3 py-6 text-muted-foreground">
-                                    {resolveLanguageKey("empty")}
-                                </td>
-                            </tr>
+                                    </TableCell>
+                                    <TableCell>
+                                        <div className="flex flex-col gap-1">
+                                            {editable && <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="xs"
+                                                disabled={busy}
+                                                onClick={() => saveDraft(email, draft)}
+                                            >
+                                                {resolveLanguageKey("saveEdit")}
+                                            </Button>}
+                                            {mayApprove && decidable && <Button
+                                                type="button"
+                                                size="xs"
+                                                disabled={busy || !email.toEmail || unsaved}
+                                                aria-describedby={unsaved ? `unsaved-${email._id}` : undefined}
+                                                onClick={() => act(email._id, "approve")}
+                                            >
+                                                {resolveLanguageKey("approve")}
+                                            </Button>}
+                                            {maySkip && decidable && email.status !== "skipped" && <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="xs"
+                                                disabled={busy}
+                                                onClick={() => act(email._id, "skip")}
+                                            >
+                                                {resolveLanguageKey("skip")}
+                                            </Button>}
+                                            {mayDoNotContact && <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="xs"
+                                                className="border-destructive/30 text-destructive hover:text-destructive"
+                                                disabled={busy || !email.toEmail}
+                                                onClick={() => act(email._id, "doNotContact")}
+                                            >
+                                                {resolveLanguageKey("doNotContact")}
+                                            </Button>}
+                                            <Button type="button" variant="ghost" size="xs" onClick={() => setDetailsId(email._id)}>
+                                                {resolveLanguageKey("details")}
+                                            </Button>
+                                            {mayApprove && decidable && unsaved && (
+                                                <p id={`unsaved-${email._id}`} className="max-w-[10rem] text-xs text-muted-foreground">
+                                                    {resolveLanguageKey("saveBeforeApprove")}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                        {rows.length === 0 && (
+                            <TableRow>
+                                <TableCell colSpan={6} className="py-6 text-muted-foreground">
+                                    {resolveLanguageKey(`emptyView.${view}`)}
+                                </TableCell>
+                            </TableRow>
                         )}
-                    </tbody>
+                    </TableBody>
                 </Table>
             </div>
+            {total > 0 && (
+                <Paginator
+                    key={`${campaignId}:${view}`}
+                    total={total}
+                    limit={PAGE_SIZE}
+                    loading={emailsRequest.loading}
+                    setOffset={setOffset}
+                    setLimit={setLimit}
+                />
+            )}
+            {detailsId && (
+                <OutreachEmailSheetView open fetchId={detailsId} onOpenChange={(open: boolean) => !open && setDetailsId(null)} />
+            )}
         </div>
     );
 }

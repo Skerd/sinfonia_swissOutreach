@@ -1,0 +1,36 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/outreachEmailSheetView.tsx",
+  "failedTitle": "Caricamento non riuscito",
+  "failedDescription": "Si è verificato un errore durante il caricamento. Fai clic per riprovare.",
+  "failedTooltipDescription": "Fai clic per ricaricare i dati.",
+  "lifecycle": "Ciclo di vita",
+  "overview": "Panoramica",
+  "outreachEmail": "E-mail di prospezione",
+  "toEmail": "Destinatario",
+  "status": "Stato",
+  "language": "Lingua",
+  "sentAt": "Inviata il",
+  "subject": "Oggetto",
+  "body": "Testo dell'e-mail",
+  "lastError": "Ultimo errore",
+  "statusValues": {
+    "draft": "Bozza",
+    "edited": "Modificata",
+    "approved": "Approvata",
+    "skipped": "Saltata",
+    "queued": "In coda",
+    "sent": "Inviata",
+    "failed": "Non riuscita"
+  },
+  "languageValues": {
+    "de": "Tedesco",
+    "fr": "Francese",
+    "it": "Italiano",
+    "en": "Inglese"
+  },
+  "createdAt": "Creato il",
+  "updatedAt": "Aggiornato il",
+  "createdBy": "Creato da",
+  "deletedAt": "Eliminato il",
+  "deletedBy": "Eliminato da"
+}

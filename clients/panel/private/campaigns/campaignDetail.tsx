@@ -9,8 +9,9 @@ import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
 import type {TableResponse} from "armonia/src/modules/core/types/shared.types.ts";
-import {Table} from "@coreModule/components/ui/table/table.tsx";
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@coreModule/components/ui/table/table.tsx";
 import {Button} from "@coreModule/components/ui/button.tsx";
+import Paginator from "@coreModule/components/custom/paginator/index.tsx";
 
 type Props = WithLanguageType & {campaignId: string};
 
@@ -30,8 +31,8 @@ const IDLE_DONE = new Set(["completed", "failed", "cancelled", "awaiting_approva
 const CAMPAIGN_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/single"};
 const PROSPECTS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/prospectCompany"};
 const LOGS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/logs"};
-/** The best-scored prospects shown here; the prospects page lists them all. */
-const PROSPECTS_SHOWN = 200;
+/** Prospects per page, best-scored first. */
+const PAGE_SIZE = 20;
 const ACTION_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
 
 function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
@@ -45,12 +46,19 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
     useEffect(() => {
         setLoadCount((count) => count + 1);
     }, [campaignId]);
+    const [offset, setOffset] = useState(0);
+    const [limit, setLimit] = useState(PAGE_SIZE);
+    // A page change reloads only the prospects.
+    const [prospectsPageCount, setProspectsPageCount] = useState(0);
+    useEffect(() => {
+        setProspectsPageCount((count) => count + 1);
+    }, [offset, limit]);
     const campaignRequest = useHttpRequest<Campaign>(CAMPAIGN_REQUEST, {_id: campaignId}, loadCount, true, {
         success: () => setStartRequested(false),
     });
     const prospectsRequest = useHttpRequest<TableResponse<ProspectCompany>>(PROSPECTS_REQUEST, {
-        offset: 0,
-        limit: PROSPECTS_SHOWN,
+        offset,
+        limit,
         sortBy: "score",
         sortOrder: "desc",
         filter: {
@@ -59,7 +67,7 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
             rules: [{id: "campaign", field: "campaignId", operator: "equals", value: campaignId}],
             groups: [],
         },
-    }, loadCount);
+    }, loadCount + prospectsPageCount);
     const logsRequest = useHttpRequest<{data: PipelineLog[]}>(LOGS_REQUEST, {campaignId}, loadCount);
     const campaign = campaignRequest.data?._id ? campaignRequest.data : null;
     const prospects = prospectsRequest.data?.data ?? [];
@@ -118,7 +126,7 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
         <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-xl font-semibold">{campaign?.senderCompanyName || resolveLanguageKey("campaign")}</h1>
+                    <h1 className="text-xl font-semibold">{campaign?.name || resolveLanguageKey("campaign")}</h1>
                     <p className="text-sm text-muted-foreground">
                         {resolveLanguageKey("summary")
                             .replace("{status}", String(resolveLanguageKey(`status.${campaign?.status}`)))
@@ -213,24 +221,24 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
 
             <div>
                 <h2 className="mb-2 font-medium">{resolveLanguageKey("prospectsTitle").replace("{count}", String(prospectsTotal))}</h2>
-                <div className="overflow-x-auto rounded-md border">
-                    <Table bare className="min-w-full text-left text-sm">
-                        <thead className="bg-muted">
-                            <tr>
-                                <th className="px-3 py-2">{resolveLanguageKey("columns.company")}</th>
-                                <th className="px-3 py-2">{resolveLanguageKey("columns.canton")}</th>
-                                <th className="px-3 py-2">{resolveLanguageKey("columns.website")}</th>
-                                <th className="px-3 py-2">{resolveLanguageKey("columns.email")}</th>
-                                <th className="px-3 py-2">{resolveLanguageKey("columns.score")}</th>
-                                <th className="px-3 py-2">{resolveLanguageKey("columns.status")}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div className="rounded-md border">
+                    <Table className="text-left">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>{resolveLanguageKey("columns.company")}</TableHead>
+                                <TableHead>{resolveLanguageKey("columns.canton")}</TableHead>
+                                <TableHead>{resolveLanguageKey("columns.website")}</TableHead>
+                                <TableHead>{resolveLanguageKey("columns.email")}</TableHead>
+                                <TableHead>{resolveLanguageKey("columns.score")}</TableHead>
+                                <TableHead>{resolveLanguageKey("columns.status")}</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
                             {prospects.map((p) => (
-                                <tr key={p._id} className="border-t">
-                                    <td className="px-3 py-2">{p.companyName}</td>
-                                    <td className="px-3 py-2">{p.canton}</td>
-                                    <td className="px-3 py-2">
+                                <TableRow key={p._id}>
+                                    <TableCell>{p.companyName}</TableCell>
+                                    <TableCell>{p.canton}</TableCell>
+                                    <TableCell>
                                         {p.website ? (
                                             <a className="text-info underline" href={p.website} target="_blank" rel="noreferrer">
                                                 {resolveLanguageKey("websiteLink")}
@@ -238,22 +246,31 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
                                         ) : (
                                             "—"
                                         )}
-                                    </td>
-                                    <td className="px-3 py-2">{p.emails[0] || "—"}</td>
-                                    <td className="px-3 py-2">{p.score ?? "—"}</td>
-                                    <td className="px-3 py-2">{resolveLanguageKey(`prospectStatus.${p.status}`)}</td>
-                                </tr>
+                                    </TableCell>
+                                    <TableCell>{p.emails[0] || "—"}</TableCell>
+                                    <TableCell>{p.score ?? "—"}</TableCell>
+                                    <TableCell>{resolveLanguageKey(`prospectStatus.${p.status}`)}</TableCell>
+                                </TableRow>
                             ))}
                             {!isRunning && prospects.length === 0 && (
-                                <tr>
-                                    <td className="px-3 py-6 text-muted-foreground" colSpan={6}>
+                                <TableRow>
+                                    <TableCell className="py-6 text-muted-foreground" colSpan={6}>
                                         {resolveLanguageKey("noProspects")}
-                                    </td>
-                                </tr>
+                                    </TableCell>
+                                </TableRow>
                             )}
-                        </tbody>
+                        </TableBody>
                     </Table>
                 </div>
+                {prospectsTotal > 0 && (
+                    <Paginator
+                        total={prospectsTotal}
+                        limit={PAGE_SIZE}
+                        loading={prospectsRequest.loading}
+                        setOffset={setOffset}
+                        setLimit={setLimit}
+                    />
+                )}
             </div>
         </div>
     );

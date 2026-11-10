@@ -44,5 +44,31 @@
   "updatedAt": "Përditësuar më",
   "createdBy": "Krijuar nga",
   "deletedAt": "Fshirë më",
-  "deletedBy": "Fshirë nga"
+  "deletedBy": "Fshirë nga",
+  "status": "Statusi",
+  "companyName": "Kompania",
+  "uid": "UID",
+  "legalForm": "Forma ligjore",
+  "canton": "Kantoni",
+  "city": "Qyteti",
+  "website": "Faqja e internetit",
+  "registerUrl": "Regjistrimi në regjistrin tregtar",
+  "contacts": "Kontaktet",
+  "emails": "Adresat e email-it",
+  "phones": "Numrat e telefonit",
+  "assessment": "Përshtatja për punën",
+  "score": "Pikët",
+  "scoreReason": "Arsyeja e pikëve",
+  "summary": "Përmbledhje nga AI",
+  "services": "Shërbimet",
+  "statusValues": {
+    "discovered": "Gjetur",
+    "website_found": "Faqja u gjet",
+    "crawled": "Faqja u lexua",
+    "scored": "Vlerësuar",
+    "skipped": "Kapërcyer",
+    "approved": "Miratuar",
+    "sent": "Dërguar",
+    "failed": "Dështoi"
+  }
 }

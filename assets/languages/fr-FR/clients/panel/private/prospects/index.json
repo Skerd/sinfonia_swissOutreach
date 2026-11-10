@@ -44,5 +44,31 @@
   "updatedAt": "Mis à jour le",
   "createdBy": "Créé par",
   "deletedAt": "Supprimé le",
-  "deletedBy": "Supprimé par"
+  "deletedBy": "Supprimé par",
+  "status": "Statut",
+  "companyName": "Entreprise",
+  "uid": "IDE",
+  "legalForm": "Forme juridique",
+  "canton": "Canton",
+  "city": "Localité",
+  "website": "Site web",
+  "registerUrl": "Inscription au registre du commerce",
+  "contacts": "Coordonnées",
+  "emails": "Adresses e-mail",
+  "phones": "Numéros de téléphone",
+  "assessment": "Adéquation au mandat",
+  "score": "Score",
+  "scoreReason": "Raison du score",
+  "summary": "Résumé IA",
+  "services": "Prestations",
+  "statusValues": {
+    "discovered": "Découverte",
+    "website_found": "Site trouvé",
+    "crawled": "Site analysé",
+    "scored": "Évaluée",
+    "skipped": "Ignorée",
+    "approved": "Approuvée",
+    "sent": "Envoyée",
+    "failed": "Échec"
+  }
 }

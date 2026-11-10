@@ -44,5 +44,31 @@
   "updatedAt": "Updated at",
   "createdBy": "Created by",
   "deletedAt": "Deleted at",
-  "deletedBy": "Deleted by"
+  "deletedBy": "Deleted by",
+  "status": "Status",
+  "companyName": "Company",
+  "uid": "UID",
+  "legalForm": "Legal form",
+  "canton": "Canton",
+  "city": "City",
+  "website": "Website",
+  "registerUrl": "Commercial register entry",
+  "contacts": "Contacts",
+  "emails": "Email addresses",
+  "phones": "Phone numbers",
+  "assessment": "Fit for the job",
+  "score": "Score",
+  "scoreReason": "Why this score",
+  "summary": "AI summary",
+  "services": "Services",
+  "statusValues": {
+    "discovered": "Discovered",
+    "website_found": "Website found",
+    "crawled": "Website read",
+    "scored": "Scored",
+    "skipped": "Skipped",
+    "approved": "Approved",
+    "sent": "Sent",
+    "failed": "Failed"
+  }
 }

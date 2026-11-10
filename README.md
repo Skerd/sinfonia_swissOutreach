@@ -35,11 +35,11 @@ Routes are registered in `routeConfigContribution.tsx` and appear under the **Sw
 
 | Page | URL | Description |
 |------|-----|-------------|
-| Dashboard | `/swissOutreach/dashboard` | Summary counters from `/api/swissOutreach/dashboard/summary` |
+| Dashboard | `/swissOutreach/dashboard` | KPI cards from `POST /api/swissOutreach/dashboard/summary`, for all campaigns or one |
 | Campaigns | `/swissOutreach/campaigns` | Campaign list |
 | Create campaign | `/swissOutreach/campaigns/create` | Job text, cantons, max companies, language/tone, sender identity |
 | Campaign detail | `/swissOutreach/campaigns/detail?campaignId=` | Status, stats, prospects, pipeline logs; restart / cancel; link to approval |
-| Approval | `/swissOutreach/approval?campaignId=` | Draft queue (the email and prospect lists filtered by campaign): edit, approve, skip, do not contact, approve-all |
+| Approval | `/swissOutreach/approval?campaignId=` | One campaign's emails, paged, by view (to decide / failed / sent / skipped) with each email's last error: edit recipient, subject and body, approve, skip, do not contact, approve-all; an email's sheet (`approval/outreachEmailSheetView.tsx`) |
 | Prospects | `/swissOutreach/prospects?campaignId=` | Companies discovered/enriched for a campaign |
 | Do-not-contact list | `/swissOutreach/doNotContact` (`/create`) | Addresses and domains no campaign of the company drafts or sends to |
 
@@ -54,7 +54,7 @@ Campaign detail polls every 5s while the pipeline is non-terminal (`completed` /
 
 ## Contributions
 
-- **Sidebar** (`order: 55`) — Dashboard, Campaigns, Approval, Prospects
+- **Sidebar** (`order: 55`) — Dashboard, Campaigns, Approval, Prospects, Do not contact; each shown only with read access to its model
 - **Routes** (`order: 55`) — maps `swissOutreach` menu/subview segments to page components
 - **Widgets** — empty contribution reserved for future dashboard tiles
 

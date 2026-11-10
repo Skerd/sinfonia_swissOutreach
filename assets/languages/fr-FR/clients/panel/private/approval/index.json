@@ -43,6 +43,22 @@
   "approve": "Approuver",
   "saveBeforeApprove": "Enregistrez votre modification avant d'approuver.",
   "skip": "Ignorer",
-  "empty": "Aucun e-mail à examiner pour cette campagne.",
-  "doNotContact": "Ne pas contacter"
+  "doNotContact": "Ne pas contacter",
+  "view": "Afficher",
+  "views": {
+    "pending": "À décider",
+    "failed": "Échec",
+    "sent": "Envoyés",
+    "skipped": "Ignorés"
+  },
+  "toEmail": "Destinataire",
+  "lastError": "Dernière erreur",
+  "details": "Détails",
+  "skippedDoNotContact": "Le destinataire figure sur la liste des contacts à ne pas solliciter : l'e-mail a été ignoré au lieu d'être approuvé.",
+  "emptyView": {
+    "pending": "Aucun e-mail à examiner pour cette campagne.",
+    "failed": "Aucun e-mail en échec pour cette campagne.",
+    "sent": "Aucun e-mail envoyé pour cette campagne.",
+    "skipped": "Aucun e-mail ignoré pour cette campagne."
+  }
 }

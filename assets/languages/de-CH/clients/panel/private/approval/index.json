@@ -43,6 +43,22 @@
   "approve": "Freigeben",
   "saveBeforeApprove": "Speichern Sie Ihre Änderung vor der Freigabe.",
   "skip": "Überspringen",
-  "empty": "Keine E-Mails zur Prüfung in dieser Kampagne.",
-  "doNotContact": "Nicht kontaktieren"
+  "doNotContact": "Nicht kontaktieren",
+  "view": "Anzeigen",
+  "views": {
+    "pending": "Zu entscheiden",
+    "failed": "Fehlgeschlagen",
+    "sent": "Gesendet",
+    "skipped": "Übersprungen"
+  },
+  "toEmail": "Empfänger",
+  "lastError": "Letzter Fehler",
+  "details": "Details",
+  "skippedDoNotContact": "Der Empfänger steht auf der Kontaktsperrliste, daher wurde die E-Mail übersprungen statt freigegeben.",
+  "emptyView": {
+    "pending": "Keine E-Mails zur Prüfung in dieser Kampagne.",
+    "failed": "Keine fehlgeschlagenen E-Mails in dieser Kampagne.",
+    "sent": "In dieser Kampagne wurden noch keine E-Mails gesendet.",
+    "skipped": "Keine übersprungenen E-Mails in dieser Kampagne."
+  }
 }

@@ -11,6 +11,7 @@
   "active": "Attivo",
   "failDescription": "Si è verificato un errore durante il caricamento. Riprova.",
   "fields": {
+    "name": "Nome",
     "jobDescription": "Descrizione dell'incarico",
     "country": "Paese",
     "maxCompanies": "Numero max. di aziende",
@@ -54,5 +55,54 @@
   "updatedAt": "Aggiornato il",
   "createdBy": "Creato da",
   "deletedAt": "Eliminato il",
-  "deletedBy": "Eliminato da"
+  "deletedBy": "Eliminato da",
+  "name": "Nome",
+  "emailTone": "Tono dell'e-mail",
+  "country": "Paese",
+  "cantons": "Cantoni",
+  "maxCompanies": "Aziende max.",
+  "sendAutomatically": "Invio automatico",
+  "jobDescription": "Descrizione dell'incarico",
+  "additionalNotes": "Note aggiuntive",
+  "sender": "Mittente",
+  "senderCompanyName": "Azienda mittente",
+  "senderName": "Nome del mittente",
+  "senderEmail": "E-mail del mittente",
+  "senderPhone": "Telefono del mittente",
+  "senderWebsite": "Sito web del mittente",
+  "results": "Risultati",
+  "lastError": "Ultimo errore",
+  "stats": {
+    "found": "Trovate",
+    "enriched": "Contatti raccolti",
+    "scored": "Valutate",
+    "approved": "Approvati",
+    "sent": "Inviati",
+    "failed": "Non riusciti"
+  },
+  "statusValues": {
+    "draft": "Bozza",
+    "parsing": "Lettura dell'incarico",
+    "searching": "Ricerca aziende",
+    "enriching": "Raccolta contatti",
+    "scoring": "Valutazione dell'idoneità",
+    "awaiting_approval": "In attesa di approvazione",
+    "sending": "Invio in corso",
+    "completed": "Completata",
+    "failed": "Non riuscita",
+    "cancelled": "Annullata"
+  },
+  "languageValues": {
+    "de": "Tedesco",
+    "fr": "Francese",
+    "it": "Italiano",
+    "en": "Inglese"
+  },
+  "emailToneValues": {
+    "professional": "Professionale",
+    "friendly": "Cordiale",
+    "formal": "Formale"
+  },
+  "yes": "Sì",
+  "no": "No"
 }

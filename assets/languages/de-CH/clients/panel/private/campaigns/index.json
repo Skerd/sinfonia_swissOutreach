@@ -11,6 +11,7 @@
   "active": "Aktiv",
   "failDescription": "Beim Laden ist etwas schiefgelaufen. Bitte erneut versuchen.",
   "fields": {
+    "name": "Name",
     "jobDescription": "Auftragsbeschreibung",
     "country": "Land",
     "maxCompanies": "Max. Firmen",
@@ -54,5 +55,54 @@
   "updatedAt": "Aktualisiert am",
   "createdBy": "Erstellt von",
   "deletedAt": "Gelöscht am",
-  "deletedBy": "Gelöscht von"
+  "deletedBy": "Gelöscht von",
+  "name": "Name",
+  "emailTone": "E-Mail-Ton",
+  "country": "Land",
+  "cantons": "Kantone",
+  "maxCompanies": "Max. Firmen",
+  "sendAutomatically": "Automatisch senden",
+  "jobDescription": "Auftragsbeschreibung",
+  "additionalNotes": "Zusätzliche Hinweise",
+  "sender": "Absender",
+  "senderCompanyName": "Absenderfirma",
+  "senderName": "Name des Absenders",
+  "senderEmail": "E-Mail des Absenders",
+  "senderPhone": "Telefon des Absenders",
+  "senderWebsite": "Website des Absenders",
+  "results": "Ergebnisse",
+  "lastError": "Letzter Fehler",
+  "stats": {
+    "found": "Gefunden",
+    "enriched": "Kontakte gesammelt",
+    "scored": "Bewertet",
+    "approved": "Freigegeben",
+    "sent": "Gesendet",
+    "failed": "Fehlgeschlagen"
+  },
+  "statusValues": {
+    "draft": "Entwurf",
+    "parsing": "Auftrag wird gelesen",
+    "searching": "Firmen werden gesucht",
+    "enriching": "Kontakte werden gesammelt",
+    "scoring": "Eignung wird bewertet",
+    "awaiting_approval": "Wartet auf Freigabe",
+    "sending": "Wird gesendet",
+    "completed": "Abgeschlossen",
+    "failed": "Fehlgeschlagen",
+    "cancelled": "Abgebrochen"
+  },
+  "languageValues": {
+    "de": "Deutsch",
+    "fr": "Französisch",
+    "it": "Italienisch",
+    "en": "Englisch"
+  },
+  "emailToneValues": {
+    "professional": "Professionell",
+    "friendly": "Freundlich",
+    "formal": "Formell"
+  },
+  "yes": "Ja",
+  "no": "Nein"
 }

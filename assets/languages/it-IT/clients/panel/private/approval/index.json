@@ -43,6 +43,22 @@
   "approve": "Approva",
   "saveBeforeApprove": "Salva la modifica prima di approvare.",
   "skip": "Salta",
-  "empty": "Nessuna e-mail da esaminare per questa campagna.",
-  "doNotContact": "Non contattare"
+  "doNotContact": "Non contattare",
+  "view": "Mostra",
+  "views": {
+    "pending": "Da decidere",
+    "failed": "Non riuscite",
+    "sent": "Inviate",
+    "skipped": "Saltate"
+  },
+  "toEmail": "Destinatario",
+  "lastError": "Ultimo errore",
+  "details": "Dettagli",
+  "skippedDoNotContact": "Il destinatario è nella lista dei contatti da non contattare, quindi l'e-mail è stata saltata invece di essere approvata.",
+  "emptyView": {
+    "pending": "Nessuna e-mail da esaminare per questa campagna.",
+    "failed": "Nessuna e-mail non riuscita per questa campagna.",
+    "sent": "Nessuna e-mail ancora inviata per questa campagna.",
+    "skipped": "Nessuna e-mail saltata per questa campagna."
+  }
 }

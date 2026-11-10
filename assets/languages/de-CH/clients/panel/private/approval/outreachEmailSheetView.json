@@ -1,0 +1,36 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/outreachEmailSheetView.tsx",
+  "failedTitle": "Laden fehlgeschlagen",
+  "failedDescription": "Beim Laden ist etwas schiefgelaufen. Zum Wiederholen klicken.",
+  "failedTooltipDescription": "Klicken Sie, um die Daten erneut zu laden.",
+  "lifecycle": "Lebenszyklus",
+  "overview": "Übersicht",
+  "outreachEmail": "Akquise-E-Mail",
+  "toEmail": "Empfänger",
+  "status": "Status",
+  "language": "Sprache",
+  "sentAt": "Gesendet am",
+  "subject": "Betreff",
+  "body": "E-Mail-Text",
+  "lastError": "Letzter Fehler",
+  "statusValues": {
+    "draft": "Entwurf",
+    "edited": "Bearbeitet",
+    "approved": "Freigegeben",
+    "skipped": "Übersprungen",
+    "queued": "In Warteschlange",
+    "sent": "Gesendet",
+    "failed": "Fehlgeschlagen"
+  },
+  "languageValues": {
+    "de": "Deutsch",
+    "fr": "Französisch",
+    "it": "Italienisch",
+    "en": "Englisch"
+  },
+  "createdAt": "Erstellt am",
+  "updatedAt": "Aktualisiert am",
+  "createdBy": "Erstellt von",
+  "deletedAt": "Gelöscht am",
+  "deletedBy": "Gelöscht von"
+}

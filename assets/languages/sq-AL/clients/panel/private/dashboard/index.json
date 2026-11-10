@@ -11,7 +11,8 @@
     "successRate": "Shkalla e suksesit %",
     "averageScore": "Pikët mesatare",
     "campaignsTotal": "Fushata",
-    "campaignsActive": "Fushata aktive",
-    "repliesReceived": "Përgjigje"
-  }
+    "campaignsActive": "Fushata aktive"
+  },
+  "campaign": "Fushata",
+  "allCampaigns": "Të gjitha fushatat"
 }

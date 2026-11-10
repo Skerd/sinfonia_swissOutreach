@@ -11,6 +11,7 @@
   "active": "Active",
   "failDescription": "Une erreur s'est produite lors du chargement. Veuillez réessayer.",
   "fields": {
+    "name": "Nom",
     "jobDescription": "Description du mandat",
     "country": "Pays",
     "maxCompanies": "Nombre max. d'entreprises",
@@ -54,5 +55,54 @@
   "updatedAt": "Mis à jour le",
   "createdBy": "Créé par",
   "deletedAt": "Supprimé le",
-  "deletedBy": "Supprimé par"
+  "deletedBy": "Supprimé par",
+  "name": "Nom",
+  "emailTone": "Ton de l'e-mail",
+  "country": "Pays",
+  "cantons": "Cantons",
+  "maxCompanies": "Entreprises max.",
+  "sendAutomatically": "Envoi automatique",
+  "jobDescription": "Description du mandat",
+  "additionalNotes": "Remarques complémentaires",
+  "sender": "Expéditeur",
+  "senderCompanyName": "Entreprise expéditrice",
+  "senderName": "Nom de l'expéditeur",
+  "senderEmail": "E-mail de l'expéditeur",
+  "senderPhone": "Téléphone de l'expéditeur",
+  "senderWebsite": "Site web de l'expéditeur",
+  "results": "Résultats",
+  "lastError": "Dernière erreur",
+  "stats": {
+    "found": "Trouvées",
+    "enriched": "Contacts collectés",
+    "scored": "Évaluées",
+    "approved": "Approuvés",
+    "sent": "Envoyés",
+    "failed": "Échecs"
+  },
+  "statusValues": {
+    "draft": "Brouillon",
+    "parsing": "Lecture du mandat",
+    "searching": "Recherche d'entreprises",
+    "enriching": "Collecte des contacts",
+    "scoring": "Évaluation de l'adéquation",
+    "awaiting_approval": "En attente d'approbation",
+    "sending": "Envoi en cours",
+    "completed": "Terminée",
+    "failed": "Échec",
+    "cancelled": "Annulée"
+  },
+  "languageValues": {
+    "de": "Allemand",
+    "fr": "Français",
+    "it": "Italien",
+    "en": "Anglais"
+  },
+  "emailToneValues": {
+    "professional": "Professionnel",
+    "friendly": "Amical",
+    "formal": "Formel"
+  },
+  "yes": "Oui",
+  "no": "Non"
 }

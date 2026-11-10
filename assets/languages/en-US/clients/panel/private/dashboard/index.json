@@ -11,7 +11,8 @@
     "successRate": "Success rate %",
     "averageScore": "Average score",
     "campaignsTotal": "Campaigns",
-    "campaignsActive": "Active campaigns",
-    "repliesReceived": "Replies"
-  }
+    "campaignsActive": "Active campaigns"
+  },
+  "campaign": "Campaign",
+  "allCampaigns": "All campaigns"
 }

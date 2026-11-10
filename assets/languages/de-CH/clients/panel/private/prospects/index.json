@@ -44,5 +44,31 @@
   "updatedAt": "Aktualisiert am",
   "createdBy": "Erstellt von",
   "deletedAt": "Gelöscht am",
-  "deletedBy": "Gelöscht von"
+  "deletedBy": "Gelöscht von",
+  "status": "Status",
+  "companyName": "Firma",
+  "uid": "UID",
+  "legalForm": "Rechtsform",
+  "canton": "Kanton",
+  "city": "Ort",
+  "website": "Website",
+  "registerUrl": "Handelsregistereintrag",
+  "contacts": "Kontakte",
+  "emails": "E-Mail-Adressen",
+  "phones": "Telefonnummern",
+  "assessment": "Eignung für den Auftrag",
+  "score": "Bewertung",
+  "scoreReason": "Begründung der Bewertung",
+  "summary": "KI-Zusammenfassung",
+  "services": "Leistungen",
+  "statusValues": {
+    "discovered": "Gefunden",
+    "website_found": "Website gefunden",
+    "crawled": "Website gelesen",
+    "scored": "Bewertet",
+    "skipped": "Übersprungen",
+    "approved": "Freigegeben",
+    "sent": "Gesendet",
+    "failed": "Fehlgeschlagen"
+  }
 }

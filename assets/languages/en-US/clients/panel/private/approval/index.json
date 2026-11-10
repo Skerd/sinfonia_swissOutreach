@@ -43,6 +43,22 @@
   "approve": "Approve",
   "saveBeforeApprove": "Save your edit before approving.",
   "skip": "Skip",
-  "empty": "No emails awaiting review for this campaign.",
-  "doNotContact": "Do not contact"
+  "doNotContact": "Do not contact",
+  "view": "Show",
+  "views": {
+    "pending": "To decide",
+    "failed": "Failed",
+    "sent": "Sent",
+    "skipped": "Skipped"
+  },
+  "toEmail": "Recipient",
+  "lastError": "Last error",
+  "details": "Details",
+  "skippedDoNotContact": "The recipient is on the do-not-contact list, so the email was skipped instead of approved.",
+  "emptyView": {
+    "pending": "No emails awaiting review for this campaign.",
+    "failed": "No failed emails for this campaign.",
+    "sent": "No emails sent for this campaign yet.",
+    "skipped": "No skipped emails for this campaign."
+  }
 }

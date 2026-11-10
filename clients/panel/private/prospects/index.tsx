@@ -40,7 +40,7 @@ function ProspectsPage({campaignId: initialCampaignId, resolveLanguageKey}: Prop
                     >
                         {campaigns.map((c) => (
                             <NativeSelectOption key={c._id} value={c._id}>
-                                {c.senderCompanyName}
+                                {c.name}
                             </NativeSelectOption>
                         ))}
                     </NativeSelect>

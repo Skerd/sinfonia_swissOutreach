@@ -3,6 +3,8 @@
   "title": "Nouvelle campagne",
   "description": "Décrivez le mandat, choisissez les cantons et l'expéditeur. Les e-mails attendent votre approbation, sauf envoi automatique.",
   "form": {
+    "nameLabel": "Nom de la campagne",
+    "namePlaceholder": "Par exemple : rénovation de salle de bain, Bâle",
     "jobDescriptionLabel": "Description du mandat",
     "jobDescriptionPlaceholder": "Décrivez le travail pour lequel vous voulez des offres",
     "countryLabel": "Pays",

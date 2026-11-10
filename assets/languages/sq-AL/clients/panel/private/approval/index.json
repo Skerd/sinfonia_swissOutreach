@@ -43,6 +43,22 @@
   "approve": "Mirato",
   "saveBeforeApprove": "Ruani ndryshimin para se ta miratoni.",
   "skip": "Kapërce",
-  "empty": "Asnjë email në pritje të shqyrtimit për këtë fushatë.",
-  "doNotContact": "Mos kontakto"
+  "doNotContact": "Mos kontakto",
+  "view": "Shfaq",
+  "views": {
+    "pending": "Për t'u vendosur",
+    "failed": "Dështuar",
+    "sent": "Dërguar",
+    "skipped": "Kapërcyer"
+  },
+  "toEmail": "Marrësi",
+  "lastError": "Gabimi i fundit",
+  "details": "Detajet",
+  "skippedDoNotContact": "Marrësi është në listën e kontakteve që nuk duhen kontaktuar, prandaj email-i u kapërcye në vend që të miratohej.",
+  "emptyView": {
+    "pending": "Asnjë email në pritje të shqyrtimit për këtë fushatë.",
+    "failed": "Asnjë email i dështuar për këtë fushatë.",
+    "sent": "Ende asnjë email i dërguar për këtë fushatë.",
+    "skipped": "Asnjë email i kapërcyer për këtë fushatë."
+  }
 }

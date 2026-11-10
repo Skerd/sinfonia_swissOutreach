@@ -11,6 +11,7 @@
   "active": "Active",
   "failDescription": "Something went wrong while loading. Please try again.",
   "fields": {
+    "name": "Name",
     "jobDescription": "Job description",
     "country": "Country",
     "maxCompanies": "Max companies",
@@ -54,5 +55,54 @@
   "updatedAt": "Updated at",
   "createdBy": "Created by",
   "deletedAt": "Deleted at",
-  "deletedBy": "Deleted by"
+  "deletedBy": "Deleted by",
+  "name": "Name",
+  "emailTone": "Email tone",
+  "country": "Country",
+  "cantons": "Cantons",
+  "maxCompanies": "Max companies",
+  "sendAutomatically": "Send automatically",
+  "jobDescription": "Job description",
+  "additionalNotes": "Additional notes",
+  "sender": "Sender",
+  "senderCompanyName": "Sender company",
+  "senderName": "Sender name",
+  "senderEmail": "Sender email",
+  "senderPhone": "Sender phone",
+  "senderWebsite": "Sender website",
+  "results": "Results",
+  "lastError": "Last error",
+  "stats": {
+    "found": "Found",
+    "enriched": "Contacts collected",
+    "scored": "Scored",
+    "approved": "Approved",
+    "sent": "Sent",
+    "failed": "Failed"
+  },
+  "statusValues": {
+    "draft": "Draft",
+    "parsing": "Reading the job",
+    "searching": "Searching companies",
+    "enriching": "Collecting contacts",
+    "scoring": "Scoring fit",
+    "awaiting_approval": "Awaiting approval",
+    "sending": "Sending",
+    "completed": "Completed",
+    "failed": "Failed",
+    "cancelled": "Cancelled"
+  },
+  "languageValues": {
+    "de": "German",
+    "fr": "French",
+    "it": "Italian",
+    "en": "English"
+  },
+  "emailToneValues": {
+    "professional": "Professional",
+    "friendly": "Friendly",
+    "formal": "Formal"
+  },
+  "yes": "Yes",
+  "no": "No"
 }

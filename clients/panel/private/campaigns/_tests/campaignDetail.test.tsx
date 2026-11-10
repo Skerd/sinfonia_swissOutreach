@@ -23,7 +23,7 @@ import CampaignDetail from "../campaignDetail.tsx";
 import {ALL_OUTREACH_ACTIONS, OUTREACH_ACCESS_ALL, SessionWith} from "../../_tests/accessHarness.tsx";
 
 const campaign = (status: CampaignStatusValue, overrides: Partial<Campaign> = {}): Campaign => ({
-    _id: "c1", jobDescription: "Painters in Zürich", country: "CH", cantons: ["ZH"], maxCompanies: 20, language: "de", emailTone: "professional",
+    _id: "c1", name: "Painters, Zürich", jobDescription: "Painters in Zürich", country: "CH", cantons: ["ZH"], maxCompanies: 20, language: "de", emailTone: "professional",
     sendAutomatically: false, senderCompanyName: "Alpha AG", senderName: "Sam", senderEmail: "sam@example.ch", status,
     stats: {found: 2, enriched: 1, scored: 1, approved: 0, sent: 0, failed: 0}, ...overrides,
 });
@@ -76,7 +76,7 @@ describe("swissOutreach campaign detail", () => {
     ])("a %s campaign offers %o", async (status, expected) => {
         serve(status);
         renderDetail();
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         expect(enabled()).toEqual(expected);
     });
@@ -84,7 +84,7 @@ describe("swissOutreach campaign detail", () => {
     it("shows no campaign action to a role without the outreach actions, but keeps the approval link", async () => {
         serve("awaiting_approval");
         renderDetail([]);
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         expect(screen.queryByRole("button")).not.toBeInTheDocument();
         expect(screen.getByRole("link", {name: "approval"})).toBeInTheDocument();
@@ -93,7 +93,7 @@ describe("swissOutreach campaign detail", () => {
     it("shows each campaign action only with its own permission", async () => {
         serve("awaiting_approval");
         renderDetail(["swissoutreachcampaigns[action:cancel]", "swissoutreachcampaigns[action:sendApproved]"]);
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         expect(screen.getAllByRole("button").map((b) => b.textContent)).toEqual(["cancel", "sendApproved"]);
     });
@@ -101,7 +101,7 @@ describe("swissOutreach campaign detail", () => {
     it("explains why a running campaign cannot be restarted", async () => {
         serve("enriching");
         renderDetail();
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         expect(button("restart")).toHaveAttribute("title", "alreadyRunning");
         expect(screen.getByText("activity.running")).toBeInTheDocument();
@@ -111,7 +111,7 @@ describe("swissOutreach campaign detail", () => {
     it("explains why a completed campaign cannot be restarted", async () => {
         serve("completed");
         renderDetail();
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         expect(button("restart")).toBeDisabled();
         expect(button("restart")).toHaveAttribute("title", "cannotRestart");
@@ -121,7 +121,7 @@ describe("swissOutreach campaign detail", () => {
         let finishStart: (value: unknown) => void = () => undefined;
         serve("failed", {action: () => new Promise((resolve) => { finishStart = resolve; })});
         renderDetail();
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         fireEvent.click(button("restart"));
 
@@ -139,7 +139,7 @@ describe("swissOutreach campaign detail", () => {
     it("drops the optimistic start and shows the reason when the start is refused", async () => {
         serve("failed", {action: () => Promise.reject({response: {status: 409, data: {message: "Campaign cannot start"}}})});
         renderDetail();
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         fireEvent.click(button("restart"));
 
@@ -151,7 +151,7 @@ describe("swissOutreach campaign detail", () => {
     it("sends approved emails for this campaign", async () => {
         serve("awaiting_approval");
         renderDetail();
-        await screen.findByRole("heading", {name: "Alpha AG"});
+        await screen.findByRole("heading", {name: "Painters, Zürich"});
 
         fireEvent.click(button("sendApproved"));
 

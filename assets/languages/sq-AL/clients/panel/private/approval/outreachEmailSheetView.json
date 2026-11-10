@@ -1,0 +1,36 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/outreachEmailSheetView.tsx",
+  "failedTitle": "Ngarkimi dështoi",
+  "failedDescription": "Diçka shkoi keq gjatë ngarkimit. Klikoni për ta provuar sërish.",
+  "failedTooltipDescription": "Klikoni për t'i ngarkuar sërish të dhënat.",
+  "lifecycle": "Cikli i jetës",
+  "overview": "Përmbledhje",
+  "outreachEmail": "Email prospektimi",
+  "toEmail": "Marrësi",
+  "status": "Statusi",
+  "language": "Gjuha",
+  "sentAt": "Dërguar më",
+  "subject": "Tema",
+  "body": "Teksti i email-it",
+  "lastError": "Gabimi i fundit",
+  "statusValues": {
+    "draft": "Skicë",
+    "edited": "Ndryshuar",
+    "approved": "Miratuar",
+    "skipped": "Kapërcyer",
+    "queued": "Në radhë",
+    "sent": "Dërguar",
+    "failed": "Dështoi"
+  },
+  "languageValues": {
+    "de": "Gjermanisht",
+    "fr": "Frëngjisht",
+    "it": "Italisht",
+    "en": "Anglisht"
+  },
+  "createdAt": "Krijuar më",
+  "updatedAt": "Përditësuar më",
+  "createdBy": "Krijuar nga",
+  "deletedAt": "Fshirë më",
+  "deletedBy": "Fshirë nga"
+}

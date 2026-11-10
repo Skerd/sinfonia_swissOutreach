@@ -3,6 +3,8 @@
   "title": "Fushatë e re",
   "description": "Përshkruani punën, zgjidhni kantonet dhe dërguesin. Email-et presin miratimin tuaj, përveç nëse i dërgoni automatikisht.",
   "form": {
+    "nameLabel": "Emri i fushatës",
+    "namePlaceholder": "Për shembull: rinovim banjoje, Bazel",
     "jobDescriptionLabel": "Përshkrimi i punës",
     "jobDescriptionPlaceholder": "Përshkruani punën për të cilën doni oferta",
     "countryLabel": "Shteti",

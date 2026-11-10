@@ -1,0 +1,36 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/approval/outreachEmailSheetView.tsx",
+  "failedTitle": "Failed to load",
+  "failedDescription": "Something went wrong while loading. Click to retry.",
+  "failedTooltipDescription": "Click to retry fetching data.",
+  "lifecycle": "Lifecycle",
+  "overview": "Overview",
+  "outreachEmail": "Outreach email",
+  "toEmail": "Recipient",
+  "status": "Status",
+  "language": "Language",
+  "sentAt": "Sent at",
+  "subject": "Subject",
+  "body": "Email text",
+  "lastError": "Last error",
+  "statusValues": {
+    "draft": "Draft",
+    "edited": "Edited",
+    "approved": "Approved",
+    "skipped": "Skipped",
+    "queued": "Queued",
+    "sent": "Sent",
+    "failed": "Failed"
+  },
+  "languageValues": {
+    "de": "German",
+    "fr": "French",
+    "it": "Italian",
+    "en": "English"
+  },
+  "createdAt": "Created at",
+  "updatedAt": "Updated at",
+  "createdBy": "Created by",
+  "deletedAt": "Deleted at",
+  "deletedBy": "Deleted by"
+}

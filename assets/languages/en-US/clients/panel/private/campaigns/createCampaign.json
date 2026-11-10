@@ -3,6 +3,8 @@
   "title": "New campaign",
   "description": "Describe the job, choose cantons and the sender. Emails wait for your approval unless you send them automatically.",
   "form": {
+    "nameLabel": "Campaign name",
+    "namePlaceholder": "For example: Bathroom renovation, Basel",
     "jobDescriptionLabel": "Job description",
     "jobDescriptionPlaceholder": "Describe the work you want quotes for",
     "countryLabel": "Country",
