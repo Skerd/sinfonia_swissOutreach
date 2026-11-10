@@ -43,5 +43,6 @@
   "approve": "Approve",
   "saveBeforeApprove": "Save your edit before approving.",
   "skip": "Skip",
-  "empty": "No emails awaiting review for this campaign."
+  "empty": "No emails awaiting review for this campaign.",
+  "doNotContact": "Do not contact"
 }

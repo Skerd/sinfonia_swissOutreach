@@ -1,0 +1,35 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/createSuppressedContact.tsx",
+  "title": "Shto në listën e mos-kontaktit",
+  "description": "Asnjë fushatë nuk përgatit ose dërgon më email në këtë adresë ose domen",
+  "form": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "emri@kompania.ch",
+    "domainLabel": "I gjithë domeni",
+    "domainPlaceholder": "kompania.ch",
+    "reasonLabel": "Arsyeja",
+    "reasonPlaceholder": "Për shembull: kërkoi me telefon të mos kontaktohet"
+  },
+  "axios": {
+    "start": {
+      "title": "Hyrja po ruhet",
+      "time": 3000
+    },
+    "success": {
+      "title": "U shtua në listën e mos-kontaktit",
+      "time": 3000
+    },
+    "error": {
+      "title": "Hyrja nuk u shtua. Kontrolloni formularin dhe provoni përsëri.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Shto në listën e mos-kontaktit",
+    "description": "Asnjë fushatë nuk përgatit ose dërgon më email në këtë adresë ose domen"
+  },
+  "formButtons": {
+    "cancel": "Anulo",
+    "submit": "Shto"
+  }
+}

@@ -1,4 +1,4 @@
-import {IconChartBar, IconMail, IconSpeakerphone, IconSquareCheck} from "@tabler/icons-react";
+import {IconChartBar, IconMail, IconMailOff, IconSpeakerphone, IconSquareCheck} from "@tabler/icons-react";
 import type {SidebarContribution} from "@coreModule/helpers/types/sidebarContribution.types.ts";
 import type {NavGroup, NavItem} from "@coreModule/helpers/types/sidebarNav.types.ts";
 import type {ResolveLanguageKey} from "@coreModule/helpers/hocs/withLanguage.tsx";
@@ -36,6 +36,14 @@ const swissOutreachSidebarContribution: SidebarContribution = {
                 title: resolveLanguageKey("menus.swissOutreach.prospects.title"),
                 url: "/swissOutreach/prospects",
                 icon: IconMail,
+                permissions: [],
+                usersPermissions: [],
+                atLeastOnePermission: true,
+            },
+            {
+                title: resolveLanguageKey("menus.swissOutreach.doNotContact.title"),
+                url: "/swissOutreach/doNotContact",
+                icon: IconMailOff,
                 permissions: [],
                 usersPermissions: [],
                 atLeastOnePermission: true,

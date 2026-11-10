@@ -3,7 +3,8 @@
     "Swissoutreachcampaigns": "Outreach-Kampagnen",
     "Swissoutreachemails": "Outreach-E-Mails",
     "Swissoutreachpipelinerunlogs": "Outreach-Pipeline-Protokolle",
-    "Swissoutreachprospectcompanies": "Outreach-Zielfirmen"
+    "Swissoutreachprospectcompanies": "Outreach-Zielfirmen",
+    "Swissoutreachsuppressedcontacts": "Outreach-Sperrliste"
   },
   "permissions": {
     "Swissoutreachcampaigns": {
@@ -60,7 +61,8 @@
       "updatedAt": "Aktualisiert am",
       "approve": "E-Mail freigeben",
       "skip": "E-Mail überspringen",
-      "editDraft": "Entwurf bearbeiten"
+      "editDraft": "Entwurf bearbeiten",
+      "doNotContact": "Empfänger auf die Sperrliste setzen"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "Kampagnen-ID",
@@ -99,6 +101,18 @@
       "updatedAt": "Aktualisiert am",
       "website": "Website",
       "websiteConfidence": "Website-Zuverlässigkeit"
+    },
+    "Swissoutreachsuppressedcontacts": {
+      "createdAt": "Erstellt am",
+      "createdBy": "Erstellt von",
+      "deletedAt": "Gelöscht am",
+      "deletedBy": "Gelöscht von",
+      "domain": "Domäne",
+      "email": "E-Mail",
+      "reason": "Grund",
+      "source": "Herkunft",
+      "swissoutreachsuppressedcontacts": "Outreach-Sperrliste",
+      "updatedAt": "Aktualisiert am"
     }
   }
 }

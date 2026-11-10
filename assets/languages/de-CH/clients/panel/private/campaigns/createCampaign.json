@@ -8,7 +8,7 @@
     "countryLabel": "Land",
     "countryPlaceholder": "Land eingeben",
     "cantonsLabel": "Kantone",
-    "cantonsPlaceholder": "Kantonskürzel hinzufügen (z. B. BS)",
+    "cantonsPlaceholder": "Kantone wählen (keiner: ganze Schweiz)",
     "maxCompaniesLabel": "Maximale Anzahl Firmen",
     "maxCompaniesPlaceholder": "Zahl eingeben",
     "languageLabel": "E-Mail-Sprache",
@@ -38,8 +38,7 @@
       "professional": "Professionell",
       "friendly": "Freundlich",
       "formal": "Formell"
-    },
-    "removeCanton": "Kanton entfernen"
+    }
   },
   "axios": {
     "start": {

@@ -3,7 +3,8 @@
     "Swissoutreachcampaigns": "Campagne di prospezione",
     "Swissoutreachemails": "E-mail di prospezione",
     "Swissoutreachpipelinerunlogs": "Log di esecuzione della pipeline di prospezione",
-    "Swissoutreachprospectcompanies": "Aziende potenziali"
+    "Swissoutreachprospectcompanies": "Aziende potenziali",
+    "Swissoutreachsuppressedcontacts": "Lista di esclusione della prospezione"
   },
   "permissions": {
     "Swissoutreachcampaigns": {
@@ -60,7 +61,8 @@
       "updatedAt": "Aggiornato il",
       "approve": "Approva e-mail",
       "skip": "Salta e-mail",
-      "editDraft": "Modifica bozza"
+      "editDraft": "Modifica bozza",
+      "doNotContact": "Mettere il destinatario nella lista di esclusione"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "ID campagna",
@@ -99,6 +101,18 @@
       "updatedAt": "Aggiornato il",
       "website": "Sito web",
       "websiteConfidence": "Affidabilità del sito web"
+    },
+    "Swissoutreachsuppressedcontacts": {
+      "createdAt": "Creato il",
+      "createdBy": "Creato da",
+      "deletedAt": "Eliminato il",
+      "deletedBy": "Eliminato da",
+      "domain": "Dominio",
+      "email": "E-mail",
+      "reason": "Motivo",
+      "source": "Origine",
+      "swissoutreachsuppressedcontacts": "Lista di esclusione della prospezione",
+      "updatedAt": "Aggiornato il"
     }
   }
 }

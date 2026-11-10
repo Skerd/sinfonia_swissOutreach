@@ -43,11 +43,10 @@ const prospect = (id: string, companyName: string, overrides: Partial<ProspectCo
 });
 
 const campaigns = [campaign("c1", "Alpha AG"), campaign("c2", "Beta GmbH")];
+/** What the email list answers for the queue's filter: the emails still to decide. */
 const emails = [
     email("e1", {prospectCompanyId: "pc1"}),
     email("e2", {status: "edited", toEmail: undefined}),
-    email("e3", {status: "sent"}),
-    email("e4", {status: "skipped"}),
 ];
 const prospects = [prospect("pc1", "Maler Meier", {score: 87, website: "https://meier.ch"})];
 
@@ -56,8 +55,8 @@ type Call = {method: string; url: string; data: Record<string, unknown>};
 function serve({actionError}: {actionError?: unknown} = {}) {
     apiClientMock.mockImplementation(({method, url}: Call) => {
         if (method === "post" && url === "/api/swissOutreach/campaign") return Promise.resolve({data: {data: campaigns}});
-        if (url.endsWith("/emails")) return Promise.resolve({data: {data: emails}});
-        if (url.endsWith("/prospects")) return Promise.resolve({data: {data: prospects}});
+        if (url === "/api/swissOutreach/outreachEmail") return Promise.resolve({data: {data: emails, total: emails.length}});
+        if (url === "/api/swissOutreach/prospectCompany") return Promise.resolve({data: {data: prospects, total: prospects.length}});
         if (actionError) return Promise.reject(actionError);
         return Promise.resolve({data: {data: {}}});
     });
@@ -67,7 +66,9 @@ const calls = (): Call[] => apiClientMock.mock.calls.map(([config]) => config);
 const actionCalls = () => calls()
     .filter((c) => c.url.startsWith("/api/swissOutreach/outreachEmail/") || c.url === "/api/swissOutreach/campaign/approveAll")
     .map(({url, data}) => ({url, data}));
-const queueLoads = (campaignId: string) => calls().filter((c) => c.url === `/api/swissOutreach/campaign/${campaignId}/emails`).length;
+/** The campaign a list request is filtered to. */
+const campaignOf = (call: Call) => (call.data.filter as {rules: {field: string; value: unknown}[]}).rules.find((rule) => rule.field === "campaignId")?.value;
+const queueLoads = (campaignId: string) => calls().filter((c) => c.url === "/api/swissOutreach/outreachEmail" && campaignOf(c) === campaignId).length;
 
 async function rowOf(text: string) {
     const tr = (await screen.findByText(text)).closest("tr");
@@ -81,16 +82,15 @@ describe("swissOutreach approval queue", () => {
         apiClientMock.post.mockResolvedValue({data: OUTREACH_ACCESS_ALL});
     });
 
-    it("opens the first campaign when none is given, and loads its emails and prospects", async () => {
+    it("opens the first campaign when none is given, and loads its emails and prospects through their lists", async () => {
         serve();
         renderPage();
 
         await rowOf("Maler Meier");
         expect(screen.getByRole("combobox", {name: "campaign"})).toHaveValue("c1");
-        expect(calls().map((c) => c.url)).toEqual(expect.arrayContaining([
-            "/api/swissOutreach/campaign/c1/emails",
-            "/api/swissOutreach/campaign/c1/prospects",
-        ]));
+        const prospectsLoad = calls().find((c) => c.url === "/api/swissOutreach/prospectCompany");
+        expect(prospectsLoad && campaignOf(prospectsLoad)).toBe("c1");
+        expect(queueLoads("c1")).toBe(1);
     });
 
     it("opens the campaign it was linked to", async () => {
@@ -101,17 +101,19 @@ describe("swissOutreach approval queue", () => {
         expect(queueLoads("c1")).toBe(0);
     });
 
-    it("queues only emails still to decide, joined with their prospect", async () => {
+    it("asks the email list for the emails still to decide, and joins them with their prospect", async () => {
         serve();
         renderPage();
 
         const row = await rowOf("Maler Meier");
         expect(within(row).getByRole("link", {name: "websiteLink"})).toHaveAttribute("href", "https://meier.ch");
         expect(within(row).getByText("87")).toBeInTheDocument();
-        // A prospect that did not load shows its id; sent and skipped emails are not in the queue.
+        // A prospect that did not load shows its id.
         expect(screen.getByText("pc-e2")).toBeInTheDocument();
-        expect(screen.queryByDisplayValue("Subject e3")).not.toBeInTheDocument();
-        expect(screen.queryByDisplayValue("Subject e4")).not.toBeInTheDocument();
+        const queueLoad = calls().find((c) => c.url === "/api/swissOutreach/outreachEmail")!;
+        expect((queueLoad.data.filter as {rules: unknown[]}).rules).toEqual(expect.arrayContaining([
+            expect.objectContaining({field: "status", operator: "in", value: ["draft", "edited", "approved"]}),
+        ]));
     });
 
     it("cannot approve an email without a recipient", async () => {
@@ -170,6 +172,16 @@ describe("swissOutreach approval queue", () => {
             {url: "/api/swissOutreach/outreachEmail/approve", data: {emailId: "e1"}},
             {url: "/api/swissOutreach/outreachEmail/skip", data: {emailId: "e1"}},
         ]));
+    });
+
+    it("puts the recipient on the do-not-contact list, and offers it only for an email with a recipient", async () => {
+        serve();
+        renderPage();
+
+        expect(within(await rowOf("pc-e2")).getByRole("button", {name: "doNotContact"})).toBeDisabled();
+        fireEvent.click(within(await rowOf("Maler Meier")).getByRole("button", {name: "doNotContact"}));
+
+        await waitFor(() => expect(actionCalls()).toEqual([{url: "/api/swissOutreach/outreachEmail/doNotContact", data: {emailId: "e1"}}]));
     });
 
     it("approves the whole shown campaign at once", async () => {

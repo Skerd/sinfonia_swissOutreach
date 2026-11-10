@@ -8,7 +8,7 @@
     "countryLabel": "Paese",
     "countryPlaceholder": "Inserisci il paese",
     "cantonsLabel": "Cantoni",
-    "cantonsPlaceholder": "Aggiungi una sigla del cantone (es. BS)",
+    "cantonsPlaceholder": "Scegli i cantoni (nessuno: tutta la Svizzera)",
     "maxCompaniesLabel": "Numero massimo di aziende",
     "maxCompaniesPlaceholder": "Inserisci un numero",
     "languageLabel": "Lingua dell'e-mail",
@@ -38,8 +38,7 @@
       "professional": "Professionale",
       "friendly": "Cordiale",
       "formal": "Formale"
-    },
-    "removeCanton": "Rimuovi cantone"
+    }
   },
   "axios": {
     "start": {

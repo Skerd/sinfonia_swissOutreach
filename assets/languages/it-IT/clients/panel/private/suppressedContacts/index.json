@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/index.tsx",
+  "title": "Lista di esclusione",
+  "description": "Indirizzi e domini a cui nessuna campagna prepara o invia e-mail",
+  "create": "Aggiungi voce",
+  "searchPlaceholder": "Cerca nella lista o aggiungi filtri...",
+  "noData": "Nessuno è nella lista",
+  "failTitle": "Impossibile caricare la lista",
+  "failDescription": "Qualcosa è andato storto durante il caricamento. Riprova.",
+  "deleted": "Eliminato",
+  "active": "Attivo",
+  "fields": {
+    "email": "E-mail",
+    "domain": "Dominio",
+    "reason": "Motivo",
+    "source": "Origine",
+    "createdAt": "Creato il",
+    "updatedAt": "Aggiornato il",
+    "createdBy": "Creato da",
+    "company": "Azienda",
+    "deletedAt": "Eliminato il",
+    "deletedBy": "Eliminato da",
+    "!enums": {
+      "source": {
+        "manual": "Aggiunto a mano",
+        "outreach_email": "Da un'e-mail di prospezione"
+      }
+    }
+  },
+  "suppressedContact": "Voce della lista di esclusione",
+  "overview": "Panoramica",
+  "lifecycle": "Ciclo di vita",
+  "email": "E-mail",
+  "domain": "Dominio",
+  "reason": "Motivo",
+  "source": "Origine",
+  "sourceValues": {
+    "manual": "Aggiunto a mano",
+    "outreach_email": "Da un'e-mail di prospezione"
+  },
+  "createdAt": "Creato il",
+  "updatedAt": "Aggiornato il",
+  "createdBy": "Creato da",
+  "deletedAt": "Eliminato il",
+  "deletedBy": "Eliminato da"
+}

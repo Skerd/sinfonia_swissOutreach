@@ -11,6 +11,8 @@ const CampaignDetailPage = lazy(() => import("@swissOutreachModule/clients/panel
 const ApprovalPage = lazy(() => import("@swissOutreachModule/clients/panel/private/approval/index.tsx"));
 const DashboardPage = lazy(() => import("@swissOutreachModule/clients/panel/private/dashboard/index.tsx"));
 const ProspectsPage = lazy(() => import("@swissOutreachModule/clients/panel/private/prospects/index.tsx"));
+const SuppressedContactsPage = lazy(() => import("@swissOutreachModule/clients/panel/private/suppressedContacts/index.tsx"));
+const CreateSuppressedContactPage = lazy(() => import("@swissOutreachModule/clients/panel/private/suppressedContacts/createSuppressedContact.tsx"));
 
 const swissOutreachRouteConfigContribution: RouteConfigContribution = {
     id: "swissOutreach",
@@ -23,6 +25,7 @@ const swissOutreachRouteConfigContribution: RouteConfigContribution = {
         if (subview === "dashboard") return <DashboardPage />;
         if (subview === "approval") return <ApprovalPage campaignId={campaignId} />;
         if (subview === "prospects") return <ProspectsPage campaignId={campaignId} />;
+        if (subview === "doNotContact") return action === "create" ? <CreateSuppressedContactPage /> : <SuppressedContactsPage />;
         if (subview === "campaigns") {
             if (action === "create") return <CreateCampaignPage />;
             if (action === "detail" && campaignId) return <CampaignDetailPage campaignId={campaignId} />;

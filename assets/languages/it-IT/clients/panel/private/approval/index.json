@@ -43,5 +43,6 @@
   "approve": "Approva",
   "saveBeforeApprove": "Salva la modifica prima di approvare.",
   "skip": "Salta",
-  "empty": "Nessuna e-mail da esaminare per questa campagna."
+  "empty": "Nessuna e-mail da esaminare per questa campagna.",
+  "doNotContact": "Non contattare"
 }

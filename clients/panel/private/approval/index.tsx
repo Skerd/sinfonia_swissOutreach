@@ -8,6 +8,7 @@ import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
 import type {OutreachEmail} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/outreachEmail/outreachEmail.dto.ts";
+import type {FilterGroup} from "armonia/src/modules/core/database/filter/filter.types.ts";
 import {Table} from "@coreModule/components/ui/table/table.tsx";
 import {Button} from "@coreModule/components/ui/button.tsx";
 import {Input} from "@coreModule/components/ui/input.tsx";
@@ -16,11 +17,31 @@ import {NativeSelect, NativeSelectOption} from "@coreModule/components/ui/native
 
 type Props = WithLanguageType & {campaignId?: string};
 
-type EmailAction = "approve" | "skip" | "editDraft";
+type EmailAction = "approve" | "skip" | "editDraft" | "doNotContact";
 type Draft = {subject: string; body: string};
 
 const CAMPAIGNS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
-const LIST_REQUEST: HttpRequest = {method: "get", url: "/api/swissOutreach/campaign"};
+const EMAILS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/outreachEmail"};
+const PROSPECTS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/prospectCompany"};
+/** The most rows one list request returns (the list routes' limit). */
+const QUEUE_LIMIT = 200;
+
+/** The campaign's emails still waiting for a decision, as the email list filters them. */
+const queueFilter = (campaignId: string): FilterGroup => ({
+    id: "approval-queue",
+    operator: "and",
+    rules: [
+        {id: "campaign", field: "campaignId", operator: "equals", value: campaignId},
+        {id: "status", field: "status", operator: "in", value: ["draft", "edited", "approved"]},
+    ],
+    groups: [],
+});
+const campaignFilter = (campaignId: string): FilterGroup => ({
+    id: "campaign-prospects",
+    operator: "and",
+    rules: [{id: "campaign", field: "campaignId", operator: "equals", value: campaignId}],
+    groups: [],
+});
 const EMAIL_ACTION_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/outreachEmail"};
 const APPROVE_ALL_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/approveAll"};
 
@@ -38,12 +59,20 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
     useEffect(() => {
         if (campaignId) setLoadCount((count) => count + 1);
     }, [campaignId]);
-    const emailsRequest = useHttpRequest<{data: OutreachEmail[]}>(LIST_REQUEST, {}, loadCount, true, {
+    const emailsRequest = useHttpRequest<{data: OutreachEmail[]}>(EMAILS_REQUEST, {
+        offset: 0,
+        limit: QUEUE_LIMIT,
+        filter: queueFilter(campaignId),
+    }, loadCount, true, {
         success: () => setDrafts({}),
-    }, {url: `/api/swissOutreach/campaign/${campaignId}/emails`});
-    const prospectsRequest = useHttpRequest<{data: ProspectCompany[]}>(LIST_REQUEST, {}, loadCount, true, {}, {
-        url: `/api/swissOutreach/campaign/${campaignId}/prospects`,
     });
+    const prospectsRequest = useHttpRequest<{data: ProspectCompany[]}>(PROSPECTS_REQUEST, {
+        offset: 0,
+        limit: QUEUE_LIMIT,
+        sortBy: "score",
+        sortOrder: "desc",
+        filter: campaignFilter(campaignId),
+    }, loadCount);
     const loadFailed = emailsRequest.error != null || prospectsRequest.error != null;
 
     // Subject/body edits not saved yet, by email id.
@@ -51,7 +80,6 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
     const pending = useMemo(() => {
         const prospects = new Map((prospectsRequest.data?.data ?? []).map((p) => [p._id, p]));
         return (emailsRequest.data?.data ?? [])
-            .filter((e) => ["draft", "edited", "approved"].includes(e.status))
             .map((e) => {
                 const draft = drafts[e._id];
                 // Approving sends the stored text, so an unsaved edit must be saved first.
@@ -93,6 +121,7 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
     const mayApprove = useActionAccess("swissoutreachemails", "approve");
     const maySkip = useActionAccess("swissoutreachemails", "skip");
     const mayEditDraft = useActionAccess("swissoutreachemails", "editDraft");
+    const mayDoNotContact = useActionAccess("swissoutreachemails", "doNotContact");
     const mayApproveAll = useActionAccess("swissoutreachcampaigns", "approveAll");
 
     return (
@@ -193,6 +222,16 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                                             onClick={() => act(row._id, "skip")}
                                         >
                                             {resolveLanguageKey("skip")}
+                                        </Button>}
+                                        {mayDoNotContact && <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="xs"
+                                            className="border-destructive/30 text-destructive hover:text-destructive"
+                                            disabled={busyId === row._id || !row.toEmail}
+                                            onClick={() => act(row._id, "doNotContact")}
+                                        >
+                                            {resolveLanguageKey("doNotContact")}
                                         </Button>}
                                         {mayApprove && row.unsaved && (
                                             <p id={`unsaved-${row._id}`} className="max-w-[10rem] text-xs text-muted-foreground">

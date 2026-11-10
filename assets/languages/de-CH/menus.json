@@ -12,6 +12,9 @@
     },
     "prospects": {
       "title": "Unternehmen"
+    },
+    "doNotContact": {
+      "title": "Sperrliste"
     }
   }
 }

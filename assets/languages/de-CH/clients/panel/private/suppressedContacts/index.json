@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/index.tsx",
+  "title": "Sperrliste",
+  "description": "Adressen und Domains, an die keine Kampagne Entwürfe erstellt oder sendet",
+  "create": "Eintrag hinzufügen",
+  "searchPlaceholder": "Liste durchsuchen oder Filter hinzufügen...",
+  "noData": "Niemand steht auf der Liste",
+  "failTitle": "Die Liste konnte nicht geladen werden",
+  "failDescription": "Beim Laden ist etwas schiefgegangen. Bitte versuchen Sie es erneut.",
+  "deleted": "Gelöscht",
+  "active": "Aktiv",
+  "fields": {
+    "email": "E-Mail",
+    "domain": "Domäne",
+    "reason": "Grund",
+    "source": "Herkunft",
+    "createdAt": "Erstellt am",
+    "updatedAt": "Aktualisiert am",
+    "createdBy": "Erstellt von",
+    "company": "Unternehmen",
+    "deletedAt": "Gelöscht am",
+    "deletedBy": "Gelöscht von",
+    "!enums": {
+      "source": {
+        "manual": "Von Hand erfasst",
+        "outreach_email": "Aus einer Outreach-E-Mail"
+      }
+    }
+  },
+  "suppressedContact": "Eintrag der Sperrliste",
+  "overview": "Übersicht",
+  "lifecycle": "Verlauf",
+  "email": "E-Mail",
+  "domain": "Domäne",
+  "reason": "Grund",
+  "source": "Herkunft",
+  "sourceValues": {
+    "manual": "Von Hand erfasst",
+    "outreach_email": "Aus einer Outreach-E-Mail"
+  },
+  "createdAt": "Erstellt am",
+  "updatedAt": "Aktualisiert am",
+  "createdBy": "Erstellt von",
+  "deletedAt": "Gelöscht am",
+  "deletedBy": "Gelöscht von"
+}

@@ -17,6 +17,7 @@ export const ALL_OUTREACH_ACTIONS = [
     "swissoutreachemails[action:approve]",
     "swissoutreachemails[action:skip]",
     "swissoutreachemails[action:editDraft]",
+    "swissoutreachemails[action:doNotContact]",
     "swissoutreachcampaigns[action:approveAll]",
     "swissoutreachcampaigns[action:sendApproved]",
     "swissoutreachcampaigns[action:start]",

@@ -8,7 +8,7 @@
     "countryLabel": "Shteti",
     "countryPlaceholder": "Shkruani shtetin",
     "cantonsLabel": "Kantonet",
-    "cantonsPlaceholder": "Shtoni kodin e kantonit (p.sh. BS)",
+    "cantonsPlaceholder": "Zgjidhni kantonet (asnjë: e gjithë Zvicra)",
     "maxCompaniesLabel": "Numri maksimal i kompanive",
     "maxCompaniesPlaceholder": "Shkruani një numër",
     "languageLabel": "Gjuha e email-it",
@@ -38,8 +38,7 @@
       "professional": "Profesional",
       "friendly": "Miqësor",
       "formal": "Zyrtar"
-    },
-    "removeCanton": "Hiqe kantonin"
+    }
   },
   "axios": {
     "start": {

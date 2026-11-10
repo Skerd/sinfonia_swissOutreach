@@ -8,7 +8,7 @@
     "countryLabel": "Country",
     "countryPlaceholder": "Enter the country",
     "cantonsLabel": "Cantons",
-    "cantonsPlaceholder": "Add a canton code (e.g. BS)",
+    "cantonsPlaceholder": "Select cantons (none: all of Switzerland)",
     "maxCompaniesLabel": "Maximum companies",
     "maxCompaniesPlaceholder": "Enter a number",
     "languageLabel": "Email language",
@@ -38,8 +38,7 @@
       "professional": "Professional",
       "friendly": "Friendly",
       "formal": "Formal"
-    },
-    "removeCanton": "Remove canton"
+    }
   },
   "axios": {
     "start": {

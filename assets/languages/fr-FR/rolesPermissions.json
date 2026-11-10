@@ -3,7 +3,8 @@
     "Swissoutreachcampaigns": "Campagnes de prospection",
     "Swissoutreachemails": "E-mails de prospection",
     "Swissoutreachpipelinerunlogs": "Journaux d'exécution du pipeline de prospection",
-    "Swissoutreachprospectcompanies": "Entreprises prospectées"
+    "Swissoutreachprospectcompanies": "Entreprises prospectées",
+    "Swissoutreachsuppressedcontacts": "Liste d'exclusion de prospection"
   },
   "permissions": {
     "Swissoutreachcampaigns": {
@@ -60,7 +61,8 @@
       "updatedAt": "Mis à jour le",
       "approve": "Approuver l'e-mail",
       "skip": "Ignorer l'e-mail",
-      "editDraft": "Modifier le brouillon"
+      "editDraft": "Modifier le brouillon",
+      "doNotContact": "Mettre le destinataire sur la liste d'exclusion"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "ID de campagne",
@@ -99,6 +101,18 @@
       "updatedAt": "Mis à jour le",
       "website": "Site web",
       "websiteConfidence": "Fiabilité du site web"
+    },
+    "Swissoutreachsuppressedcontacts": {
+      "createdAt": "Créé le",
+      "createdBy": "Créé par",
+      "deletedAt": "Supprimé le",
+      "deletedBy": "Supprimé par",
+      "domain": "Domaine",
+      "email": "E-mail",
+      "reason": "Motif",
+      "source": "Origine",
+      "swissoutreachsuppressedcontacts": "Liste d'exclusion de prospection",
+      "updatedAt": "Mis à jour le"
     }
   }
 }

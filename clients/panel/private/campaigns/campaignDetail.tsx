@@ -8,6 +8,7 @@ import {useActionAccess} from "@coreModule/helpers/hooks/useActionAccess.ts";
 import {handleError} from "@coreModule/helpers/general/errors.ts";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
 import type {ProspectCompany} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/prospectCompany/prospectCompany.dto.ts";
+import type {TableResponse} from "armonia/src/modules/core/types/shared.types.ts";
 import {Table} from "@coreModule/components/ui/table/table.tsx";
 import {Button} from "@coreModule/components/ui/button.tsx";
 
@@ -27,7 +28,10 @@ const RUNNING = new Set(["parsing", "searching", "enriching", "scoring", "sendin
 const IDLE_DONE = new Set(["completed", "failed", "cancelled", "awaiting_approval"]);
 
 const CAMPAIGN_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/single"};
-const LIST_REQUEST: HttpRequest = {method: "get", url: "/api/swissOutreach/campaign"};
+const PROSPECTS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/prospectCompany"};
+const LOGS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign/logs"};
+/** The best-scored prospects shown here; the prospects page lists them all. */
+const PROSPECTS_SHOWN = 200;
 const ACTION_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
 
 function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
@@ -44,14 +48,22 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
     const campaignRequest = useHttpRequest<Campaign>(CAMPAIGN_REQUEST, {_id: campaignId}, loadCount, true, {
         success: () => setStartRequested(false),
     });
-    const prospectsRequest = useHttpRequest<{data: ProspectCompany[]}>(LIST_REQUEST, {}, loadCount, true, {}, {
-        url: `/api/swissOutreach/campaign/${campaignId}/prospects`,
-    });
-    const logsRequest = useHttpRequest<{data: PipelineLog[]}>(LIST_REQUEST, {}, loadCount, true, {}, {
-        url: `/api/swissOutreach/campaign/${campaignId}/logs`,
-    });
+    const prospectsRequest = useHttpRequest<TableResponse<ProspectCompany>>(PROSPECTS_REQUEST, {
+        offset: 0,
+        limit: PROSPECTS_SHOWN,
+        sortBy: "score",
+        sortOrder: "desc",
+        filter: {
+            id: "campaign-prospects",
+            operator: "and",
+            rules: [{id: "campaign", field: "campaignId", operator: "equals", value: campaignId}],
+            groups: [],
+        },
+    }, loadCount);
+    const logsRequest = useHttpRequest<{data: PipelineLog[]}>(LOGS_REQUEST, {campaignId}, loadCount);
     const campaign = campaignRequest.data?._id ? campaignRequest.data : null;
     const prospects = prospectsRequest.data?.data ?? [];
+    const prospectsTotal = prospectsRequest.data?.total ?? prospects.length;
     const logs = logsRequest.data?.data ?? [];
     const loadError = campaignRequest.error || (campaignRequest.data && !campaign) ? resolveLanguageKey("notFound") : null;
 
@@ -200,7 +212,7 @@ function CampaignDetailPage({campaignId, resolveLanguageKey}: Props) {
             <div className="rounded-md border border-border p-3 text-sm whitespace-pre-wrap">{campaign?.jobDescription}</div>
 
             <div>
-                <h2 className="mb-2 font-medium">{resolveLanguageKey("prospectsTitle").replace("{count}", String(prospects.length))}</h2>
+                <h2 className="mb-2 font-medium">{resolveLanguageKey("prospectsTitle").replace("{count}", String(prospectsTotal))}</h2>
                 <div className="overflow-x-auto rounded-md border">
                     <Table bare className="min-w-full text-left text-sm">
                         <thead className="bg-muted">

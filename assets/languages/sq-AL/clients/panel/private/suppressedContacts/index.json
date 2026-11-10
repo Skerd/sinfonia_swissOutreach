@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/index.tsx",
+  "title": "Lista e mos-kontaktit",
+  "description": "Adresa dhe domene të cilave asnjë fushatë nuk u përgatit ose dërgon email",
+  "create": "Shto hyrje",
+  "searchPlaceholder": "Kërko në listë ose shto filtra...",
+  "noData": "Askush nuk është në listë",
+  "failTitle": "Lista nuk u ngarkua",
+  "failDescription": "Diçka shkoi keq gjatë ngarkimit. Ju lutemi provoni përsëri.",
+  "deleted": "Fshirë",
+  "active": "Aktiv",
+  "fields": {
+    "email": "Email",
+    "domain": "Domeni",
+    "reason": "Arsyeja",
+    "source": "Burimi",
+    "createdAt": "Krijuar më",
+    "updatedAt": "Përditësuar më",
+    "createdBy": "Krijuar nga",
+    "company": "Kompania",
+    "deletedAt": "Fshirë më",
+    "deletedBy": "Fshirë nga",
+    "!enums": {
+      "source": {
+        "manual": "Shtuar me dorë",
+        "outreach_email": "Nga një email kontaktimi"
+      }
+    }
+  },
+  "suppressedContact": "Hyrje e listës së mos-kontaktit",
+  "overview": "Përmbledhje",
+  "lifecycle": "Cikli i jetës",
+  "email": "Email",
+  "domain": "Domeni",
+  "reason": "Arsyeja",
+  "source": "Burimi",
+  "sourceValues": {
+    "manual": "Shtuar me dorë",
+    "outreach_email": "Nga një email kontaktimi"
+  },
+  "createdAt": "Krijuar më",
+  "updatedAt": "Përditësuar më",
+  "createdBy": "Krijuar nga",
+  "deletedAt": "Fshirë më",
+  "deletedBy": "Fshirë nga"
+}

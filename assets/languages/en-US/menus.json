@@ -12,6 +12,9 @@
     },
     "prospects": {
       "title": "Prospects"
+    },
+    "doNotContact": {
+      "title": "Do-not-contact list"
     }
   }
 }

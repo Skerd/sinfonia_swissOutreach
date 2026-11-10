@@ -43,5 +43,6 @@
   "approve": "Mirato",
   "saveBeforeApprove": "Ruani ndryshimin para se ta miratoni.",
   "skip": "Kapërce",
-  "empty": "Asnjë email në pritje të shqyrtimit për këtë fushatë."
+  "empty": "Asnjë email në pritje të shqyrtimit për këtë fushatë.",
+  "doNotContact": "Mos kontakto"
 }

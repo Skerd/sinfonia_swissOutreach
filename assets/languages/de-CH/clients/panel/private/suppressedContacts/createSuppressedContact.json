@@ -1,0 +1,35 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/createSuppressedContact.tsx",
+  "title": "Zur Sperrliste hinzufügen",
+  "description": "Keine Kampagne erstellt oder sendet mehr an diese Adresse oder Domain",
+  "form": {
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "name@firma.ch",
+    "domainLabel": "Ganze Domain",
+    "domainPlaceholder": "firma.ch",
+    "reasonLabel": "Grund",
+    "reasonPlaceholder": "Zum Beispiel: hat telefonisch gebeten, nicht kontaktiert zu werden"
+  },
+  "axios": {
+    "start": {
+      "title": "Eintrag wird gespeichert",
+      "time": 3000
+    },
+    "success": {
+      "title": "Zur Sperrliste hinzugefügt",
+      "time": 3000
+    },
+    "error": {
+      "title": "Der Eintrag konnte nicht hinzugefügt werden. Prüfen Sie das Formular und versuchen Sie es erneut.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Zur Sperrliste hinzufügen",
+    "description": "Keine Kampagne erstellt oder sendet mehr an diese Adresse oder Domain"
+  },
+  "formButtons": {
+    "cancel": "Abbrechen",
+    "submit": "Hinzufügen"
+  }
+}

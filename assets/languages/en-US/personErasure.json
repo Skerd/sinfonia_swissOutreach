@@ -1,0 +1,5 @@
+{
+  "modules": {
+    "swissOutreach": "Swiss outreach: the person's address is removed from found companies (with the phone numbers found next to it) and from emails written to them, whose text stays; a campaign they sent keeps no contact details. The do-not-contact list is kept, so they are still not contacted."
+  }
+}

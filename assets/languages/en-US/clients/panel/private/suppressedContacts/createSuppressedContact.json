@@ -1,0 +1,35 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/createSuppressedContact.tsx",
+  "title": "Add to the do-not-contact list",
+  "description": "No campaign drafts or sends to this address or domain again",
+  "form": {
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@company.ch",
+    "domainLabel": "Whole domain",
+    "domainPlaceholder": "company.ch",
+    "reasonLabel": "Reason",
+    "reasonPlaceholder": "For example: asked by phone not to be contacted"
+  },
+  "axios": {
+    "start": {
+      "title": "Saving entry",
+      "time": 3000
+    },
+    "success": {
+      "title": "Added to the do-not-contact list",
+      "time": 3000
+    },
+    "error": {
+      "title": "The entry could not be added. Check the form and try again.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Add to the do-not-contact list",
+    "description": "No campaign drafts or sends to this address or domain again"
+  },
+  "formButtons": {
+    "cancel": "Cancel",
+    "submit": "Add"
+  }
+}

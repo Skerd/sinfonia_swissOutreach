@@ -3,7 +3,8 @@
     "Swissoutreachcampaigns": "Outreach campaigns",
     "Swissoutreachemails": "Outreach emails",
     "Swissoutreachpipelinerunlogs": "Outreach pipeline run logs",
-    "Swissoutreachprospectcompanies": "Outreach prospect companies"
+    "Swissoutreachprospectcompanies": "Outreach prospect companies",
+    "Swissoutreachsuppressedcontacts": "Outreach do-not-contact list"
   },
   "permissions": {
     "Swissoutreachcampaigns": {
@@ -60,7 +61,8 @@
       "updatedAt": "Updated at",
       "approve": "Approve email",
       "skip": "Skip email",
-      "editDraft": "Edit draft"
+      "editDraft": "Edit draft",
+      "doNotContact": "Put recipient on the do-not-contact list"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "Campaign ID",
@@ -99,6 +101,18 @@
       "updatedAt": "Updated at",
       "website": "Website",
       "websiteConfidence": "Website confidence"
+    },
+    "Swissoutreachsuppressedcontacts": {
+      "createdAt": "Created at",
+      "createdBy": "Created by",
+      "deletedAt": "Deleted at",
+      "deletedBy": "Deleted by",
+      "domain": "Domain",
+      "email": "Email",
+      "reason": "Reason",
+      "source": "Source",
+      "swissoutreachsuppressedcontacts": "Outreach do-not-contact list",
+      "updatedAt": "Updated at"
     }
   }
 }

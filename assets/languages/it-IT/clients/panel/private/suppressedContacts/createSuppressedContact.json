@@ -1,0 +1,35 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/createSuppressedContact.tsx",
+  "title": "Aggiungi alla lista di esclusione",
+  "description": "Nessuna campagna prepara o invia più e-mail a questo indirizzo o dominio",
+  "form": {
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "nome@azienda.ch",
+    "domainLabel": "Intero dominio",
+    "domainPlaceholder": "azienda.ch",
+    "reasonLabel": "Motivo",
+    "reasonPlaceholder": "Per esempio: ha chiesto al telefono di non essere contattato"
+  },
+  "axios": {
+    "start": {
+      "title": "Salvataggio della voce",
+      "time": 3000
+    },
+    "success": {
+      "title": "Aggiunto alla lista di esclusione",
+      "time": 3000
+    },
+    "error": {
+      "title": "Non è stato possibile aggiungere la voce. Controlli il modulo e riprovi.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Aggiungi alla lista di esclusione",
+    "description": "Nessuna campagna prepara o invia più e-mail a questo indirizzo o dominio"
+  },
+  "formButtons": {
+    "cancel": "Annulla",
+    "submit": "Aggiungi"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/index.tsx",
+  "title": "Do-not-contact list",
+  "description": "Addresses and domains no campaign drafts or sends to",
+  "create": "Add entry",
+  "searchPlaceholder": "Search the list or add filters...",
+  "noData": "Nobody is on the list",
+  "failTitle": "Failed to load the list",
+  "failDescription": "Something went wrong while loading. Please try again.",
+  "deleted": "Deleted",
+  "active": "Active",
+  "fields": {
+    "email": "Email",
+    "domain": "Domain",
+    "reason": "Reason",
+    "source": "Source",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "createdBy": "Created by",
+    "company": "Company",
+    "deletedAt": "Deleted at",
+    "deletedBy": "Deleted by",
+    "!enums": {
+      "source": {
+        "manual": "Added by hand",
+        "outreach_email": "From an outreach email"
+      }
+    }
+  },
+  "suppressedContact": "Do-not-contact entry",
+  "overview": "Overview",
+  "lifecycle": "Lifecycle",
+  "email": "Email",
+  "domain": "Domain",
+  "reason": "Reason",
+  "source": "Source",
+  "sourceValues": {
+    "manual": "Added by hand",
+    "outreach_email": "From an outreach email"
+  },
+  "createdAt": "Created at",
+  "updatedAt": "Updated at",
+  "createdBy": "Created by",
+  "deletedAt": "Deleted at",
+  "deletedBy": "Deleted by"
+}

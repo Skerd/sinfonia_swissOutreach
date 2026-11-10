@@ -1,0 +1,5 @@
+{
+  "modules": {
+    "swissOutreach": "Prospection suisse : l'adresse de la personne est retirée des entreprises trouvées (avec les numéros de téléphone trouvés à côté) et des e-mails qui lui ont été écrits, dont le texte reste ; une campagne qu'elle a envoyée ne garde aucune coordonnée. La liste d'exclusion est conservée, afin qu'elle ne soit toujours pas contactée."
+  }
+}

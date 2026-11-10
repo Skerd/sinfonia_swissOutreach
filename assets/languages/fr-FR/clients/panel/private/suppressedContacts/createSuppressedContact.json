@@ -1,0 +1,35 @@
+{
+  "path": "src/modules/swissOutreach/clients/panel/private/suppressedContacts/createSuppressedContact.tsx",
+  "title": "Ajouter à la liste d'exclusion",
+  "description": "Aucune campagne ne prépare ni n'envoie plus d'e-mail à cette adresse ou à ce domaine",
+  "form": {
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "nom@entreprise.ch",
+    "domainLabel": "Domaine entier",
+    "domainPlaceholder": "entreprise.ch",
+    "reasonLabel": "Motif",
+    "reasonPlaceholder": "Par exemple : a demandé par téléphone à ne plus être contacté"
+  },
+  "axios": {
+    "start": {
+      "title": "Enregistrement de l'entrée",
+      "time": 3000
+    },
+    "success": {
+      "title": "Ajouté à la liste d'exclusion",
+      "time": 3000
+    },
+    "error": {
+      "title": "L'entrée n'a pas pu être ajoutée. Vérifiez le formulaire et réessayez.",
+      "time": 3000
+    }
+  },
+  "formHeader": {
+    "title": "Ajouter à la liste d'exclusion",
+    "description": "Aucune campagne ne prépare ni n'envoie plus d'e-mail à cette adresse ou à ce domaine"
+  },
+  "formButtons": {
+    "cancel": "Annuler",
+    "submit": "Ajouter"
+  }
+}

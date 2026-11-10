@@ -34,8 +34,8 @@ type Handlers = {single?: () => Promise<unknown>; action?: (url: string) => Prom
 function serve(status: CampaignStatusValue, {single, action}: Handlers = {}) {
     apiClientMock.mockImplementation(({url}: Call) => {
         if (url === "/api/swissOutreach/campaign/single") return single ? single() : Promise.resolve({data: campaign(status)});
-        if (url.endsWith("/prospects")) return Promise.resolve({data: {data: []}});
-        if (url.endsWith("/logs")) return Promise.resolve({data: {data: [{_id: "l1", step: "search", level: "info", message: "Found 2 companies"}]}});
+        if (url === "/api/swissOutreach/prospectCompany") return Promise.resolve({data: {data: [], total: 0}});
+        if (url === "/api/swissOutreach/campaign/logs") return Promise.resolve({data: {data: [{_id: "l1", step: "search", level: "info", message: "Found 2 companies"}]}});
         return action ? action(url) : Promise.resolve({data: {}});
     });
 }

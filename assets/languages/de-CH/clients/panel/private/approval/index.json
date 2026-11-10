@@ -43,5 +43,6 @@
   "approve": "Freigeben",
   "saveBeforeApprove": "Speichern Sie Ihre Änderung vor der Freigabe.",
   "skip": "Überspringen",
-  "empty": "Keine E-Mails zur Prüfung in dieser Kampagne."
+  "empty": "Keine E-Mails zur Prüfung in dieser Kampagne.",
+  "doNotContact": "Nicht kontaktieren"
 }

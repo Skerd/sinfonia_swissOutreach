@@ -1,0 +1,5 @@
+{
+  "modules": {
+    "swissOutreach": "Swiss Outreach: Die Adresse der Person wird aus gefundenen Firmen (samt den daneben gefundenen Telefonnummern) und aus an sie geschriebenen E-Mails entfernt, deren Text bleibt; eine von ihr versendete Kampagne behält keine Kontaktdaten. Die Sperrliste bleibt bestehen, damit sie weiterhin nicht kontaktiert wird."
+  }
+}

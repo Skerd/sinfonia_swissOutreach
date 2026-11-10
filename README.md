@@ -22,7 +22,8 @@ swissOutreach/
     │   ├── dashboard/                # Aggregate campaign metrics
     │   ├── campaigns/                # List, create, detail (+ live status)
     │   ├── approval/                 # Edit / approve / skip drafts; approve-all
-    │   └── prospects/                # Prospect companies for a campaign
+    │   ├── prospects/                # Prospect companies for a campaign
+    │   └── suppressedContacts/       # Do-not-contact list (add / remove)
     ├── sidebarContribution.tsx       # Swiss Outreach nav group
     ├── routeConfigContribution.tsx   # /swissOutreach/* routes
     └── widgetContribution.tsx        # Placeholder (no widgets yet)
@@ -38,8 +39,9 @@ Routes are registered in `routeConfigContribution.tsx` and appear under the **Sw
 | Campaigns | `/swissOutreach/campaigns` | Campaign list |
 | Create campaign | `/swissOutreach/campaigns/create` | Job text, cantons, max companies, language/tone, sender identity |
 | Campaign detail | `/swissOutreach/campaigns/detail?campaignId=` | Status, stats, prospects, pipeline logs; restart / cancel; link to approval |
-| Approval | `/swissOutreach/approval?campaignId=` | Draft queue: edit, approve, skip, approve-all |
+| Approval | `/swissOutreach/approval?campaignId=` | Draft queue (the email and prospect lists filtered by campaign): edit, approve, skip, do not contact, approve-all |
 | Prospects | `/swissOutreach/prospects?campaignId=` | Companies discovered/enriched for a campaign |
+| Do-not-contact list | `/swissOutreach/doNotContact` (`/create`) | Addresses and domains no campaign of the company drafts or sends to |
 
 Campaign detail polls every 5s while the pipeline is non-terminal (`completed` / `failed` / `cancelled`).
 
@@ -47,7 +49,7 @@ Campaign detail polls every 5s while the pipeline is non-terminal (`completed` /
 
 1. **Create** — submit job description + cantons + sender → `PUT /api/swissOutreach/campaign`
 2. **Watch** — detail page shows pipeline status and prospect list
-3. **Approve** — review drafts on the approval page (`approve` / `editDraft` / `skip` / `approveAll`)
+3. **Approve** — review drafts on the approval page (`approve` / `editDraft` / `skip` / `doNotContact` / `approveAll`)
 4. **Send** — maestro sends approved emails (or auto-sends when `sendAutomatically` was set at create)
 
 ## Contributions

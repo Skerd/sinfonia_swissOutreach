@@ -3,7 +3,8 @@
     "Swissoutreachcampaigns": "Fushatat e kontaktimit",
     "Swissoutreachemails": "Emailet e kontaktimit",
     "Swissoutreachpipelinerunlogs": "Regjistrat e ekzekutimit të procesit të kontaktimit",
-    "Swissoutreachprospectcompanies": "Kompanitë e mundshme për kontaktim"
+    "Swissoutreachprospectcompanies": "Kompanitë e mundshme për kontaktim",
+    "Swissoutreachsuppressedcontacts": "Lista e mos-kontaktit të kontaktimit"
   },
   "permissions": {
     "Swissoutreachcampaigns": {
@@ -60,7 +61,8 @@
       "updatedAt": "Përditësuar më",
       "approve": "Mirato email-in",
       "skip": "Anashkalo email-in",
-      "editDraft": "Ndrysho skicën"
+      "editDraft": "Ndrysho skicën",
+      "doNotContact": "Vendos marrësin në listën e mos-kontaktit"
     },
     "Swissoutreachpipelinerunlogs": {
       "campaignId": "ID e fushatës",
@@ -99,6 +101,18 @@
       "updatedAt": "Përditësuar më",
       "website": "Faqja",
       "websiteConfidence": "Besueshmëria e faqes së internetit"
+    },
+    "Swissoutreachsuppressedcontacts": {
+      "createdAt": "Krijuar më",
+      "createdBy": "Krijuar nga",
+      "deletedAt": "Fshirë më",
+      "deletedBy": "Fshirë nga",
+      "domain": "Domeni",
+      "email": "Email",
+      "reason": "Arsyeja",
+      "source": "Burimi",
+      "swissoutreachsuppressedcontacts": "Lista e mos-kontaktit të kontaktimit",
+      "updatedAt": "Përditësuar më"
     }
   }
 }
