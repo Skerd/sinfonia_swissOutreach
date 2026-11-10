@@ -53,6 +53,10 @@
   },
   "toEmail": "Marrësi",
   "lastError": "Gabimi i fundit",
+  "lastErrorReasons": {
+    "do_not_contact": "Marrësi është në listën e kontakteve që nuk duhen kontaktuar.",
+    "mail_disabled": "Dërgimi i email-eve është i çaktivizuar në këtë server."
+  },
   "details": "Detajet",
   "skippedDoNotContact": "Marrësi është në listën e kontakteve që nuk duhen kontaktuar, prandaj email-i u kapërcye në vend që të miratohej.",
   "emptyView": {

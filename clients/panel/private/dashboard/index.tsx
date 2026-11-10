@@ -14,13 +14,11 @@ import withLanguage, {WithLanguageType} from "@coreModule/helpers/hocs/withLangu
 import withDebug from "@coreModule/helpers/hocs/withDebug.tsx";
 import useHttpRequest, {type HttpRequest} from "@coreModule/helpers/hooks/useHttpRequest.ts";
 import {KpiCard, type KpiCardProps} from "@coreModule/components/custom/kpiCard.tsx";
-import {NativeSelect, NativeSelectOption} from "@coreModule/components/ui/native-select.tsx";
-import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
+import CampaignPicker from "@swissOutreachModule/clients/panel/private/campaigns/campaignPicker.tsx";
 import type {SwissOutreachDashboardSummary} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/dashboard/dashboard.dto.ts";
 import type {DashboardSummaryFormType} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/dashboard/dashboardSummary.form.validator.ts";
 
 const SUMMARY_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/dashboard/summary"};
-const CAMPAIGNS_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutreach/campaign"};
 
 const CARDS: {key: keyof SwissOutreachDashboardSummary; icon: KpiCardProps["icon"]; variant?: KpiCardProps["variant"]}[] = [
     {key: "companiesFound", icon: IconBuilding},
@@ -35,8 +33,7 @@ const CARDS: {key: keyof SwissOutreachDashboardSummary; icon: KpiCardProps["icon
 
 /** The company's outreach counts, or one campaign's. */
 function DashboardPage({resolveLanguageKey}: WithLanguageType) {
-    const campaignsRequest = useHttpRequest<{data: Campaign[]}>(CAMPAIGNS_REQUEST, {offset: 0, limit: 100}, 1);
-    const campaigns = campaignsRequest.data?.data ?? [];
+    // No campaign picked: the counts are the company's.
     const [campaignId, setCampaignId] = useState("");
 
     const [loadCount, setLoadCount] = useState(0);
@@ -51,18 +48,13 @@ function DashboardPage({resolveLanguageKey}: WithLanguageType) {
         <div className="flex flex-col gap-4 p-4">
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <h1 className="text-xl font-semibold">{resolveLanguageKey("title")}</h1>
-                <NativeSelect
-                    aria-label={resolveLanguageKey("campaign")}
+                <CampaignPicker
                     value={campaignId}
-                    onChange={(event) => setCampaignId(event.target.value)}
-                >
-                    <NativeSelectOption value="">{resolveLanguageKey("allCampaigns")}</NativeSelectOption>
-                    {campaigns.map((campaign) => (
-                        <NativeSelectOption key={campaign._id} value={campaign._id}>
-                            {campaign.name}
-                        </NativeSelectOption>
-                    ))}
-                </NativeSelect>
+                    onChange={setCampaignId}
+                    placeholder={String(resolveLanguageKey("allCampaigns"))}
+                    resolveLanguageKey={resolveLanguageKey}
+                    className="w-64"
+                />
             </div>
             {request.loading && <p className="text-sm text-muted-foreground">{resolveLanguageKey("loading")}</p>}
             {request.error && <p className="text-sm text-destructive">{resolveLanguageKey("loadFailed")}</p>}

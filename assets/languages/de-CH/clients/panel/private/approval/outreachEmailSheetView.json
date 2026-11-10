@@ -13,6 +13,10 @@
   "subject": "Betreff",
   "body": "E-Mail-Text",
   "lastError": "Letzter Fehler",
+  "lastErrorReasons": {
+    "do_not_contact": "Der Empfänger steht auf der Kontaktsperrliste.",
+    "mail_disabled": "Der E-Mail-Versand ist auf diesem Server ausgeschaltet."
+  },
   "statusValues": {
     "draft": "Entwurf",
     "edited": "Bearbeitet",

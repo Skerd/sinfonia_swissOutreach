@@ -13,6 +13,10 @@
   "subject": "Objet",
   "body": "Texte de l'e-mail",
   "lastError": "Dernière erreur",
+  "lastErrorReasons": {
+    "do_not_contact": "Le destinataire figure sur la liste des contacts à ne pas solliciter.",
+    "mail_disabled": "L'envoi d'e-mails est désactivé sur ce serveur."
+  },
   "statusValues": {
     "draft": "Brouillon",
     "edited": "Modifié",

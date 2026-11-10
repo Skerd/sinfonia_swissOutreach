@@ -16,6 +16,7 @@ import {Button} from "@coreModule/components/ui/button.tsx";
 import {Input} from "@coreModule/components/ui/input.tsx";
 import {Textarea} from "@coreModule/components/ui/textarea.tsx";
 import {NativeSelect, NativeSelectOption} from "@coreModule/components/ui/native-select.tsx";
+import CampaignPicker from "@swissOutreachModule/clients/panel/private/campaigns/campaignPicker.tsx";
 import Paginator from "@coreModule/components/custom/paginator/index.tsx";
 import OutreachEmailSheetView from "./outreachEmailSheetView.tsx";
 
@@ -63,11 +64,10 @@ const APPROVE_ALL_REQUEST: HttpRequest = {method: "post", url: "/api/swissOutrea
 const draftOf = (email: OutreachEmail): Draft => ({toEmail: email.toEmail ?? "", subject: email.subject, body: email.body});
 
 function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props) {
-    const campaignsRequest = useHttpRequest<{data: Campaign[]}>(CAMPAIGNS_REQUEST, {offset: 0, limit: 100}, 1);
-    const campaigns = campaignsRequest.data?.data ?? [];
+    // Without a campaign in the URL, the first one is shown; any other is found by searching the picker.
+    const firstCampaignRequest = useHttpRequest<{data: Campaign[]}>(CAMPAIGNS_REQUEST, {offset: 0, limit: 1}, initialCampaignId ? 0 : 1);
     const [pickedCampaignId, setCampaignId] = useState(initialCampaignId || "");
-    // Without a campaign in the URL, the first one is shown.
-    const campaignId = pickedCampaignId || campaigns[0]?._id || "";
+    const campaignId = pickedCampaignId || firstCampaignRequest.data?.data[0]?._id || "";
     const [view, setView] = useState<View>("pending");
     const [offset, setOffset] = useState(0);
     const [limit, setLimit] = useState(PAGE_SIZE);
@@ -171,20 +171,17 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
             <div className="flex flex-wrap items-center justify-between gap-3">
                 <h1 className="text-xl font-semibold">{resolveLanguageKey("title")}</h1>
                 <div className="flex flex-wrap gap-2">
-                    <NativeSelect
-                        aria-label={resolveLanguageKey("campaign")}
+                    <CampaignPicker
                         value={campaignId}
-                        onChange={(e) => {
-                            setCampaignId(e.target.value);
+                        onChange={(picked) => {
+                            if (!picked) return;
+                            setCampaignId(picked);
                             setOffset(0);
                         }}
-                    >
-                        {campaigns.map((c) => (
-                            <NativeSelectOption key={c._id} value={c._id}>
-                                {c.name} ({resolveLanguageKey(`status.${c.status}`)})
-                            </NativeSelectOption>
-                        ))}
-                    </NativeSelect>
+                        placeholder={String(resolveLanguageKey("campaign"))}
+                        resolveLanguageKey={resolveLanguageKey}
+                        className="w-64"
+                    />
                     <NativeSelect aria-label={resolveLanguageKey("view")} value={view} onChange={(e) => {
                         const next = VIEWS.find((option) => option === e.target.value);
                         if (!next) return;
@@ -266,7 +263,7 @@ function ApprovalPage({campaignId: initialCampaignId, resolveLanguageKey}: Props
                                         </div>
                                         {email.lastError && (
                                             <p className="mt-1 text-xs text-destructive">
-                                                {resolveLanguageKey("lastError")}: {email.lastError}
+                                                {resolveLanguageKey("lastError")}: {resolveLanguageKey(`lastErrorReasons.${email.lastError}`, true) || email.lastError}
                                             </p>
                                         )}
                                     </TableCell>

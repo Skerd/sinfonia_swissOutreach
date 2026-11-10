@@ -53,6 +53,10 @@
   },
   "toEmail": "Empfänger",
   "lastError": "Letzter Fehler",
+  "lastErrorReasons": {
+    "do_not_contact": "Der Empfänger steht auf der Kontaktsperrliste.",
+    "mail_disabled": "Der E-Mail-Versand ist auf diesem Server ausgeschaltet."
+  },
   "details": "Details",
   "skippedDoNotContact": "Der Empfänger steht auf der Kontaktsperrliste, daher wurde die E-Mail übersprungen statt freigegeben.",
   "emptyView": {

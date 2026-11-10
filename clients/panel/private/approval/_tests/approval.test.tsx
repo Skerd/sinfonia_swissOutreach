@@ -1,4 +1,4 @@
-import {fireEvent, render, screen, waitFor, within} from "@testing-library/react";
+import {act, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import {beforeEach, describe, expect, it, vi} from "vitest";
 import type {ComponentType} from "react";
 import type {Campaign} from "armonia/src/modules/swissOutreach/api/swissOutreach/private/campaign/campaign.dto.ts";
@@ -10,14 +10,31 @@ const {apiClientMock} = vi.hoisted(() => ({apiClientMock: Object.assign(vi.fn(),
 
 vi.mock("@coreModule/helpers/apiClient/apiClient.ts", () => ({default: apiClientMock}));
 vi.mock("sonner", () => ({toast: Object.assign(vi.fn(), {loading: vi.fn(), success: vi.fn(), error: vi.fn(), dismiss: vi.fn()})}));
+/** Echoes the key; a lookup that may miss (`orNull`) finds only the known reason codes, as the dictionary does. */
+const {resolveKey} = vi.hoisted(() => ({
+    resolveKey: (key: string, orNull?: boolean) => (orNull && !key.startsWith("lastErrorReasons.do_not_contact") ? null : key),
+}));
 vi.mock("@coreModule/helpers/hocs/withLanguage.tsx", () => ({
     default: () => (Wrapped: ComponentType<Record<string, unknown>>) =>
-        (props: Record<string, unknown>) => <Wrapped {...props} resolveLanguageKey={(key: string) => key}/>,
+        (props: Record<string, unknown>) => <Wrapped {...props} resolveLanguageKey={resolveKey}/>,
 }));
 vi.mock("@coreModule/helpers/hocs/withDebug.tsx", () => ({
     default: () => (Wrapped: ComponentType<Record<string, unknown>>) => Wrapped,
 }));
 vi.mock("@coreModule/components/custom/sessionSetupScreen.tsx", () => ({SessionSetupScreen: () => null, SESSION_SETUP_TOTAL_STEPS: 3}));
+// The campaign picker searches the select route (TD-B146); the stub shows what it holds and lets a test pick.
+const picker = vi.hoisted(() => ({pick: (_value: string, _label?: string) => {}}));
+vi.mock("@coreModule/components/viewEngine/widgets/inputs/apiSelect/apiSelect.tsx", () => ({
+    ApiSelect: ({apiUrl, value, onValueChange, defaultOptions}: {
+        apiUrl: string;
+        value: string;
+        onValueChange: (value: string, label?: string) => void;
+        defaultOptions?: {value: string; label: string}[];
+    }) => {
+        picker.pick = onValueChange;
+        return <output data-testid="campaign-picker" data-url={apiUrl} data-value={value}>{defaultOptions?.[0]?.label}</output>;
+    },
+}));
 
 import ApprovalPage from "../index.tsx";
 import {ALL_OUTREACH_ACTIONS, OUTREACH_ACCESS_ALL, SessionWith} from "../../_tests/accessHarness.tsx";
@@ -49,6 +66,7 @@ const emails = [
     email("e2", {status: "edited", toEmail: undefined}),
     email("e3", {status: "failed", lastError: "550 Mailbox unavailable"}),
     email("e4", {status: "sent"}),
+    email("e5", {status: "skipped", lastError: "do_not_contact"}),
 ];
 const prospects = [prospect("pc1", "Maler Meier", {score: 87, website: "https://meier.ch"})];
 
@@ -60,7 +78,10 @@ const statusesOf = (call: Call) => (call.data.filter as {rules: {field: string; 
 function serve({actionError, actionData = {}, emailsTotal}: {actionError?: unknown; actionData?: Record<string, unknown>; emailsTotal?: number} = {}) {
     apiClientMock.mockImplementation((call: Call) => {
         const {method, url} = call;
-        if (method === "post" && url === "/api/swissOutreach/campaign") return Promise.resolve({data: {data: campaigns}});
+        if (method === "post" && url === "/api/swissOutreach/campaign") return Promise.resolve({data: {data: campaigns.slice(0, Number(call.data.limit))}});
+        if (method === "post" && url === "/api/swissOutreach/campaign/single") {
+            return Promise.resolve({data: campaigns.find((c) => c._id === call.data._id)});
+        }
         if (url === "/api/swissOutreach/outreachEmail") {
             const statuses = statusesOf(call);
             const shown = emails.filter((e) => Array.isArray(statuses) && statuses.includes(e.status));
@@ -98,7 +119,12 @@ describe("swissOutreach approval queue", () => {
         renderPage();
 
         await rowOf("Maler Meier");
-        expect(screen.getByRole("combobox", {name: "campaign"})).toHaveValue("c1");
+        const picked = screen.getByTestId("campaign-picker");
+        expect(picked).toHaveAttribute("data-value", "c1");
+        expect(picked).toHaveAttribute("data-url", "/api/swissOutreach/campaign/select");
+        // Only the first campaign is listed; the picker searches the rest
+        expect(calls().find((c) => c.url === "/api/swissOutreach/campaign")?.data).toMatchObject({limit: 1});
+        await waitFor(() => expect(picked).toHaveTextContent("Alpha AG campaign"));
         const prospectsLoad = calls().find((c) => c.url === "/api/swissOutreach/prospectCompany");
         expect(prospectsLoad && campaignOf(prospectsLoad)).toBe("c1");
         expect(queueLoads("c1")).toBe(1);
@@ -200,7 +226,7 @@ describe("swissOutreach approval queue", () => {
         renderPage();
         await rowOf("Maler Meier");
 
-        fireEvent.change(screen.getByRole("combobox", {name: "campaign"}), {target: {value: "c2"}});
+        act(() => picker.pick("c2", "Beta GmbH campaign"));
         await waitFor(() => expect(queueLoads("c2")).toBe(1));
         fireEvent.click(screen.getByRole("button", {name: "approveAll"}));
 
@@ -294,6 +320,15 @@ describe("swissOutreach approval queue", () => {
         await waitFor(() => expect(actionCalls()).toEqual([
             {url: "/api/swissOutreach/outreachEmail/editDraft", data: {emailId: "e2", subject: "Subject e2", body: "Body e2", toEmail: "offerte@meier.ch"}},
         ]));
+    });
+
+    it("shows a known reason code translated and a provider's error as it came (D126)", async () => {
+        serve();
+        renderPage();
+        await rowOf("Maler Meier");
+
+        fireEvent.change(screen.getByRole("combobox", {name: "view"}), {target: {value: "skipped"}});
+        expect(within(await rowOf("pc-e5")).getByText("lastError: lastErrorReasons.do_not_contact")).toBeInTheDocument();
     });
 
     it("says so when approving skipped the email because its recipient is on the do-not-contact list", async () => {

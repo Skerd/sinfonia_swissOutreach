@@ -114,5 +114,15 @@
       "swissoutreachsuppressedcontacts": "Outreach-Sperrliste",
       "updatedAt": "Aktualisiert am"
     }
+  },
+  "roles": {
+    "outreach_operator": {
+      "name": "Outreach-Bearbeiter",
+      "description": "Führt Outreach-Kampagnen: erstellt und bearbeitet sie, startet und bricht sie ab und überarbeitet entworfene E-Mails. Liest Interessenten, E-Mails, das Pipeline-Protokoll und die Sperrliste. Kann keine E-Mails freigeben, überspringen oder senden."
+    },
+    "outreach_approver": {
+      "name": "Outreach-Freigeber",
+      "description": "Alles, was der Bearbeiter tut, und entscheidet, was hinausgeht: gibt E-Mails frei oder überspringt sie, sendet die freigegebenen und pflegt die Sperrliste."
+    }
   }
 }

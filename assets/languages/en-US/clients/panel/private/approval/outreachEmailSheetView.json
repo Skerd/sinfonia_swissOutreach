@@ -13,6 +13,10 @@
   "subject": "Subject",
   "body": "Email text",
   "lastError": "Last error",
+  "lastErrorReasons": {
+    "do_not_contact": "The recipient is on the do-not-contact list.",
+    "mail_disabled": "Email sending is turned off on this server."
+  },
   "statusValues": {
     "draft": "Draft",
     "edited": "Edited",

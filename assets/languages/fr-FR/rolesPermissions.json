@@ -114,5 +114,15 @@
       "swissoutreachsuppressedcontacts": "Liste d'exclusion de prospection",
       "updatedAt": "Mis à jour le"
     }
+  },
+  "roles": {
+    "outreach_operator": {
+      "name": "Opérateur de prospection",
+      "description": "Mène les campagnes de prospection : les crée et les modifie, les lance et les annule, et réécrit les e-mails rédigés. Consulte les prospects, les e-mails, le journal du pipeline et la liste d'exclusion. Ne peut ni approuver, ni ignorer, ni envoyer d'e-mails."
+    },
+    "outreach_approver": {
+      "name": "Approbateur de prospection",
+      "description": "Tout ce que fait l'opérateur, et décide de ce qui part : approuve ou ignore les e-mails, envoie ceux qui sont approuvés et tient la liste d'exclusion."
+    }
   }
 }

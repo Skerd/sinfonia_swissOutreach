@@ -13,6 +13,10 @@
   "subject": "Tema",
   "body": "Teksti i email-it",
   "lastError": "Gabimi i fundit",
+  "lastErrorReasons": {
+    "do_not_contact": "Marrësi është në listën e kontakteve që nuk duhen kontaktuar.",
+    "mail_disabled": "Dërgimi i email-eve është i çaktivizuar në këtë server."
+  },
   "statusValues": {
     "draft": "Skicë",
     "edited": "Ndryshuar",

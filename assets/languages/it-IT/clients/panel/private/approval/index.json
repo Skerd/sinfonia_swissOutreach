@@ -53,6 +53,10 @@
   },
   "toEmail": "Destinatario",
   "lastError": "Ultimo errore",
+  "lastErrorReasons": {
+    "do_not_contact": "Il destinatario è nella lista dei contatti da non contattare.",
+    "mail_disabled": "L'invio di e-mail è disattivato su questo server."
+  },
   "details": "Dettagli",
   "skippedDoNotContact": "Il destinatario è nella lista dei contatti da non contattare, quindi l'e-mail è stata saltata invece di essere approvata.",
   "emptyView": {

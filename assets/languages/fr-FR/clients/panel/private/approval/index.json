@@ -53,6 +53,10 @@
   },
   "toEmail": "Destinataire",
   "lastError": "Dernière erreur",
+  "lastErrorReasons": {
+    "do_not_contact": "Le destinataire figure sur la liste des contacts à ne pas solliciter.",
+    "mail_disabled": "L'envoi d'e-mails est désactivé sur ce serveur."
+  },
   "details": "Détails",
   "skippedDoNotContact": "Le destinataire figure sur la liste des contacts à ne pas solliciter : l'e-mail a été ignoré au lieu d'être approuvé.",
   "emptyView": {
