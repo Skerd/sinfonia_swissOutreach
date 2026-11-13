@@ -39,7 +39,10 @@
       "start": "Start campaign",
       "cancel": "Cancel campaign",
       "approveAll": "Approve all emails",
-      "sendApproved": "Send approved emails"
+      "sendApproved": "Send approved emails",
+      "name": "Campaign name",
+      "lease_holder": "Run lock: held by",
+      "lease_until": "Run lock: until"
     },
     "Swissoutreachemails": {
       "attempts": "Attempts",

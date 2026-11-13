@@ -39,7 +39,10 @@
       "start": "Nis fushatën",
       "cancel": "Anulo fushatën",
       "approveAll": "Mirato të gjitha email-et",
-      "sendApproved": "Dërgo email-et e miratuara"
+      "sendApproved": "Dërgo email-et e miratuara",
+      "name": "Emri i fushatës",
+      "lease_holder": "Bllokimi i ekzekutimit: mbajtur nga",
+      "lease_until": "Bllokimi i ekzekutimit: deri më"
     },
     "Swissoutreachemails": {
       "attempts": "Përpjekjet",

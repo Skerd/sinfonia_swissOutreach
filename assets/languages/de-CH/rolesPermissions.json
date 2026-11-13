@@ -39,7 +39,10 @@
       "start": "Kampagne starten",
       "cancel": "Kampagne abbrechen",
       "approveAll": "Alle E-Mails freigeben",
-      "sendApproved": "Freigegebene E-Mails senden"
+      "sendApproved": "Freigegebene E-Mails senden",
+      "name": "Kampagnenname",
+      "lease_holder": "Ausführungssperre: gehalten von",
+      "lease_until": "Ausführungssperre: bis"
     },
     "Swissoutreachemails": {
       "attempts": "Versuche",

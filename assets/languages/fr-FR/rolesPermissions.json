@@ -39,7 +39,10 @@
       "start": "Lancer la campagne",
       "cancel": "Annuler la campagne",
       "approveAll": "Approuver tous les e-mails",
-      "sendApproved": "Envoyer les e-mails approuvés"
+      "sendApproved": "Envoyer les e-mails approuvés",
+      "name": "Nom de la campagne",
+      "lease_holder": "Verrou d’exécution : détenu par",
+      "lease_until": "Verrou d’exécution : jusqu’au"
     },
     "Swissoutreachemails": {
       "attempts": "Tentatives",

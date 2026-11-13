@@ -39,7 +39,10 @@
       "start": "Avvia campagna",
       "cancel": "Annulla campagna",
       "approveAll": "Approva tutte le e-mail",
-      "sendApproved": "Invia le e-mail approvate"
+      "sendApproved": "Invia le e-mail approvate",
+      "name": "Nome della campagna",
+      "lease_holder": "Blocco di esecuzione: detenuto da",
+      "lease_until": "Blocco di esecuzione: fino al"
     },
     "Swissoutreachemails": {
       "attempts": "Tentativi",
